@@ -2,6 +2,7 @@
 ## **1. 개요**
 
 ### ■ 만든 목적
+ 이전에 진행했던 Smart IoT Vanity 프로젝트를 [https://github.com/zecube/Smart_Makeup]<프로젝트> 를 웹 서버를 통한 구현으로 확장시키기 위해 구현했습니다.
 
 
 ### ■ 일정
