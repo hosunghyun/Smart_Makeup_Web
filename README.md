@@ -1,20 +1,20 @@
-# Smart Makeup Web
-## 1. 개요
+# **Smart Makeup Web**
+## **1. 개요**
 
-### 만든 목적
+### ■ 만든 목적
 
 ■ OpenCV
 
-### 일정
+### ■ 일정
 2024.09.19 ~ 2024.12.02
 
-### 참여자
+### ■ 참여자
 - 대진대학교 컴퓨터공학과 **현호성 (조장)**
 - 대진대학교 휴먼로봇융합전공 **최준원**
 - 대진대학교 휴먼로봇융합전공 **한기윤**
 
-## 2. 사용 기술 및 개발 환경
-- Language :
+## **2. 사용 기술 및 개발 환경**
+- **Language** :
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
@@ -22,7 +22,7 @@
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-%23005C0F.svg?style=for-the-badge&logo=Thymeleaf&logoColor=white)
 
-- Library :
+- **Library** :
 ![OpenCV](https://img.shields.io/badge/opencv-%23white.svg?style=for-the-badge&logo=opencv&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
 ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
@@ -30,26 +30,26 @@
 ![Keras](https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white)
 ![MediaPipe](https://img.shields.io/badge/MediaPipe-%23150458.svg?style=for-the-badge&logo=MediaPipe&logoColor=white)
 
-- Framework :
+- **Framework** :
 ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 
-- Database :
+- **Database** :
 ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
 
-- 운영체제 :
+- **운영체제** :
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
 
-- Version Control :
+- **Version Control** :
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 
 - tools :
 
-## 3. 내용
+## **3. 내용**
 
 ### 구현 기능
 
-## 4. 구현 결과물
+## **4. 구현 결과물**
 
 
 레포지토리 리드미 구성
