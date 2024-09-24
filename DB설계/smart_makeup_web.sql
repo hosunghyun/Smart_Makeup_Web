@@ -6,24 +6,27 @@ CREATE TABLE `User` (
 );
 
 CREATE TABLE `Makeup` (
-  `id` int PRIMARY KEY,
+  `makeup_id` int PRIMARY KEY,
   `user_id` int,
-  `makeup_type` varchar(255) NOT NULL,
   `color_code` varchar(255) NOT NULL,
-  `transparency` varchar(255) NOT NULL
+  `opacity` int NOT NULL
+);
+
+CREATE TABLE `ProductType` (
+  `makeup_id` int,
+  `product_code` int,
+  `product_type_name` varchar(255) NOT NULL
 );
 
 CREATE TABLE `Product` (
-  `code` int PRIMARY KEY,
-  `makeup_id` int,
-  `color_code` varchar(255),
+  `product_code` int PRIMARY KEY,
   `image_code` int,
-  `name` varchar(255) NOT NULL,
+  `product_name` varchar(255) NOT NULL,
   `price` decimal NOT NULL
 );
 
 CREATE TABLE `Board` (
-  `id` int PRIMARY KEY,
+  `board_id` int PRIMARY KEY,
   `user_id` int,
   `image_code` int,
   `title` varchar(255) NOT NULL,
@@ -31,29 +34,29 @@ CREATE TABLE `Board` (
 );
 
 CREATE TABLE `Comment` (
-  `id` int PRIMARY KEY,
+  `comment_id` int PRIMARY KEY,
   `board_id` int,
   `user_id` int,
-  `content` text NOT NULL
+  `comment_content` text NOT NULL
 );
 
-CREATE TABLE `Image` (
-  `id` int PRIMARY KEY,
+CREATE TABLE `ImageLink` (
+  `image_code` int PRIMARY KEY,
   `image_link` varchar(255) NOT NULL
 );
 
 ALTER TABLE `Makeup` ADD FOREIGN KEY (`user_id`) REFERENCES `User` (`id`);
 
-ALTER TABLE `Product` ADD FOREIGN KEY (`makeup_id`) REFERENCES `Makeup` (`id`);
+ALTER TABLE `ProductType` ADD FOREIGN KEY (`makeup_id`) REFERENCES `Makeup` (`makeup_id`);
 
-ALTER TABLE `Product` ADD FOREIGN KEY (`color_code`) REFERENCES `Makeup` (`color_code`);
+ALTER TABLE `ProductType` ADD FOREIGN KEY (`product_code`) REFERENCES `Product` (`product_code`);
 
-ALTER TABLE `Product` ADD FOREIGN KEY (`image_code`) REFERENCES `Image` (`id`);
+ALTER TABLE `Product` ADD FOREIGN KEY (`image_code`) REFERENCES `ImageLink` (`image_code`);
 
 ALTER TABLE `Board` ADD FOREIGN KEY (`user_id`) REFERENCES `User` (`id`);
 
-ALTER TABLE `Board` ADD FOREIGN KEY (`image_code`) REFERENCES `Image` (`id`);
+ALTER TABLE `Board` ADD FOREIGN KEY (`image_code`) REFERENCES `ImageLink` (`image_code`);
 
-ALTER TABLE `Comment` ADD FOREIGN KEY (`board_id`) REFERENCES `Board` (`id`);
+ALTER TABLE `Comment` ADD FOREIGN KEY (`board_id`) REFERENCES `Board` (`board_id`);
 
 ALTER TABLE `Comment` ADD FOREIGN KEY (`user_id`) REFERENCES `User` (`id`);
