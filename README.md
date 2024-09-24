@@ -53,6 +53,50 @@
 
 
 <!--
+Table User {
+  id int [pk]
+  password varchar [not null]
+  email varchar [not null]
+  phone varchar
+}
+
+Table Makeup {
+  id int [pk]
+  user_id int [ref: > User.id]
+  makeup_type varchar [not null]
+  color_code varchar [not null]
+  transparency varchar [not null]
+}
+
+Table Product {
+  code int [pk]
+  makeup_id int [ref: > Makeup.id]
+  color_code varchar [ref: > Makeup.color_code]
+  image_code int [ref: > Image.id]
+  name varchar [not null]
+  price decimal [not null]
+}
+
+Table Board {
+  id int [pk]
+  user_id int [ref: > User.id]
+  image_code int [ref: > Image.id]
+  title varchar [not null]
+  content text
+}
+
+Table Comment {
+  id int [pk]
+  board_id int [ref: > Board.id]
+  user_id int [ref: > User.id]
+  content text [not null]
+}
+
+Table Image {
+  id int [pk]
+  image_link varchar [not null]
+}
+
 레포지토리 리드미 구성
 프로젝트 구성
 프로젝트 프로그램 설치방법
