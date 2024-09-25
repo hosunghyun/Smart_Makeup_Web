@@ -53,49 +53,6 @@
 
 
 <!--
-Table User {
-  id int [pk]
-  password varchar [not null]
-  email varchar [not null]
-  phone varchar
-}
-
-Table Makeup {
-  id int [pk]
-  user_id int [ref: > User.id]
-  makeup_type varchar [not null]
-  color_code varchar [not null]
-  transparency varchar [not null]
-}
-
-Table Product {
-  code int [pk]
-  makeup_id int [ref: > Makeup.id]
-  color_code varchar [ref: > Makeup.color_code]
-  image_code int [ref: > Image.id]
-  name varchar [not null]
-  price decimal [not null]
-}
-
-Table Board {
-  id int [pk]
-  user_id int [ref: > User.id]
-  image_code int [ref: > Image.id]
-  title varchar [not null]
-  content text
-}
-
-Table Comment {
-  id int [pk]
-  board_id int [ref: > Board.id]
-  user_id int [ref: > User.id]
-  content text [not null]
-}
-
-Table Image {
-  id int [pk]
-  image_link varchar [not null]
-}
 
 레포지토리 리드미 구성
 프로젝트 구성
@@ -107,4 +64,51 @@ Table Image {
 참고 및 출처
 버전 및 업데이트 정보
 FAQ
+
+Table User {
+  UserID verchar [pk]
+  Password verchar [not null]
+  Email verchar [not null]
+  PhoneNumber verchar
+}
+
+Table Makeup {
+  MakeupID int [pk]
+  UserID verchar [ref: > User.UserID]
+  ColorCode verchar [not null]
+  Opacity verchar [not null]
+}
+
+Table ProductType {
+  MakeupID int [ref: > Makeup.MakeupID]
+  ProductCode int [ref: > Product.ProductCode]
+  ProductTypeName verchar [not null]
+}
+
+Table Product {
+  ProductCode int [pk]
+  ImageCode int [ref: > ImageLink.ImageCode]
+  ProductName verchar [not null]
+  Price int [not null]
+}
+
+Table Board {
+  BoardID int [pk]
+  UserID verchar [ref: > User.UserID]
+  ImageCode int [ref: > ImageLink.ImageCode]
+  Title verchar [not null]
+  Content verchar
+}
+
+Table Comment {
+  CommentID verchar [pk]
+  BoardID int [ref: > Board.BoardID]
+  UserID verchar [ref: > User.UserID]
+  CommentContent verchar [not null]
+}
+
+Table ImageLink {
+  ImageCode int [pk]
+  ImageLink verchar [not null]
+}
 -->
