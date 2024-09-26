@@ -7,12 +7,7 @@
     <link rel="stylesheet" href="main.css"> <!-- CSS 파일 연결 -->
 </head>
 <body>
-    <div>
-        <a href="/">홈</a>
-        <a href="/makeup">화장하기</a>
-        <a href="/board">게시판</a>
-        <a href="/signin">로그인</a>
-    </div>
+    <div th:replace="~{menubar.html::global-menubar}"></div>
 
     <h1>게시판</h1>
     <a href="/posts/new">새 게시물 작성</a>

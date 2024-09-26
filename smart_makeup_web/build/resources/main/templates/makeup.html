@@ -15,12 +15,8 @@
     </style>
 </head>
 <body>
-    <div>
-        <a href="/">홈</a>
-        <a href="/makeup">화장하기</a>
-        <a href="/board">게시판</a>
-        <a href="/signin">로그인</a>
-    </div>
+    <div th:replace="~{menubar.html::global-menubar}"></div>
+    
     <video id="webcam" autoplay></video>
     <button id="startButton">웹캠 연결</button>
     <script src="/webcam.js">
