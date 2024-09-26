@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="main.css"> <!-- CSS 파일 연결 -->
+</head>
+<body>
+    <div th:replace="~{menubar.html::global-menubar}"></div>
+
+    <h1>게시판</h1>
+    <a href="/posts/new">새 게시물 작성</a>
+    <table>
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 게시물 목록을 여기에 동적으로 추가 -->
+            <!-- 예시: -->
+            <tr>
+                <td>1</td>
+                <td><a href="/posts/1">첫 번째 게시물</a></td>
+                <td>홍길동</td>
+                <td>2024-09-26</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
