@@ -89,7 +89,7 @@ public class MainController {
 
     // 회원 가입시 중복확인을 위한 데이터 확인
     @GetMapping("/join/{id}")
-    public ResponseEntity<User> getUserById(@RequestParam String id) {
+    public ResponseEntity<User> getUserById(@RequestParam("id") String id) {
         System.out.println(id);
         User user = userService.findById(id);
         return ResponseEntity.ok(user);
