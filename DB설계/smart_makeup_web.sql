@@ -16,7 +16,7 @@ CREATE TABLE makeup (
 
 CREATE TABLE board (
 	board_id INT AUTO_INCREMENT PRIMARY KEY,
-	user_id VARCHAR(20),
+	user_id VARCHAR(20) NOT NULL,
 	-- image_code INT,
     title VARCHAR(20) NOT NULL,
     content_text TEXT,
@@ -42,8 +42,9 @@ CREATE TABLE image (
 );
 
 CREATE TABLE product_type (
-	makeup_id INT,
-	product_code INT,
+	product_type_id INT AUTO_INCREMENT PRIMARY KEY,
+	makeup_id INT NOT NULL,
+	product_code INT NOT NULL,
 	product_type_name VARCHAR(20) NOT NULL,
 	FOREIGN KEY (makeup_id) REFERENCES makeup (makeup_id) ON DELETE CASCADE,
 	FOREIGN KEY (product_code) REFERENCES product (product_code) ON DELETE CASCADE
@@ -51,8 +52,8 @@ CREATE TABLE product_type (
 
 CREATE TABLE comment (
 	comment_id INT AUTO_INCREMENT PRIMARY KEY,
-	board_id INT,
-    user_id VARCHAR(20),
+	board_id INT NOT NULL,
+    user_id VARCHAR(20) NOT NULL,
     comment_content TEXT NOT NULL,
 	FOREIGN KEY (board_id) REFERENCES board (board_id) ON DELETE CASCADE,
 	FOREIGN KEY (user_id) REFERENCES user (user_id) ON DELETE CASCADE
