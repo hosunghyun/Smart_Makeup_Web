@@ -1,5 +1,7 @@
 package com.smwhc.smart_makeup_web.User;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +25,9 @@ public class UserService {
 
     // 3. 회원 변경 기능
 
-    // 4. 로그인 기능
+    // 4. 회원 찾기
+    public User findById(String id) {
+        Optional<User> user = userRepository.findById(id);
+        return user.orElse(null);
+    }
 }

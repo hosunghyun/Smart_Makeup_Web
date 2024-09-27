@@ -3,13 +3,15 @@ package com.smwhc.smart_makeup_web.Product_Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.smwhc.smart_makeup_web.Product.ProductRepository;
+
 @Service
 public class ProductTypeService {
     @Autowired
-    private final ProductTypeService productTypeService;
+    private final ProductRepository productRepository;
 
-    public ProductTypeService(ProductTypeService productTypeService) {
-        this.productTypeService = productTypeService;
+    public ProductTypeService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     // 1. 게시판 작성
