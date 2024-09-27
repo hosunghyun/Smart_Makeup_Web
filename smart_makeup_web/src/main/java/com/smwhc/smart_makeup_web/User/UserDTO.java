@@ -1,4 +1,4 @@
-package com.smwhc.smart_makeup_web.DTO;
+package com.smwhc.smart_makeup_web.User;
 
 import lombok.Getter;
 import lombok.Setter;

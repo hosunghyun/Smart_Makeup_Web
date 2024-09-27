@@ -1,21 +1,27 @@
-package com.smwhc.smart_makeup_web.Service;
+package com.smwhc.smart_makeup_web.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.smwhc.smart_makeup_web.Repository.UserRepository;
 
 @Service
 public class UserService {
     @Autowired
     private final UserRepository userRepository;
+    
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public String test() {
-        System.out.println(userRepository.findAll());
-        System.out.println("정상작동중");
-        return "/";
+    // 1. 회원 등록 기능
+    public void save(UserDTO userDTO) {
+        User user = new User();
+        user.setUser(userDTO);
+
+        userRepository.save(user);
     }
+    // 2. 회원 삭제 기능
+
+    // 3. 회원 변경 기능
+
+    // 4. 로그인 기능
 }

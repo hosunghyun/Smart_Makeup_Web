@@ -6,19 +6,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.smwhc.smart_makeup_web.Service.UserService;
+import com.smwhc.smart_makeup_web.Makeup.MakeUpService;
+import com.smwhc.smart_makeup_web.User.UserService;
 
 @Controller
 public class MainController {
+    // 회원 프레젠테이션 계층과 연결
     @Autowired
     private final UserService userService;
-    public MainController(UserService userService) {
+
+    // 화장 프레젠테이션 계층과 연결
+    @Autowired
+    private final MakeUpService makeUpService;
+
+    // 생성자
+    public MainController(UserService userService, MakeUpService makeUpService) {
         this.userService = userService;
+        this.makeUpService = makeUpService;
     }
 
     @GetMapping({"/", "/index", "/home"})
     public String index() {
-        userService.test();
         return "index";
     }
 
