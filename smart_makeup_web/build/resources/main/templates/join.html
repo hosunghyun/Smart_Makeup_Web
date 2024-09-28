@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,14 +17,30 @@
         <label for="join_phone">전화번호</label><input type="tel" name="join_phone" id="join_phone" required placeholder="010-1111-1111">
         <button type="submit">회원가입</button>
     </form>
-
     <script>
+        const $join_id = document.getElementById("join_id");
+
+        const $check_overlap = document.getElementById("check_overlap");
+        $check_overlap.addEventListener('click', ()=>{
+            alert($join_id.value);
+            fetch(`/join/${$join_id.value}`)
+            .then(function(response) {
+                return;
+            })
+            .then(function(myJson) {
+                console.log(JSON.stringify(myJson));
+            });
+        });
+    </script>
+
+    <!-- <script>
         const $join_id = document.getElementById("join_id");
         const $check_overlap = document.getElementById("check_overlap");    // 중복 체크 버튼
         
-        $check_overlap.addEventListener('click', async ()=>{
+        $check_overlap.addEventListener('click', ()=>{
             // 1. 중복을 확인할 아이디를 서버로 보낸다.
             const join_id = $join_id.value;
+            alert(join_id);
 
             // 2. 아이디가 입력되었는지 확인
             if (join_id.length === 0) {
@@ -34,9 +50,9 @@
 
             // 3. POST 형식으로 데이터 전송
             fetch(`/join/${join_id}`, {
-                method : 'POST',
-                headers : { "Content-Type" : "application/json" },
-                body : JSON.stringify({join_id})
+                method : 'GET',
+                //headers : { "Content-Type" : "application/json" },
+                body : JSON.stringify({ join_id })
             })
             .then((message)=>{ return message.text(); })
             .then((message)=>{
@@ -48,6 +64,6 @@
                 }
             });
         });
-    </script>
+    </script> -->
 </body>
 </html>

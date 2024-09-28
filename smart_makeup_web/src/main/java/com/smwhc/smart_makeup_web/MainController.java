@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.smwhc.smart_makeup_web.Board.BoardService;
@@ -88,8 +89,8 @@ public class MainController {
     }
 
     // 회원 가입시 중복확인을 위한 데이터 확인
-    @GetMapping("/join/{id}")
-    public ResponseEntity<User> getUserById(@RequestParam("id") String id) {
+    @PostMapping("/join/{id}")
+    public ResponseEntity<User> getUserById(@RequestBody String id) {
         System.out.println(id);
         User user = userService.findById(id);
         return ResponseEntity.ok(user);
