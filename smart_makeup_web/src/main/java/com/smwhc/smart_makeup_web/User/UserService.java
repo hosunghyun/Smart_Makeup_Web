@@ -26,8 +26,8 @@ public class UserService {
     // 3. 회원 변경 기능
 
     // 4. 회원 찾기
-    public User findById(String id) {
-        Optional<User> user = userRepository.findById(id);
+    public User finduser(String user_id) {
+        Optional<User> user = userRepository.findById(user_id);
         return user.orElse(null);
     }
 }

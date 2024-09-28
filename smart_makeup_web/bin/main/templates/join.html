@@ -25,12 +25,11 @@
 
         $check_overlap.addEventListener('click', ()=>{
             const jid = $join_id.value;
-            alert($join_id.value);
-            alert(jid);
+
             fetch(`/join/${jid}`, {
                 method : 'POST',
                 headers : { "Content-Type" : "application/json" },
-                body : JSON.stringify(jid)
+                body : JSON.stringify({"user_id" : jid})
             })
             .then((message)=>{  console.log(message); })
             .then(alert("중복입니다"));

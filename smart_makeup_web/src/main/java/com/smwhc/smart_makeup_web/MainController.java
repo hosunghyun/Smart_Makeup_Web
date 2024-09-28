@@ -90,9 +90,9 @@ public class MainController {
 
     // 회원 가입시 중복확인을 위한 데이터 확인
     @PostMapping("/join/{id}")
-    public ResponseEntity<User> getUserById(@RequestBody String id) {
-        System.out.println(id);
-        User user = userService.findById(id);
+    public ResponseEntity<User> getUserById(@RequestBody UserDTO users) {
+        System.out.println(users.getUser_id());
+        User user = userService.finduser(users.getUser_id());
         return ResponseEntity.ok(user);
     }
 }
