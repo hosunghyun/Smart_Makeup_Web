@@ -26,21 +26,26 @@
         $check_overlap.addEventListener('click', ()=>{
             const jid = $join_id.value;
 
-            fetch(`/join/${jid}`, {
-                method : 'POST',
-                headers : { "Content-Type" : "application/json" },
-                body : JSON.stringify({"user_id" : jid})
-            })
-            .then((message)=>{ return message.text() })
-            .then((message)=>{
-                if(message == "exist") {
-                    alert(`${jid}는 중복입니다.`);
-                }
-                else {
-                    $check_overlap.disabled = true;     // 아이디가 중복이 아니므로 버튼 클릭 불가능하게 변경
-                    $check_overlap.innerText = "사용 가능";
-                }
-            });
+            if(jid === "") {
+                alert("아이디를 입력해 주세요.");
+            }
+            else {
+                fetch(`/join/${jid}`, {
+                    method : 'POST',
+                    headers : { "Content-Type" : "application/json" },
+                    body : JSON.stringify({"user_id" : jid})
+                })
+                .then((message)=>{ return message.text() })
+                .then((message)=>{
+                    if(message == "exist") {
+                        alert(`${jid}는 중복입니다.`);
+                    }
+                    else {
+                        $check_overlap.disabled = true;     // 아이디가 중복이 아니므로 버튼 클릭 불가능하게 변경
+                        $check_overlap.innerText = "사용 가능";
+                    }
+                });
+            }
         });
 
         // 중복이 체크된 아이디에서 만약 사용자가 아이디를 변경했을 경우
