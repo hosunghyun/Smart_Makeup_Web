@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원 가입</title>
-    <!-- <link rel="stylesheet" href="main.css"> CSS 파일 연결 -->
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
     <div th:replace="~{menubar.html::global-menubar}"></div>
@@ -19,11 +19,10 @@
     </form>
     
     <script>
-        const $join_id = document.getElementById("join_id");    
-        
+        const $join_id = document.getElementById("join_id");    // 아이디 입력 박스
+        const $check_overlap = document.getElementById("check_overlap");    // 중복인지 확인하는 버튼
 
-        const $check_overlap = document.getElementById("check_overlap");
-
+        // 중복 확인 버튼을 눌렀을 경우
         $check_overlap.addEventListener('click', ()=>{
             const jid = $join_id.value;
 
@@ -35,12 +34,20 @@
             .then((message)=>{ return message.text() })
             .then((message)=>{
                 if(message == "exist") {
-                    alert("중복입니다.");
+                    alert(`${jid}는 중복입니다.`);
                 }
                 else {
-                    alert("중복이 아닙니다.");
+                    $check_overlap.disabled = true;     // 아이디가 중복이 아니므로 버튼 클릭 불가능하게 변경
+                    $check_overlap.innerText = "사용 가능";
                 }
             });
+        });
+
+        // 중복이 체크된 아이디에서 만약 사용자가 아이디를 변경했을 경우
+        $join_id.addEventListener('input', ()=>{
+            // input 박스의 값을 변경했으므로 다시 버튼을 눌러 중복을 확인해야 하므로 아래와 같이 변경
+            $check_overlap.innerText = "중복 확인";
+            $check_overlap.disabled = false;
         });
     </script>
 </body>
