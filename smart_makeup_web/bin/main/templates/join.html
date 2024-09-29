@@ -31,42 +31,16 @@
                 headers : { "Content-Type" : "application/json" },
                 body : JSON.stringify({"user_id" : jid})
             })
-            .then((message)=>{  console.log(message); })
-            .then(alert("중복입니다"));
-        });
-    </script>
-
-    <!-- <script>
-        const $join_id = document.getElementById("join_id");
-        const $check_overlap = document.getElementById("check_overlap");    // 중복 체크 버튼
-        
-        $check_overlap.addEventListener('click', ()=>{
-            // 1. 중복을 확인할 아이디를 서버로 보낸다.
-            const join_id = $join_id.value;
-            alert(join_id);
-
-            // 2. 아이디가 입력되었는지 확인
-            if (join_id.length === 0) {
-                alert('아이디를 입력하세요');
-                return;
-            }
-
-            // 3. POST 형식으로 데이터 전송
-            fetch(`/join/${join_id}`, {
-                method : 'GET',
-                //headers : { "Content-Type" : "application/json" },
-                body : JSON.stringify({ join_id })
-            })
-            .then((message)=>{ return message.text(); })
+            .then((message)=>{ return message.text() })
             .then((message)=>{
-                if (message === "NOUSER") {
-                    alert("사용해도 좋습니다.");
-                } 
+                if(message == "exist") {
+                    alert("중복입니다.");
+                }
                 else {
-                    alert("다른 아이디를 입력하세요.");
+                    alert("중복이 아닙니다.");
                 }
             });
         });
-    </script> -->
+    </script>
 </body>
 </html>

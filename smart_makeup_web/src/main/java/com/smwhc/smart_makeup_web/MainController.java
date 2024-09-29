@@ -90,9 +90,15 @@ public class MainController {
 
     // 회원 가입시 중복확인을 위한 데이터 확인
     @PostMapping("/join/{id}")
-    public ResponseEntity<User> getUserById(@RequestBody UserDTO users) {
-        System.out.println(users.getUser_id());
-        User user = userService.finduser(users.getUser_id());
-        return ResponseEntity.ok(user);
+    public ResponseEntity<String> getUserById(@RequestBody UserDTO users) {
+        String result;
+        if(userService.finduser(users.getUser_id()) == null) {      
+            result = "null";    // 유저를 찾는 동작에서 null이 나오면 가입된 유저가 없다.
+        }
+        else {
+            result = "exist";   // 유저가 있으므로 중복이다.
+        }
+        
+        return ResponseEntity.status(200).body(result);     // 결과를 반한
     }
 }
