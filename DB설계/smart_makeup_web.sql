@@ -1,6 +1,6 @@
-CREATE TABLE user (
-    user_id VARCHAR(20) NOT NULL UNIQUE,
-    user_password VARCHAR(100) NOT NULL,
+CREATE TABLE member (
+    member_id VARCHAR(20) NOT NULL UNIQUE,
+    member_password VARCHAR(100) NOT NULL,
     email VARCHAR(30) NOT NULL,
     phone VARCHAR(13),
     PRIMARY KEY(user_id)
