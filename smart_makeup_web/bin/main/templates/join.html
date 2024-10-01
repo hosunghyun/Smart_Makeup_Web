@@ -10,22 +10,22 @@
     <div th:replace="~{menubar.html::global-menubar}"></div>
 
     <form action="/join_in" method="POST">
-        <label for="join_id">아이디</label><input type="text" name="join_id" id="join_id">
+        <label for="member_id">아이디</label><input type="text" name="member_id" id="member_id">
         <button type="button" id="check_overlap">중복확인</button>
-        <label for="join_password">비밀번호</label><input type="password" name="join_password" id="join_password">
-        <label for="join_email">이메일</label><input type="email" name="join_email" id="join_email" required placeholder="example@domain.com">
-        <label for="join_phone">전화번호</label><input type="tel" name="join_phone" id="join_phone" required placeholder="010-1111-1111">
+        <label for="member_password">비밀번호</label><input type="password" name="member_password" id="member_password">
+        <label for="email">이메일</label><input type="email" name="email" id="email" required placeholder="example@domain.com">
+        <label for="phone">전화번호</label><input type="tel" name="phone" id="phone" required placeholder="010-1111-1111">
         <button type="submit">회원가입</button>
     </form>
     
     <script>
-        const $join_id = document.getElementById("join_id");    // 아이디 입력 박스
+        const $member_id = document.getElementById("member_id");    // 아이디 입력 박스
         const $check_overlap = document.getElementById("check_overlap");    // 중복인지 확인하는 버튼
 
         // 중복 확인 버튼을 눌렀을 경우
         $check_overlap.addEventListener('click', ()=>{
-            const jid = $join_id.value;
-
+            const jid = $member_id.value;
+            alert(jid);
             if(jid === "") {
                 alert("아이디를 입력해 주세요.");
             }
@@ -33,7 +33,7 @@
                 fetch(`/join/${jid}`, {
                     method : 'POST',
                     headers : { "Content-Type" : "application/json" },
-                    body : JSON.stringify({"user_id" : jid})
+                    body : JSON.stringify({"member_id" : jid})
                 })
                 .then((message)=>{ return message.text() })
                 .then((message)=>{
@@ -49,7 +49,7 @@
         });
 
         // 중복이 체크된 아이디에서 만약 사용자가 아이디를 변경했을 경우
-        $join_id.addEventListener('input', ()=>{
+        $member_id.addEventListener('input', ()=>{
             // input 박스의 값을 변경했으므로 다시 버튼을 눌러 중복을 확인해야 하므로 아래와 같이 변경
             $check_overlap.innerText = "중복 확인";
             $check_overlap.disabled = false;
