@@ -1,16 +1,19 @@
 package com.smwhc.smart_makeup_web;
 
 import java.lang.reflect.Member;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.smwhc.smart_makeup_web.Board.Board;
 import com.smwhc.smart_makeup_web.Board.BoardService;
 import com.smwhc.smart_makeup_web.Comment.CommentService;
 import com.smwhc.smart_makeup_web.Image.ImageService;
@@ -43,7 +46,7 @@ public class MainController {
         this.boardService = boardService;
         this.commentService = commentService;
     }
-
+//------------------------------------------------------------------------------------------------------------------------------------------
 
     // 메인 페이지
     @GetMapping({"/", "/index", "/home"})
@@ -54,11 +57,6 @@ public class MainController {
     @GetMapping("/makeup")
     public String makeup() {
         return "makeup";
-    }
-
-    @GetMapping("/board")
-    public String board() {
-        return "board";
     }
     
     // 로그인 페이지로 이동
@@ -73,6 +71,7 @@ public class MainController {
     public String join() {
         return "join";
     }
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     // 회원 가입 페이지에서 아이디, 비밀번호, 이메일, 전화번호를 입력했고 POST 형식으로 전송한 데이터를 받는 곳
     @PostMapping("/join_in")
@@ -93,5 +92,19 @@ public class MainController {
         }
         
         return ResponseEntity.status(200).body(result);     // 결과를 반한
+    }
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // 게시판 페이지
+    @GetMapping("/board")
+    public String board(Model model) {
+        Integer pageSize = 10;  // 한 페이지에 보이는 글의 수
+
+        // 게시글 가져오기
+        List<Board> boards = boardService.getBoardByPage(0, pageSize);
+
+        // 모델에 추가
+        model.addAttribute("boards", boards);
+
+        return "board";
     }
 }
