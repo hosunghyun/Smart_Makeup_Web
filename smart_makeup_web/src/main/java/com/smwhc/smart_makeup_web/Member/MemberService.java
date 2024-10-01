@@ -3,6 +3,7 @@ package com.smwhc.smart_makeup_web.Member;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,8 +17,12 @@ public class MemberService {
 
     // 1. 회원 등록 기능
     public void save(MemberDTO memberDTO) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();    // 패스워드 암호화
         Member member = new Member();
-        member.setMember(memberDTO);
+        member.setMember_id(memberDTO.getMember_id());
+        member.setMember_password(passwordEncoder.encode(memberDTO.getMember_password()));  // 패스워드 암호화
+        member.setEmail(memberDTO.getEmail());
+        member.setPhone(memberDTO.getPhone());
 
         memberRepository.save(member);
     }

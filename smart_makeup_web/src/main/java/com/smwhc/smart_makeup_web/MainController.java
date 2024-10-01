@@ -62,16 +62,10 @@ public class MainController {
     }
     
     // 로그인 페이지로 이동
+    // 로그인 페이지에서 입력된 아이디와 패스워드로 로그인
     @GetMapping("/sign")
     public String signin() {
         return "sign";
-    }
-
-    // 로그인 페이지에서 입력된 아이디와 패스워드로 로그인
-    @PostMapping("/login")
-    public String login(@RequestParam String userid) {
-        System.out.println(userid);
-        return "redirect:/";
     }
 
     // 로그인 화면에서 회원가입 버튼을 클릭했을 때 회원 가입 페이지로 이동

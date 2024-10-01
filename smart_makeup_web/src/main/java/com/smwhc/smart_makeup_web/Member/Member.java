@@ -11,11 +11,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.Setter;
 
 // 회원 테이블
 @Entity
 @Table(name = "member")
 @Getter
+@Setter
 public class Member {
     @Id
     @Column(name = "member_id", updatable = false, length = 20)
