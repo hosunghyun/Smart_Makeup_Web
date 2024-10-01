@@ -111,4 +111,29 @@ Table ImageLink {
   ImageCode int [pk]
   ImageLink verchar [not null]
 }
+
+    <video id="webcam" autoplay></video>
+    <button id="startButton">웹캠 연결</button>
+
+    <form action="/opt" method="POST" id="myForm">
+        <input type="range" id="slider" min="0" max="100" value="0" name="opts">
+        <p>슬라이더 값: <span id="sliderValue">0</span></p>
+
+    </form>
+    <script>
+        const slider = document.getElementById('slider');
+        const sliderValue = document.getElementById('sliderValue');
+        const form = document.getElementById('myForm');
+    
+        slider.addEventListener('input', function() {
+            sliderValue.textContent = slider.value; // 슬라이더 값 업데이트
+            form.submit();
+        });
+    </script>
+
+        @PostMapping("/opt")
+    public String opt(@RequestParam("opts") String val) {
+        System.out.println(val);
+        return "redirect:/makeup";
+    }
 -->
