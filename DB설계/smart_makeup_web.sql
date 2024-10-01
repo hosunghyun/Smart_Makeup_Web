@@ -1,35 +1,31 @@
 CREATE TABLE member (
     member_id VARCHAR(20) NOT NULL UNIQUE,
-    member_password VARCHAR(100) NOT NULL,
+	member_password VARCHAR(100) NOT NULL,
     email VARCHAR(30) NOT NULL,
     phone VARCHAR(13),
-    PRIMARY KEY(user_id)
+    PRIMARY KEY(member_id)
 );
 
 CREATE TABLE makeup (
 	makeup_id INT AUTO_INCREMENT PRIMARY KEY,
-	user_id VARCHAR(20),
+	member_id VARCHAR(20),
 	color_code VARCHAR(20) NOT NULL,
 	opacity INT NOT NULL,
-	FOREIGN KEY (user_id) REFERENCES user (user_id) ON DELETE CASCADE
+	FOREIGN KEY (member_id) REFERENCES member (member_id) ON DELETE CASCADE
 );
 
 CREATE TABLE board (
 	board_id INT AUTO_INCREMENT PRIMARY KEY,
-	user_id VARCHAR(20) NOT NULL,
-	-- image_code INT,
+	member_id VARCHAR(20) NOT NULL,
     title VARCHAR(20) NOT NULL,
     content_text TEXT,
-	FOREIGN KEY (user_id) REFERENCES user (user_id) ON DELETE CASCADE
-	-- FOREIGN KEY (image_code) REFERENCES image_link (image_code) ON DELETE SET NULL
+	FOREIGN KEY (member_id) REFERENCES member (member_id) ON DELETE CASCADE
 );
 
 CREATE TABLE product (
 	product_code INT AUTO_INCREMENT PRIMARY KEY,
-	-- image_code INT,
 	product_name VARCHAR(20) NOT NULL,
 	Price INT NOT NULL
-	-- FOREIGN KEY (image_code) REFERENCES image_link (image_code) ON DELETE SET NULL
 );
 
 CREATE TABLE image (
@@ -53,8 +49,8 @@ CREATE TABLE product_type (
 CREATE TABLE comment (
 	comment_id INT AUTO_INCREMENT PRIMARY KEY,
 	board_id INT NOT NULL,
-    user_id VARCHAR(20) NOT NULL,
+    member_id VARCHAR(20) NOT NULL,
     comment_content TEXT NOT NULL,
 	FOREIGN KEY (board_id) REFERENCES board (board_id) ON DELETE CASCADE,
-	FOREIGN KEY (user_id) REFERENCES user (user_id) ON DELETE CASCADE
+	FOREIGN KEY (member_id) REFERENCES member (member_id) ON DELETE CASCADE
 );
