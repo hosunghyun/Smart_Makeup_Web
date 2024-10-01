@@ -4,6 +4,7 @@ import java.lang.reflect.Member;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ssl.SslProperties.Bundles.Watch.File;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.smwhc.smart_makeup_web.Board.Board;
 import com.smwhc.smart_makeup_web.Board.BoardService;
@@ -106,5 +108,18 @@ public class MainController {
         model.addAttribute("boards", boards);
 
         return "board";
+    }
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    @GetMapping("/boardwrite")
+    public String boardwrite() {
+        return "boardwrite";
+    }
+// @RequestParam("image") MultipartFile image, 
+    @PostMapping("/write")
+    public String write(@RequestParam("title") String title, @RequestParam("writing") String writing) {
+        System.out.println("title : " + title);
+        System.out.println("writing : " + writing);
+        
+        return "index";
     }
 }

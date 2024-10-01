@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새 글 작성하기</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <div th:replace="~{menubar.html::global-menubar}"></div>
+
+    <form action="/write" method="POST" enctype="multipart/form-data">
+        <label for="title">제목</label><input type="text" name="title" id="title">
+        <input type="file" id="imageInput" accept="image/*" />
+        <label for="writing">본문</label><input type="text" name="writing" id="writing">
+        <button type="submit">저장</button>
+    </form>
+</body>
+</html>

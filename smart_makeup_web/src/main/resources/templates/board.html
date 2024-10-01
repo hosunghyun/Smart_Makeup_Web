@@ -18,14 +18,33 @@
             <!-- <p th:text="${board.get}">작성일</p> -->
         </div>
     </div>
-    <a href="/posts/new">새 게시물 작성</a>
-    <table>
-        <thead>
-            
-        </thead>
-        <tbody>
-           
-        </tbody>
-    </table>
+    <button type="button" id="wbtn">작성하기</button>
+
+    <div sec:authorize="isAuthenticated()">
+        <script>
+            (()=>{
+                const $wbtn = document.getElementById("wbtn");
+                $wbtn.addEventListener('click', ()=>{
+                    window.location.href="/boardwrite";
+                });
+            })();
+        </script>
+    </div>
+    <div sec:authorize="isAnonymous()">
+        <script>
+            (()=>{
+                const $wbtn = document.getElementById("wbtn");
+                $wbtn.addEventListener('click', ()=>{
+                    const log = confirm("아이디를 로그인해주세요.");
+                    if(log) {
+                        window.location.href="/sign";
+                    }
+                    else {
+                        window.location.href="/index";
+                    }
+                });
+            })();
+        </script>
+    </div>
 </body>
 </html>
