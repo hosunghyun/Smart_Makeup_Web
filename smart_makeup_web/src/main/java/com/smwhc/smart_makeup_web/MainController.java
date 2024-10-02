@@ -112,6 +112,9 @@ public class MainController {
 
         // 게시글 가져오기
         List<Board> boards = boardService.getBoardByPage(0, pageSize);
+        if (boards == null) {
+            boards = new ArrayList<>(); // boards가 null인 경우 빈 리스트로 초기화
+        }
         List<Image> images = new ArrayList<>();
 
         // 각 게시물에 대해 이미지 링크 추가
