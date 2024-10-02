@@ -3,20 +3,25 @@ package com.smwhc.smart_makeup_web.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.smwhc.smart_makeup_web.Board.BoardRepository;
+
 @Service
 public class ImageService {
     @Autowired
     private final ImageRepository imageRepository;
+    private final BoardRepository boardRepository;
 
-    public ImageService(ImageRepository imageRepository) {
+    public ImageService(ImageRepository imageRepository, BoardRepository boardRepository) {
         this.imageRepository = imageRepository;
+        this.boardRepository = boardRepository;
     }
 
-    // 1. 이미지 링크 저장
-    public void save(ImageDTO imageDTO) {
-        Image image = new Image();
-        image.setImage(imageDTO);
-        imageRepository.save(image);
+    // 1. 게시판 이미지 링크 저장
+    public void saveBoardImageLink(Long board_id, String image) {
+        Image img = new Image();
+        img.setBoard(boardRepository.findById(board_id).get());
+        img.setImage_link(image);
+        imageRepository.save(img);
     }
     // 2. 이미지 불러오기
     

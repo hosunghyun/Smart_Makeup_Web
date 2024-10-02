@@ -2,10 +2,14 @@ package com.smwhc.smart_makeup_web;
 
 import java.lang.reflect.Member;
 import java.util.List;
+import java.io.File;
+import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.ssl.SslProperties.Bundles.Watch.File;
+// import org.springframework.boot.autoconfigure.ssl.SslProperties.Bundles.Watch.File;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -114,12 +118,56 @@ public class MainController {
     public String boardwrite() {
         return "boardwrite";
     }
-// @RequestParam("image") MultipartFile image, 
+    // 게시판을 작성하는 부분
     @PostMapping("/write")
-    public String write(@RequestParam("title") String title, @RequestParam("writing") String writing) {
-        System.out.println("title : " + title);
-        System.out.println("writing : " + writing);
-        
+    public String write(@RequestParam("title") String title, 
+                        @RequestParam("content") String content,
+                        @RequestParam(value = "imageInput", required = false) MultipartFile file) {
+        // 현재 로그인된 사용자 정보를 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName(); // 사용자 아이디
+
+        // 게시판 작성
+        Board board = new Board();
+        board.setTitle(title);
+        board.setContent_text(content); // 본문
+        // 게시판을 데이터베이스에 저장하면서 게시판 PK 가져오기
+        Long board_id = boardService.saveBoard(currentUsername, title, content).getBoard_id();
+
+        // 이미지 업로드
+        if(file != null && !file.isEmpty()) {
+            try {
+                // 절대 경로 지정
+                String uploadDir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\";
+                File dir = new File(uploadDir);
+
+                // 파일명 가져오고 경로와 합치기
+                File uploadFile = new File(dir, file.getOriginalFilename());
+                // 파일 저장
+                file.transferTo(uploadFile);
+
+                // 저장한 파일 경로 생성
+                String imageLink = "/img/" + file.getOriginalFilename();
+
+                // 데이터베이스에 저장
+                imageService.saveBoardImageLink(board_id, imageLink);
+            }
+            catch(IOException e) {
+                e.printStackTrace();;
+            }
+        }
         return "index";
     }
+    
+
+    @PostMapping("/opt")
+    public String opt(@RequestParam("opts") String val) {
+        System.out.println(val);
+        return "makeup";
+    }
 }
+
+
+
+
+//  <span th:text="${username}"> 을 사용하면 thymeleaf로 사용자 명 가져오기 가능
