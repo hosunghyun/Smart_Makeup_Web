@@ -38,7 +38,7 @@ public class Board {
     private String title;
 
     // 게시판 글의 내용
-    @Column(name = "content_text", nullable = false)
+    @Column(name = "content_text")
     private String content_text;
 
     // 이미지와의 관계를 나타냄

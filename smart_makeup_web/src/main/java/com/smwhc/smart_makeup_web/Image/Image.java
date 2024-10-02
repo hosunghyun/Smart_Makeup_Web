@@ -23,17 +23,16 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long image_code;    // 이미지 PK
 
-    @Column(name = "image_link", nullable = false, length = 20)
-    private String image_link;  // 이미지가 저장된 링크 주소
+    @ManyToOne // 일대다 관계 표현 member 한명이 makeup 여러개를 가질 수 있다.
+    @JoinColumn(name = "board_id") // 외래키 제약조건
+    private Board board;
 
     @ManyToOne // 일대다 관계 표현 member 한명이 makeup 여러개를 가질 수 있다.
     @JoinColumn(name = "product_code") // 외래키 제약조건
     private Product product;
 
-    @ManyToOne // 일대다 관계 표현 member 한명이 makeup 여러개를 가질 수 있다.
-    @JoinColumn(name = "board_id") // 외래키 제약조건
-    private Board board;
-
+    @Column(name = "image_link", nullable = false, length = 20)
+    private String image_link;  // 이미지가 저장된 링크 주소
 
     public Image() {}
     public Image(Product product, Board board, String image_link) {

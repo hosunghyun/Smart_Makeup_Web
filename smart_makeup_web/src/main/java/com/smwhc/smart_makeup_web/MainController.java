@@ -1,7 +1,10 @@
 package com.smwhc.smart_makeup_web;
 
 import java.lang.reflect.Member;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.io.File;
 import java.io.IOException;
 
@@ -20,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.smwhc.smart_makeup_web.Board.Board;
+import com.smwhc.smart_makeup_web.Board.BoardDTO;
 import com.smwhc.smart_makeup_web.Board.BoardService;
 import com.smwhc.smart_makeup_web.Comment.CommentService;
+import com.smwhc.smart_makeup_web.Image.Image;
 import com.smwhc.smart_makeup_web.Image.ImageService;
 import com.smwhc.smart_makeup_web.Makeup.MakeUpService;
 import com.smwhc.smart_makeup_web.Member.MemberDTO;
@@ -107,9 +112,23 @@ public class MainController {
 
         // 게시글 가져오기
         List<Board> boards = boardService.getBoardByPage(0, pageSize);
+        List<Image> images = new ArrayList<>();
 
+        // 각 게시물에 대해 이미지 링크 추가
+        for (Board board : boards) {
+            String imageUrl = imageService.getImageUrlByBoardId(board.getBoard_id());
+            // imageUrl이 "image_not_found"인 경우 대체 이미지로 설정
+            if ("image_not_found".equals(imageUrl)) {
+                imageUrl = "https://placeholder.com/50.jpg"; // 기본 이미지 URL로 대체
+            }
+            Image image = new Image();
+            image.setBoard(board); // 게시물 ID 설정
+            image.setImage_link(imageUrl); // 이미지 URL 설정
+            images.add(image);
+        }
+        
         // 모델에 추가
-        model.addAttribute("boards", boards);
+        model.addAttribute("images", images);
 
         return "board";
     }
@@ -158,7 +177,11 @@ public class MainController {
         }
         return "index";
     }
-    
+    // 게시판에 작성된 글 중 하나 보기
+    @GetMapping("/boarddetail")
+    public String boarddetail() {
+        return "boarddetail";
+    }
 
     @PostMapping("/opt")
     public String opt(@RequestParam("opts") String val) {

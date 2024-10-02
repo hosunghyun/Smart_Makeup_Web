@@ -8,6 +8,7 @@ import lombok.Setter;
 public class BoardDTO {
     private Long board_id;
     private String member_id;
+    private String image_link;
     private String title;
     private String content_text;
 
