@@ -186,11 +186,6 @@ public class MainController {
         return "boarddetail";
     }
 
-    @PostMapping("/opt")
-    public String opt(@RequestParam("opts") String val) {
-        System.out.println(val);
-        return "makeup";
-    }
 }
 
 
