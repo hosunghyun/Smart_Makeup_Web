@@ -119,7 +119,7 @@ public class MainController {
 
         // 각 게시물에 대해 이미지 링크 추가
         for (Board board : boards) {
-            String imageUrl = imageService.getImageUrlByBoardId(board.getBoard_id());
+            String imageUrl = imageService.getImageUrlByBoardId(board.getBoard_id()).get(0).getImage_link();
             // imageUrl이 "image_not_found"인 경우 대체 이미지로 설정
             if ("image_not_found".equals(imageUrl)) {
                 imageUrl = "https://placeholder.com/50.jpg"; // 기본 이미지 URL로 대체
@@ -144,7 +144,7 @@ public class MainController {
     @PostMapping("/write")
     public String write(@RequestParam("title") String title, 
                         @RequestParam("content") String content,
-                        @RequestParam(value = "imageInput", required = false) MultipartFile file) {
+                        @RequestParam(value = "imageInput", required = false) List<MultipartFile> files) {
         // 현재 로그인된 사용자 정보를 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName(); // 사용자 아이디
@@ -156,28 +156,31 @@ public class MainController {
         // 게시판을 데이터베이스에 저장하면서 게시판 PK 가져오기
         Long board_id = boardService.saveBoard(currentUsername, title, content).getBoard_id();
 
-        // 이미지 업로드
-        if(file != null && !file.isEmpty()) {
+        if (files != null && !files.isEmpty()) {
             try {
                 // 절대 경로 지정
                 String uploadDir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\";
                 File dir = new File(uploadDir);
+                
+                for(MultipartFile file : files) {
+                    // 파일명 생성 (현재 시간 + 원래 파일명)
+                    String newFileName = currentUsername + "_" + System.currentTimeMillis() + "_" + file.getOriginalFilename();
+                    File uploadFile = new File(dir, newFileName);
 
-                // 파일명 가져오고 경로와 합치기
-                File uploadFile = new File(dir, file.getOriginalFilename());
-                // 파일 저장
-                file.transferTo(uploadFile);
+                    // 파일 저장
+                    file.transferTo(uploadFile);
 
-                // 저장한 파일 경로 생성
-                String imageLink = "/img/" + file.getOriginalFilename();
+                    // 저장한 파일 경로 생성
+                    String imageLink = "/img/" + newFileName;
 
-                // 데이터베이스에 저장
-                imageService.saveBoardImageLink(board_id, imageLink);
-            }
-            catch(IOException e) {
-                e.printStackTrace();;
+                    // 데이터베이스에 저장
+                    imageService.saveBoardImageLink(board_id, imageLink);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
+        
         return "index";
     }
     // 게시판에 작성된 글 중 하나 보기

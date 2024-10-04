@@ -26,6 +26,7 @@ import lombok.Setter;
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "board_id")
     private Long board_id;
 
     // member 테이블의 PK인 member_id를 외래키로 사용
@@ -34,7 +35,7 @@ public class Board {
     private Member member;
 
     // 게시판 글의 제목
-    @Column(name = "title", nullable = false, length = 20)
+    @Column(name = "title", nullable = false, length = 50)
     private String title;
 
     // 게시판 글의 내용
@@ -52,4 +53,5 @@ public class Board {
         this.title = title;
         this.content_text = content_text;
     }
+    
 }

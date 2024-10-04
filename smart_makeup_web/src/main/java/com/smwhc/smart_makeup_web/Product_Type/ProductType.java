@@ -34,7 +34,7 @@ public class ProductType {
     @JoinColumn(name = "product_code", nullable = false) // 외래키 제약조건
     private Product product;
 
-    @Column(name = "product_type_name", nullable = false, length = 20)
+    @Column(name = "product_type_name", nullable = false, length = 50)
     private String product_type_name;
 
     // 생성자

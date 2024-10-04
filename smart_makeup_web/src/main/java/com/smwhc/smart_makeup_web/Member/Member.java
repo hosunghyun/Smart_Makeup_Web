@@ -20,16 +20,16 @@ import lombok.Setter;
 @Setter
 public class Member {
     @Id
-    @Column(name = "member_id", updatable = false, length = 20)
+    @Column(name = "member_id", updatable = false, length = 50)
     private String member_id;     // 사용자 아이디
 
     @Column(name = "Member_password", nullable = false, length = 100)   // not null 추가
     private String Member_password;   // 사용자 비밀번호
 
-    @Column(name = "email", nullable = false, length = 30)
+    @Column(name = "email", nullable = false, length = 50)
     private String email;
 
-    @Column(name = "phone", length = 13)
+    @Column(name = "phone", length = 20)
     private String phone;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)

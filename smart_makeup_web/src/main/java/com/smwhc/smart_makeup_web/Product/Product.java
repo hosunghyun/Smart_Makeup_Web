@@ -27,7 +27,7 @@ public class Product {
     private Long product_code;  // 제품의 PK
     
     // 제품의 이름 not null 길이 20
-    @Column(name = "product_name", length = 20, nullable = false)
+    @Column(name = "product_name", length = 50, nullable = false)
     private String product_name;
 
     // 가격
