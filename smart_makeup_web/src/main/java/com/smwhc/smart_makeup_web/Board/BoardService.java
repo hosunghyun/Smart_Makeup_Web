@@ -48,4 +48,10 @@ public class BoardService {
         }
         return board.getContent();
     }
+
+    public Board getBoardByDetailPage(String board_id) {
+        Long id = Long.parseLong(board_id);
+        Optional<Board> board = boardRepository.findById(id);
+        return board.get();
+    }
 }

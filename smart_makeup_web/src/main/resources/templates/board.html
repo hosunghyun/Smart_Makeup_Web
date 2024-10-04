@@ -11,11 +11,11 @@
 
     <h1>게시판</h1>
     <div class="board-box" th:each="image : ${images}">
-        <a th:href="@{|/boarddetail|}"> 
+        <a th:href="@{|/boarddetail/id=${image.board.id}|}">
             <img th:src="${image.getImage_link()}" alt="img" />
             <div>
-                <p th:text="${image.getBoard.getTitle()}">제목</p>
-                <p th:text="${image.getBoard.getMember().getMember_id()}">작성자</p>
+                <p th:text="${image.getBoard().getTitle()}">제목</p>
+                <p th:text="${image.getBoard().getMember().getMember_id()}">작성자</p>
                 <!-- <p th:text="${board.getCreatedAt()}">작성일</p> -->
             </div>
         </a>

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -134,6 +135,7 @@ public class MainController {
             image.setBoard(board); // 게시물 ID 설정
             image.setImage_link(imageUrl); // 이미지 URL 설정
             images.add(image);
+            
         }
         
         // 모델에 추가
@@ -162,13 +164,14 @@ public class MainController {
         // 게시판을 데이터베이스에 저장하면서 게시판 PK 가져오기
         Long board_id = boardService.saveBoard(currentUsername, title, content).getId();
 
-        if (files != null && !files.isEmpty()) {
-            try {
-                // 절대 경로 지정
-                String uploadDir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\";
-                File dir = new File(uploadDir);
-                
-                for(MultipartFile file : files) {
+        for(MultipartFile file : files) {
+            if (file != null && !file.isEmpty()) {
+                try {
+                    // 절대 경로 지정
+                    String uploadDir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\";
+                    File dir = new File(uploadDir);
+                    
+                    
                     // 파일명 생성 (현재 시간 + 원래 파일명)
                     String newFileName = currentUsername + "_" + System.currentTimeMillis() + "_" + file.getOriginalFilename();
                     File uploadFile = new File(dir, newFileName);
@@ -181,20 +184,47 @@ public class MainController {
 
                     // 데이터베이스에 저장
                     imageService.saveBoardImageLink(board_id, imageLink);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
         
         return "index";
     }
     // 게시판에 작성된 글 중 하나 보기
-    @GetMapping("/boarddetail")
-    public String boarddetail() {
+    @GetMapping("/boarddetail/id={id}")
+    public String boarddetail(@PathVariable("id") String id, Model model) {
+        String imageUrl;
+        List<Image> imageUrls;
+        Image image = new Image();
+
+        // 1. 입력받은 board 테이블의 아이디로 Board 찾기
+        Board board = boardService.getBoardByDetailPage(id);
+
+        // 2. Board 테이블의 아이디로 사용된 이미지 찾기
+        List<Image> images = new ArrayList<>();
+
+        // 3. 이미지가 없다면 url은 대체 이미지로 하기
+        if(imageService.getImageUrlByBoardId(board.getId()).isEmpty()) {
+            imageUrl = "https://placeholder.com/50.jpg"; // 기본 이미지 URL로 대체
+            image.setBoard(board); // 게시물 ID 설정
+            image.setImage_link(imageUrl); // 이미지 URL 설정
+            model.addAttribute("image", image);
+            return "boarddetail";
+        }
+
+        // 4. 이미지가 있다면 아이디로 찾아오기
+        imageUrls = imageService.getImageUrlByBoardId(board.getId());
+
+        for(Image img : imageUrls) {
+            image.setBoard(board); // 게시물 ID 설정
+            image.setImage_link(img.getImage_link()); // 이미지 URL 설정
+            images.add(image);
+        }
+        model.addAttribute("image", images);
         return "boarddetail";
     }
-
 }
 
 

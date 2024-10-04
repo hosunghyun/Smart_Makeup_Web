@@ -8,6 +8,15 @@
 </head>
 <body>
     <div th:replace="~{menubar.html::global-menubar}"></div>
-    
+    <div class="board-detail" th:each="img : ${image}">
+        <p th:text="${img.getBoard().getTitle()}">제목</p>
+        <img th:src="${img.getImage_link()}" alt="img">
+        <p th:text="${img.getBoard().getContent_text()}">내용</p>
+    </div>
+
+    <form action="">
+        <label for="contents">댓글</label><input type="text" name="contents" id="contents">
+        <button type="submit">댓글저장</button>
+    </form>
 </body>
 </html>
