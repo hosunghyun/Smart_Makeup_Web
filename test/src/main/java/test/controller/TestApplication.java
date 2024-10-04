@@ -6,17 +6,18 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+import test.fastAPI.PythonRunner;
+
 import org.springframework.boot.CommandLineRunner;
-import test.flask.FlaskRunner;
 
 @SpringBootApplication
-@ComponentScan("test.flask")
+@ComponentScan("test.fastAPI")
 public class TestApplication implements CommandLineRunner {
 	// public class TestApplication {
-	private final FlaskRunner flaskRunner;
+	private final PythonRunner pythonRunner;
 
-	public TestApplication(FlaskRunner flaskRunner) {
-		this.flaskRunner = flaskRunner; // 여기에서 초기화
+	public TestApplication(PythonRunner pythonRunner) {
+		this.pythonRunner = pythonRunner; // 여기에서 초기화
 	}
 
 	public static void main(String[] args) {
@@ -25,11 +26,11 @@ public class TestApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		startFlask(8080);
+		startPython(8080); // 실행할 포트 설정
 	}
 
-	private void startFlask(int port) {
-		flaskRunner.startFlaskServer(port);
+	private void startPython(int port) {
+		pythonRunner.startPythonServer(port);
 	}
 
 }

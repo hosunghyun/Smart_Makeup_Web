@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Range Input</title>
+        <!-- jQuery CDN 추가 -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        
+
+        function sendRangeValue(value) {
+            fetch('http://localhost:9090/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ rangeValue: value }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <label for="rangeInput">Range Input:</label>
+    <input type="range" id="rangeInput" name="rangeValue" min="0" max="100" value="50" 
+            oninput="sendRangeValue(this.value)">
+    <form action="/" method="post">
+        <button type="submit" name="value" value="10">10</button>
+    </form>
+
+    <div th:if="${message}">
+        <h1 th:text="${message}"></h1>
+    </div>
+</body>
+</html>
