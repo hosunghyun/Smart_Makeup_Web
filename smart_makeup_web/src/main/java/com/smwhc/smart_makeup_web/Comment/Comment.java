@@ -22,7 +22,8 @@ public class Comment {
     // 기본키
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long comment_id;
+    @Column(name = "comment_id")
+    private Long id;
 
     // User 테이블의 PK인 user_id 를 외래키로 사용
     @ManyToOne // 일대다 관계 표현 User 한 명이 Comment 여러 개를 가질 수 있다.

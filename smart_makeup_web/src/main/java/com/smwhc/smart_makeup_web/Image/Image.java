@@ -23,7 +23,8 @@ import lombok.Setter;
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long image_code;    // 이미지 PK
+    @Column(name = "image_code")
+    private Long id;    // 이미지 PK
 
     @ManyToOne // 일대다 관계 표현 board 한 개가 image 여러개를 가질 수 있다.
     @JoinColumn(name = "board_id") // 외래키 제약조건
@@ -43,7 +44,7 @@ public class Image {
         this.image_link = image_link;
     }
     public void setImage(ImageDTO imageLinkDTO) {
-        this.image_code = imageLinkDTO.getImage_code();
+        this.id = imageLinkDTO.getImage_code();
         this.image_link = imageLinkDTO.getImage_link();
     }
     

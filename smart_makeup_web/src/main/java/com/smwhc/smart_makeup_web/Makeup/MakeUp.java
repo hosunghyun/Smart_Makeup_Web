@@ -20,7 +20,8 @@ import lombok.Setter;
 public class MakeUp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long makeup_id;     // 화장의 PK 
+    @Column(name = "makeup_id")
+    private Long id;     // 화장의 PK 
 
     @ManyToOne // 일대다 관계 표현 User 한명이 makeup 여러개를 가질 수 있다.
     @JoinColumn(name = "member_id", nullable = false) // 외래키 제약조건

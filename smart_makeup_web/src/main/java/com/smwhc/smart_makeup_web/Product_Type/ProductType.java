@@ -22,7 +22,8 @@ public class ProductType {
     // 기본키
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long product_type_id;
+    @Column(name = "product_type_id")
+    private Long id;
 
     // makeup 테이블의 PK인 makeup_id 를 외래키로 사용
     @ManyToOne // 일대다 관계 표현 makeup 한개가 ProductType을 여러개를 가질 수 있다.

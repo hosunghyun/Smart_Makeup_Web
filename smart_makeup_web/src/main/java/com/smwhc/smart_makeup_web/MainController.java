@@ -119,7 +119,13 @@ public class MainController {
 
         // 각 게시물에 대해 이미지 링크 추가
         for (Board board : boards) {
-            String imageUrl = imageService.getImageUrlByBoardId(board.getBoard_id()).get(0).getImage_link();
+            String imageUrl;
+            if(imageService.getImageUrlByBoardId(board.getId()).isEmpty()) {
+                imageUrl = "image_not_found";
+            }
+            else {
+                imageUrl = imageService.getImageUrlByBoardId(board.getId()).get(0).getImage_link();
+            }
             // imageUrl이 "image_not_found"인 경우 대체 이미지로 설정
             if ("image_not_found".equals(imageUrl)) {
                 imageUrl = "https://placeholder.com/50.jpg"; // 기본 이미지 URL로 대체
@@ -154,7 +160,7 @@ public class MainController {
         board.setTitle(title);
         board.setContent_text(content); // 본문
         // 게시판을 데이터베이스에 저장하면서 게시판 PK 가져오기
-        Long board_id = boardService.saveBoard(currentUsername, title, content).getBoard_id();
+        Long board_id = boardService.saveBoard(currentUsername, title, content).getId();
 
         if (files != null && !files.isEmpty()) {
             try {

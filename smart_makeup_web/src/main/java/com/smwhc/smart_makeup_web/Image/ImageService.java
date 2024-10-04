@@ -1,5 +1,6 @@
 package com.smwhc.smart_makeup_web.Image;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,14 @@ public class ImageService {
     }
     // 2. 이미지 불러오기
     public List<Image> getImageUrlByBoardId(Long board_id) {
-        return imageRepository.findByBoard_board_id(board_id);
+        List<Image> images = imageRepository.findByBoardId(board_id);
+    
+        if (images.isEmpty()) {
+            // 적절한 처리를 하세요. 예를 들어:
+            return Collections.emptyList(); // 비어있는 리스트 반환
+        }
+        
+        return images; // 이미지 리스트 반환
     }
     // 3. 이미지 삭제하기
 

@@ -24,7 +24,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_code")
-    private Long product_code;  // 제품의 PK
+    private Long id;  // 제품의 PK
     
     // 제품의 이름 not null 길이 20
     @Column(name = "product_name", length = 50, nullable = false)
