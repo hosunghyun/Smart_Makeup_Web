@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>메인 페이지</title>
+    <title th:text="${image[0].getBoard().getTitle()}"> 페이지</title>
     <link rel="stylesheet" th:href="@{/main.css}">
 </head>
 <body>
@@ -14,7 +14,7 @@
         <p th:text="${img.getBoard().getContent_text()}">내용</p>
     </div>
 
-    <form action="">
+    <form th:action="@{/write/content}">
         <label for="contents">댓글</label><input type="text" name="contents" id="contents">
         <button type="submit">댓글저장</button>
     </form>
