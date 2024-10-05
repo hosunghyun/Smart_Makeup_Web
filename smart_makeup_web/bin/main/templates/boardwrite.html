@@ -11,7 +11,7 @@
 
     <form th:action="@{/write}" method="POST" enctype="multipart/form-data">
         <label for="title">제목</label><input type="text" name="title" id="title">
-        <label for="imageInput">이미지</label><input type="file" id="imageInput" name="imageInput" accept="image/*" />
+        <label for="imageInput">이미지</label><input type="file" id="imageInput" name="imageInput" accept="image/*" multiple>
         <label for="content">본문</label><input type="text" name="content" id="content">
         <button type="submit">저장</button>
     </form>
