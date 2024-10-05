@@ -18,13 +18,14 @@ public class MemberService {
     // 1. 회원 등록 기능
     public void save(MemberDTO memberDTO) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();    // 패스워드 암호화
-        Member member = new Member();
-        member.setMember_id(memberDTO.getMember_id());
-        member.setMember_password(passwordEncoder.encode(memberDTO.getMember_password()));  // 패스워드 암호화
-        member.setEmail(memberDTO.getEmail());
-        member.setPhone(memberDTO.getPhone());
+        Member member = new Member();       // 회원 객체 생성
 
-        memberRepository.save(member);
+        member.setMember_id(memberDTO.getMember_id());                                      // 객체에 아이디 담기
+        member.setMember_password(passwordEncoder.encode(memberDTO.getMember_password()));  // 비밀번호를 암호화하고 객체에 담기
+        member.setEmail(memberDTO.getEmail());                                              // 객체에 이메일 담기
+        member.setPhone(memberDTO.getPhone());                                              // 객체에 전화번호 담기
+
+        memberRepository.save(member);      // 객체를 레포지토리에 저장하기
     }
     // 2. 회원 삭제 기능
 
@@ -32,7 +33,7 @@ public class MemberService {
 
     // 4. 회원 찾기
     public Member findById(String member_id) {
-        Optional<Member> member = memberRepository.findById(member_id);
-        return member.orElse(null);
+        Member member = memberRepository.findById(member_id).get();
+        return member;
     }
 }

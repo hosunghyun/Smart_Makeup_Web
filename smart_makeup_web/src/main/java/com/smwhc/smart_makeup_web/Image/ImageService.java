@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.smwhc.smart_makeup_web.Board.Board;
 import com.smwhc.smart_makeup_web.Board.BoardRepository;
 
 @Service
@@ -19,18 +21,21 @@ public class ImageService {
     }
 
     // 1. 게시판 이미지 링크 저장
-    public void saveBoardImageLink(Long board_id, String image) {
+    public void saveBoardImageLink(Board board, String image) {
+        // 이미지를 저장하기 위한 객체
         Image img = new Image();
-        img.setBoard(boardRepository.findById(board_id).get());
-        img.setImage_link(image);
-        imageRepository.save(img);
+        
+        img.setBoard(board);        // 객체에 게시판 아이디 저장
+        img.setImage_link(image);   // 객체에 이미지 링크 저장
+
+        imageRepository.save(img);  // 객체를 레포지토리에 저장
     }
+    
     // 2. 이미지 불러오기
     public List<Image> getImageUrlByBoardId(Long board_id) {
         List<Image> images = imageRepository.findByBoardId(board_id);
     
-        if (images.isEmpty()) {
-            // 적절한 처리를 하세요. 예를 들어:
+        if (images.isEmpty()) {     // 이미지가 비었었는지 확인
             return Collections.emptyList(); // 비어있는 리스트 반환
         }
         

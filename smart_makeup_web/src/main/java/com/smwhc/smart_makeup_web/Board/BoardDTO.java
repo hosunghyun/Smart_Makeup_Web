@@ -6,11 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BoardDTO {
-    private Long board_id;
-    private String member_id;
-    private String image_link;
-    private String title;
-    private String content_text;
+    private Long board_id;                // 게시판 PK
+    private String member_id;       // 회원 FK
+    private String title;           // 제목
+    private String content_text;    // 내용
 
     // 생성자
     public BoardDTO() {}

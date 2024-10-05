@@ -27,7 +27,7 @@ public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
-    private Long id;
+    private Long id;    // 게시판 아이디
 
     // member 테이블의 PK인 member_id를 외래키로 사용
     @ManyToOne // 일대다 관계 표현 Member 한명이 board 여러개를 가질 수 있다.

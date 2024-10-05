@@ -7,15 +7,18 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
+    <!-- 메뉴바 -->
     <div th:replace="~{menubar.html::global-menubar}"></div>
 
+    <!-- 로그인 하는 form으로 보안을 위해 POST로 데이터 전송 -->
     <form th:action="@{/sign}" method="POST">
-        <label for="username">아이디</label> <input id="username" name="username" type="text">
-        <label for="password">비밀번호</label><input type="password" name="password" id="password">
+        <label for="username">아이디</label> <input id="username" name="username" type="text">          <!-- 스프링 시큐리티는 사용자 아이디를 username으로만 전송해야 기능 사용 가능 -->
+        <label for="password">비밀번호</label><input type="password" name="password" id="password">     <!-- 비밀번호도 아이디와 마찬가지로 정해진 규칙이 존재함 -->
         <button type="submit">전송</button>
-        <button type="button" id="joinbtn">회원가입</button>
+        <button type="button" id="joinbtn">회원가입</button>        <!-- 회원가입 페이지로 이동하기 위한 버튼 -->
     </form>
     
+    <!-- 회원 가입 버튼의 기능으로 클릭 시 회원 가입 페이지로 이동 -->
     <script>
         const $joinbtn = document.getElementById("joinbtn");
         $joinbtn.addEventListener('click', ()=>{

@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="/main.css">
 </head>
 <body>
+    <!-- 메뉴바 -->
     <div th:replace="~{menubar.html::global-menubar}"></div>
 
+    <!-- 게시판에 새 글을 작성하는 부분 -->
     <form th:action="@{/write}" method="POST" enctype="multipart/form-data">
         <label for="title">제목</label><input type="text" name="title" id="title">
-        <label for="imageInput">이미지</label><input type="file" id="imageInput" name="imageInput" accept="image/*" multiple>
+        <label for="imageInput">이미지</label><input type="file" id="imageInput" name="imageInput" accept="image/*" multiple>   <!-- 이미지는 여러개 ctrl 버튼을 클릭시 업로드 가능-->
         <label for="content">본문</label><input type="text" name="content" id="content">
         <button type="submit">저장</button>
     </form>

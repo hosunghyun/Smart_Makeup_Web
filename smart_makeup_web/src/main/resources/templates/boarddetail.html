@@ -7,16 +7,27 @@
     <link rel="stylesheet" th:href="@{/main.css}">
 </head>
 <body>
+    <!-- 메뉴바 -->
     <div th:replace="~{menubar.html::global-menubar}"></div>
+
+    <!-- 글을 보여주는 부분 -->
     <div class="board-detail" th:each="img : ${image}">
         <p th:text="${img.getBoard().getTitle()}">제목</p>
         <img th:src="${img.getImage_link()}" alt="img">
         <p th:text="${img.getBoard().getContent_text()}">내용</p>
     </div>
 
-    <form th:action="@{/write/content}">
+    <!-- 게시판에 댓글을 작성하는 부분 -->
+    <form th:action="@{|/write/content/${image[0].getBoard().getId()}|}" method="POST">
         <label for="contents">댓글</label><input type="text" name="contents" id="contents">
         <button type="submit">댓글저장</button>
     </form>
+
+    <!-- 게시판에 작성된 댓글 보여주는 부분 -->
+    <div th:each="content : ${contents}">
+        <p th:text="${content.getMember().getMember_id()}"></p>
+        <p th:text="${content.getComment_content()}"></p>
+    </div>
+
 </body>
 </html>
