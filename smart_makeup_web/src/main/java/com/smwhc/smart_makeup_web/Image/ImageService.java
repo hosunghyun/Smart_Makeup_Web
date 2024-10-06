@@ -13,11 +13,9 @@ import com.smwhc.smart_makeup_web.Board.BoardRepository;
 public class ImageService {
     @Autowired
     private final ImageRepository imageRepository;
-    private final BoardRepository boardRepository;
 
-    public ImageService(ImageRepository imageRepository, BoardRepository boardRepository) {
+    public ImageService(ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
-        this.boardRepository = boardRepository;
     }
 
     // 1. 게시판 이미지 링크 저장

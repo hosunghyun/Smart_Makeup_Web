@@ -17,6 +17,12 @@
         <p th:text="${img.getBoard().getContent_text()}">내용</p>
     </div>
 
+    <!-- 수정과 삭제 버튼 -->
+    <div>
+        <button id="editbtn" type="button">수정</button>
+        <button id="deletebtn" type="button">삭제</button>
+    </div>
+
     <!-- 게시판에 댓글을 작성하는 부분 -->
     <form th:action="@{|/write/content/${image[0].getBoard().getId()}|}" method="POST">
         <label for="contents">댓글</label><input type="text" name="contents" id="contents">
@@ -29,5 +35,36 @@
         <p th:text="${content.getComment_content()}"></p>
     </div>
 
+    <!-- 수정과 삭제 버튼에 대한 자바스크립트 -->
+
+    <!-- 로그인된 사용자일 경우 작성하기 버튼 클릭 가능 -->
+    <div sec:authorize="isAuthenticated()">
+        <script th:inline="javascript">
+            /*<![CDATA[*/ 
+            const $editbtn = document.getElementById("editbtn");        // 수정 버튼
+            const $deletebtn = document.getElementById("deletebtn");    // 삭제 버튼
+            
+            // 이미지 ID를 가져오는 방법
+            const imageId = /*[[${image[0].getBoard().getId()}]]*/ ''; // 첫 번째 이미지의 ID를 가져옵니다.
+            const username = /*[[${#authentication.principal.username}]]*/ '';    // 현재 로그인한 사용자명
+        
+            $editbtn.addEventListener('click', () => {
+                fetch(`/checkuser/board_id=${imageId}`)     // 변경하기 전에 현재 로그인 중인 사용자와 게시판 작성자가 맞는지 확인하기
+                    .then((message) => { return message.text(); })
+                    .then((message) => {
+                        if (message === "NO-WRITTER") { // 게시판 작성자와 현재 로그인 중인 사용자가 같지 않다.
+                            alert(`${username}님은 해당 게시글을 작성한 작성자가 아닙니다.`); // 중복일 경우 알림
+                        }
+                        else {  // 게시판 작성자와 현재 로그인 중인 사용자가 같다.
+                            window.location.href=`/edit/board_id=${imageId}`;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error); // 에러 처리
+                    });
+            });
+            /*]]>*/
+        </script>
+    </div>
 </body>
 </html>

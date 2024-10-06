@@ -264,6 +264,42 @@ public class MainController {
 
         return "redirect:/index";
     }
+
+    // 게시판 글 수정하기위해 사용자가 맞는지 확인
+    @GetMapping("/checkuser/board_id={id}")
+    public ResponseEntity<String> boardedit(@PathVariable("id") String id) {
+        String result;
+
+        // 1. 수정하기 위해서는 작성자가 맞는지 확인 절차가 필요 그래서 현재 로그인 중인 사용자 정보 받기
+        // 현재 로그인된 사용자 정보를 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName(); // 사용자 아이디
+
+        // 2. 게시판을 작성한 사용자 아이디 가져오기
+        Board board = boardService.getBoardByDetailPage(id);    // 게시판 id를 받았기 때문에 해당 값으로 board 객체 찾기
+
+        if(currentUsername.equals(board.getMember().getMember_id())) {
+            result = "WRITTER";  // 사용자명이 같기 때문에 "WRITTER"로 설정
+        }
+        else {
+            result = "NO-WRITTER";     // 사용자명이 다르기 때문에 "NO-WRITTER"로 설정
+        }
+
+        return ResponseEntity.status(200).body(result);     // 결과를 반한
+    }
+    // 게시판 글 수정하기
+    @GetMapping("/edit/board_id={id}")
+    public String edit(@PathVariable("id") String id, Model model) {
+        // 1. 수정하기 위해서는 기존 데이터가 필요하니 전송하기
+        Board board = boardService.getBoardByDetailPage(id);
+        model.addAttribute("board", board);
+        
+        // 2. 이미지 파일도 필요하니 전송
+        List<Image> image = imageService.getImageUrlByBoardId(Long.parseLong(id));
+        
+        model.addAttribute("boardid", id);
+        return "edit";
+    }
 }
 
 
