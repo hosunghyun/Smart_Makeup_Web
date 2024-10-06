@@ -80,7 +80,11 @@
         <!-- 로그인된 사용자일 경우 댓글 수정 삭제 버튼 클릭 가능 -->
         <div sec:authorize="isAuthenticated()">
             <script>
-                
+                const $CDbtn = document.getElementById("CDbtn");
+
+                $CDbtn.addEventListener('click', ()=>{
+                    
+                });
             </script>
         </div>
     </div>
