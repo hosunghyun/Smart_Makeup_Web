@@ -47,7 +47,8 @@
             // 이미지 ID를 가져오는 방법
             const imageId = /*[[${image[0].getBoard().getId()}]]*/ ''; // 첫 번째 이미지의 ID를 가져옵니다.
             const username = /*[[${#authentication.principal.username}]]*/ '';    // 현재 로그인한 사용자명
-        
+            
+            // 수정하는 기능
             $editbtn.addEventListener('click', () => {
                 fetch(`/checkuser/board_id=${imageId}`)     // 변경하기 전에 현재 로그인 중인 사용자와 게시판 작성자가 맞는지 확인하기
                     .then((message) => { return message.text(); })
@@ -62,6 +63,14 @@
                     .catch(error => {
                         console.error('Error:', error); // 에러 처리
                     });
+            });
+
+            // 삭제하는 기능
+            $deletebtn.addEventListener('click', ()=>{
+                const del = confirm("정말로 삭제하시겠습니까?");
+                if(del) {
+                    window.location.href=`/delete/board=${imageId}`;
+                }
             });
             /*]]>*/
         </script>

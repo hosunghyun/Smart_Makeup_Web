@@ -300,9 +300,13 @@ public class MainController {
         model.addAttribute("boardid", id);
         return "edit";
     }
+    
+    // 게시판 글 삭제하는 기능
+    @GetMapping("/delete/board={id}")
+    public String deleteboard(@PathVariable("id") String id) {
+        boardService.deleteBoard(id);
+        return "redirect:/index";
+    }
 }
-
-
-
 
 //  <span th:text="${username}"> 을 사용하면 thymeleaf로 사용자 명 가져오기 가능

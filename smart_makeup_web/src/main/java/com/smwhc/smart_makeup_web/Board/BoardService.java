@@ -34,6 +34,11 @@ public class BoardService {
     // 2. 게시판 수정
 
     // 3. 게시판 삭제
+    public void deleteBoard(String boardid) {
+        Long id = Long.parseLong(boardid);
+        Board board = boardRepository.findById(id).get();
+        boardRepository.delete(board);
+    }
 
     // 4. 게시판 보기
     public List<Board> getBoardByPage(Integer pageNum,Integer pageSize) {
