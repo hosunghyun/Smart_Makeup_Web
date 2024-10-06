@@ -33,11 +33,13 @@
     <div th:each="content : ${contents}">
         <p th:text="${content.getMember().getMember_id()}"></p>
         <p th:text="${content.getComment_content()}"></p>
+        <button type="button" id="CDbtn">댓글 삭제</button>
+        <button type="button" id="CMbtn">댓글 수정</button>
     </div>
 
     <!-- 수정과 삭제 버튼에 대한 자바스크립트 -->
 
-    <!-- 로그인된 사용자일 경우 작성하기 버튼 클릭 가능 -->
+    <!-- 로그인된 사용자일 경우 게시글 수정 삭제 버튼 클릭 가능 -->
     <div sec:authorize="isAuthenticated()">
         <script th:inline="javascript">
             /*<![CDATA[*/ 
@@ -74,6 +76,13 @@
             });
             /*]]>*/
         </script>
+
+        <!-- 로그인된 사용자일 경우 댓글 수정 삭제 버튼 클릭 가능 -->
+        <div sec:authorize="isAuthenticated()">
+            <script>
+                
+            </script>
+        </div>
     </div>
 </body>
 </html>

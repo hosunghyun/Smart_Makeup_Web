@@ -248,23 +248,6 @@ public class MainController {
         return "boarddetail";
     }
 
-    // 게시판에 댓글 작성하기
-    @PostMapping("/write/content/{id}")
-    public String writecontent(@RequestParam("contents") String content, @PathVariable("id") String id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = authentication.getName(); // 사용자 아이디
-
-        Comment comment = new Comment();    // 댓글을 저장하기 위한 객체
-
-        comment.setBoard(boardService.getBoardByDetailPage(id));    // 객체에 게시판 아이디 담기
-        comment.setComment_content(content);                        // 객체에 댓글 내용 담기 
-        comment.setMember(memberService.findById(currentUsername)); // 객체에 작성자 담기
-
-        commentService.saveComment(comment);    // 객체를 레포지토리에 전송해서 저장하기
-
-        return "redirect:/index";
-    }
-
     // 게시판 글 수정하기위해 사용자가 맞는지 확인
     @GetMapping("/checkuser/board_id={id}")
     public ResponseEntity<String> boardedit(@PathVariable("id") String id) {
@@ -307,6 +290,26 @@ public class MainController {
         boardService.deleteBoard(id);
         return "redirect:/index";
     }
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    // 게시판에 댓글 작성하기
+    @PostMapping("/write/content/{id}")
+    public String writecontent(@RequestParam("contents") String content, @PathVariable("id") String id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName(); // 사용자 아이디
+
+        Comment comment = new Comment();    // 댓글을 저장하기 위한 객체
+
+        comment.setBoard(boardService.getBoardByDetailPage(id));    // 객체에 게시판 아이디 담기
+        comment.setComment_content(content);                        // 객체에 댓글 내용 담기 
+        comment.setMember(memberService.findById(currentUsername)); // 객체에 작성자 담기
+
+        commentService.saveComment(comment);    // 객체를 레포지토리에 전송해서 저장하기
+
+        return "redirect:/index";
+    }
+
+    
 }
 
 //  <span th:text="${username}"> 을 사용하면 thymeleaf로 사용자 명 가져오기 가능
