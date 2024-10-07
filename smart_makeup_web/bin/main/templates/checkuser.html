@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사용자 확인</title>
+    <link rel="stylesheet" th:href="@{/main.css}">
+</head>
+<body>
+    <!-- 메뉴바 -->
+    <div th:replace="~{menubar.html::global-menubar}"></div>
+    
+    <form th:action="@{|/checkpassowrd|}" method="POST">
+        <label for="pwd">비밀번호</label> <input type="password" name="password" id="pwd">
+        <button type="button" id="checkbtn">확인</button>
+    </form>
+    <script>
+        const $checkbtn = document.getElementById("checkbtn");
+        const $pwd = document.getElementById("pwd");
+        
+        // 버튼을 클릭 시
+        $checkbtn.addEventListener('click', ()=>{
+            // event.preventDefault(); // 폼 제출 방지
+            const pwd = $pwd.value;
+
+            fetch(`/checkpassword`, {
+                method : 'POST',
+                headers : { "Content-Type" : "application/json" },
+                body : JSON.stringify({"member_password" : pwd})
+            })
+            .then((message)=>{ return message.text() })
+            .then((message)=>{
+                if(message == "fails") {    // 컨트롤러에서 비밀번호가 맞는 확인한 결과
+                    alert(`잘못된 비밀번호입니다.`);
+                }
+                else {
+                    window.location.href = `/profile`;
+                }
+            });
+        });
+        
+        // 버튼 대신 엔터키를 눌렀을 경우
+        $pwd.addEventListener('keypress', (event)=>{
+            if(event.key == 'Enter') {
+                event.preventDefault(); // 폼 제출 방지
+                const pwd = $pwd.value;
+
+                fetch(`/checkpassword`, {
+                    method : 'POST',
+                    headers : { "Content-Type" : "application/json" },
+                    body : JSON.stringify({"member_password" : pwd})
+                })
+                .then((message)=>{ return message.text() })
+                .then((message)=>{
+                    if(message == "fails") {    // 컨트롤러에서 비밀번호가 맞는 확인한 결과
+                        alert(`잘못된 비밀번호입니다.`);
+                    }
+                    else {
+                        window.location.href = `/profile`;
+                    }
+                });
+            }
+        });
+
+    </script>
+</body>
+</html>

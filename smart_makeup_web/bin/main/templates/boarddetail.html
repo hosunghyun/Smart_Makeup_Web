@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${image[0].getBoard().getTitle()}"> 페이지</title>
+    <title th:text="${board.getTitle()}"> 페이지</title>
     <link rel="stylesheet" th:href="@{/main.css}">
 </head>
 <body>
@@ -11,11 +11,13 @@
     <div th:replace="~{menubar.html::global-menubar}"></div>
 
     <!-- 글을 보여주는 부분 -->
-    <div class="board-detail" th:each="img : ${image}">
-        <p th:text="${img.getBoard().getTitle()}">제목</p>
-        <img th:src="${img.getImage_link()}" alt="img">
-        <p th:text="${img.getBoard().getContent_text()}">내용</p>
-    </div>
+     <div>
+        <p th:text="${board.getTitle()}">제목</p>
+        <div th:each="image : ${board.getImages()}">
+            <img th:src="${image.image_link}" alt="이미지">
+        </div>
+        <p th:text="${board.getContent_text()}">내용</p>
+     </div>
 
     <!-- 수정과 삭제 버튼 -->
     <div>
@@ -24,7 +26,7 @@
     </div>
 
     <!-- 게시판에 댓글을 작성하는 부분 -->
-    <form th:action="@{|/write/content/${image[0].getBoard().getId()}|}" method="POST">
+    <form th:action="@{|/write/content/${board.getId()}|}" method="POST">
         <label for="contents">댓글</label><input type="text" name="contents" id="contents">
         <button type="submit">댓글저장</button>
     </form>
@@ -47,7 +49,7 @@
             const $deletebtn = document.getElementById("deletebtn");    // 삭제 버튼
             
             // 이미지 ID를 가져오는 방법
-            const imageId = /*[[${image[0].getBoard().getId()}]]*/ ''; // 첫 번째 이미지의 ID를 가져옵니다.
+            const imageId = /*[[${board.getId()}]]*/ ''; // 첫 번째 이미지의 ID를 가져옵니다.
             const username = /*[[${#authentication.principal.username}]]*/ '';    // 현재 로그인한 사용자명
             
             // 수정하는 기능

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로필 페이지</title>
+    <link rel="stylesheet" th:href="@{/main.css}">
+</head>
+<body>
+    <!-- 메뉴바 -->
+    <div th:replace="~{menubar.html::global-menubar}"></div>
+    <label for="">아이디</label> <input type="text" th:value="${member.getMember_id()}">
+    <form action="">
+        <label for="">새 비밀번호</label> <input type="pasword" name="" id="">
+        <label for="">새 비밀번호 확인</label> <input type="password" name="" id="">
+        <label for=""></label>
+        <button type="button" id="chbtn">수정하기</button>
+        <button type="button" id="delbtn">회원탈퇴</button>
+    </form>
+
+    <!-- 회원 탈퇴하는 기능 -->
+    <script>
+        document.getElementById("delbtn").addEventListener('click', ()=>{
+            const yn = confirm("정말로 탈퇴하시겠습니까?");
+            if(yn) {
+                const pwd = prompt("비밀번호를 입력해주세요.", "");
+                fetch(`/withdraw`, {
+                    method : 'POST',
+                    headers : { "Content-Type" : "application/json" },
+                    body : JSON.stringify({"member_password" : pwd})
+                })
+                .then((message)=>{ return message.text() })
+                .then((message)=>{
+                if(message == "fails") {    // 컨트롤러에서 비밀번호가 맞는 확인한 결과
+                    alert(`잘못된 비밀번호입니다.`);
+                }
+                else {
+                    alert("회원 탈퇴에 성공했습니다.")
+                    window.location.href = `/index`;
+                }
+            });
+            }
+        });
+    </script>
+</body>
+</html>
