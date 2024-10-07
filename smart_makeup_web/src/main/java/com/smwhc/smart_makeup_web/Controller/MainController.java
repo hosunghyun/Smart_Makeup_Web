@@ -3,10 +3,8 @@ package com.smwhc.smart_makeup_web.Controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
 @Controller
 public class MainController {
-//------------------------------------------------------------------------------------------------------------------------------------------
 
     // 메뉴바 컨트롤러 부분
 
@@ -28,9 +26,11 @@ public class MainController {
         return "sign";
     }
 
-    // 프로필 페이지로 이동
-    @GetMapping("/profile")
-    public String profile() {
-        return "profile";
+    // 사용자가 프로필을 누르면 개인정보이기 때문에 먼저 비밀번호로 사용자 확인 페이지로 이동
+    @GetMapping("/checkuser")
+    public String checkuser() {
+        return "checkuser";
     }
+
+    
 }

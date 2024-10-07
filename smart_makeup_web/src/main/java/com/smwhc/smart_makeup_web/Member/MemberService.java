@@ -28,6 +28,9 @@ public class MemberService {
         memberRepository.save(member);      // 객체를 레포지토리에 저장하기
     }
     // 2. 회원 삭제 기능
+    public void deleteMember(Member member) {
+        memberRepository.delete(member);
+    }
 
     // 3. 회원 변경 기능
 

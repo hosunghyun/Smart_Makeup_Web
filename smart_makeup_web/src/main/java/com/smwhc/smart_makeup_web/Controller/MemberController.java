@@ -2,12 +2,17 @@ package com.smwhc.smart_makeup_web.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.smwhc.smart_makeup_web.Member.Member;
 import com.smwhc.smart_makeup_web.Member.MemberDTO;
 import com.smwhc.smart_makeup_web.Member.MemberService;
 
@@ -43,6 +48,61 @@ public class MemberController {
             result = "exist";   // 유저가 있으므로 중복이다.
         }
         
+        return ResponseEntity.status(200).body(result);     // 결과를 반한
+    }
+
+    // 사용자가 입력한 비밀번호가 맞는지 확인
+    @PostMapping("/checkpassword")
+    public ResponseEntity<String> checkpassword(@RequestBody MemberDTO memberDTO) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();    // 패스워드 암호화
+        // 현재 로그인된 사용자 정보를 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName(); // 사용자 아이디
+        Member member = memberService.findById(currentUsername);
+
+        String result;
+
+        if (passwordEncoder.matches(memberDTO.getMember_password(), member.getMember_password())) {
+            result = "success";
+        } else {
+            result = "fails";
+        }
+
+        return ResponseEntity.status(200).body(result);     // 결과를 반한
+    }
+
+    // 프로필 페이지로 이동
+    @GetMapping("/profile")
+    public String profile(Model model) {
+        // 현재 로그인된 사용자 정보를 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName(); // 사용자 아이디
+
+        Member member = memberService.findById(currentUsername);
+
+        model.addAttribute("member", member);
+
+        return "profile";
+    }
+
+    // 회원 탈퇴 기능
+    @PostMapping("/withdraw")
+    public ResponseEntity<String> withdraw(@RequestBody MemberDTO memberDTO) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();    // 패스워드 암호화
+        // 현재 로그인된 사용자 정보를 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName(); // 사용자 아이디
+        Member member = memberService.findById(currentUsername);
+
+        String result;
+
+        if (passwordEncoder.matches(memberDTO.getMember_password(), member.getMember_password())) {
+            memberService.deleteMember(member);
+            result = "success";
+        } else {
+            result = "fails";
+        }
+
         return ResponseEntity.status(200).body(result);     // 결과를 반한
     }
 }

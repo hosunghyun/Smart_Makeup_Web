@@ -174,6 +174,6 @@ public class BoardController {
     @GetMapping("/delete/board={id}")
     public String deleteboard(@PathVariable("id") String id) {
         boardService.deleteBoard(id);
-        return "redirect:/index";
+        return "redirect:/board";
     }
 }
