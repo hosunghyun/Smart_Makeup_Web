@@ -1,0 +1,45 @@
+package com.smwhc.smart_makeup_web.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.smwhc.smart_makeup_web.Board.BoardService;
+import com.smwhc.smart_makeup_web.Comment.Comment;
+import com.smwhc.smart_makeup_web.Comment.CommentService;
+import com.smwhc.smart_makeup_web.Member.MemberService;
+
+@Controller
+public class CommentController {
+    @Autowired
+    private final MemberService memberService;  // 회원 프레젠테이션 계층과 연결
+    private final BoardService boardService;    // 게시판 프레젠테이션 계층과 연결
+    private final CommentService commentService;    // 댓글 프레젠테이션 계층과 연결
+
+    public CommentController(MemberService memberService, BoardService boardService, CommentService commentService) {
+        this.memberService = memberService;
+        this.boardService = boardService;
+        this.commentService = commentService;
+    }
+
+    // 게시판에 댓글 작성하기
+    @PostMapping("/write/content/{id}")
+    public String writecontent(@RequestParam("contents") String content, @PathVariable("id") String id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName(); // 사용자 아이디
+
+        Comment comment = new Comment();    // 댓글을 저장하기 위한 객체
+
+        comment.setBoard(boardService.getBoardByDetailPage(id));    // 객체에 게시판 아이디 담기
+        comment.setComment_content(content);                        // 객체에 댓글 내용 담기 
+        comment.setMember(memberService.findById(currentUsername)); // 객체에 작성자 담기
+
+        commentService.saveComment(comment);    // 객체를 레포지토리에 전송해서 저장하기
+
+        return "redirect:/index";
+    }
+}

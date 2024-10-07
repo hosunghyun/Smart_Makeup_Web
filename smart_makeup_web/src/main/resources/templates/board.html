@@ -13,16 +13,22 @@
     <h1>게시판</h1>
 
     <!-- 게시판 불러오기 -->
-    <div class="board-box" th:each="image : ${images}">
-        <a th:href="@{|/boarddetail/id=${image.board.id}|}">    <!-- 게시판 클릭 시 자세히 보기 -->
-            <img th:src="${image.getImage_link()}" alt="img" /> <!-- 게시판 썸네일 이미지 -->
+    <div class="board-box" th:each="board : ${boards}">
+        <a th:href="@{|/boarddetail/id=${board.getId()}|}"> <!-- 게시판 클릭 시 자세히 보기 -->
+            <!-- 이미지 출력 부분 -->
+            <div th:each="image, iterStat : ${board.getImages()}" th:if="${iterStat.index == 0}">
+                <div th:if="${image.getImage_link() != null}">
+                    <img th:src="${image.getImage_link()}" alt="이미지">
+                </div>  
+            </div>
+            
             <div>
-                <p th:text="${image.getBoard().getTitle()}">제목</p>    <!-- 게시판 제목 -->
-                <p th:text="${image.getBoard().getMember().getMember_id()}">작성자</p>   <!-- 게시판 작성자 -->
-                <!-- <p th:text="${board.getCreatedAt()}">작성일</p> -->
+                <p th:text="${board.getTitle()}">제목</p> <!-- 게시판 제목 -->
+                <p th:text="${board.getMember().getMember_id()}">작성자</p> <!-- 게시판 작성자 -->
             </div>
         </a>
     </div>
+    
 
     <!-- 글 작성하기 버튼 -->
     <button type="button" id="wbtn">작성하기</button>
