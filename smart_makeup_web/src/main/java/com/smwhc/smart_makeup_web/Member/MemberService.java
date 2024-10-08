@@ -33,6 +33,19 @@ public class MemberService {
     }
 
     // 3. 회원 변경 기능
+    public Member modifyMember(MemberDTO memberDTO) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();    // 패스워드 암호화
+        Member member = new Member();
+
+        member.setMember_id(memberDTO.getMember_id());
+        member.setMember_password(passwordEncoder.encode(memberDTO.getMember_password()));
+        member.setEmail(memberDTO.getEmail());
+        member.setPhone(memberDTO.getPhone());
+
+        // 저장 시 성공 여부를 확인하고 반환
+        Member members = memberRepository.save(member);
+        return members;
+    }
 
     // 4. 회원 찾기
     public Member findById(String member_id) {

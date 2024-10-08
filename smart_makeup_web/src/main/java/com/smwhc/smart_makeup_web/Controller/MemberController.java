@@ -105,4 +105,28 @@ public class MemberController {
 
         return ResponseEntity.status(200).body(result);     // 결과를 반한
     }
+
+    // 회원 수정 기능
+    @PostMapping("/change/member-info")
+    public ResponseEntity<String> changemember(@RequestBody MemberDTO memberDTO) {
+        String result;
+        Member member;
+
+        if (memberDTO.getMember_password() == null || memberDTO.getMember_password().isEmpty() ||
+            memberDTO.getEmail() == null || memberDTO.getEmail().isEmpty()) {
+            result = "fails";
+        }
+        else {
+            member  = memberService.modifyMember(memberDTO);
+            if (member != null) {
+                result = "success";
+            }
+            else {
+                result = "fails";
+            }
+        }
+        
+        return ResponseEntity.status(200).body(result);     // 결과를 반한
+    }
+
 }

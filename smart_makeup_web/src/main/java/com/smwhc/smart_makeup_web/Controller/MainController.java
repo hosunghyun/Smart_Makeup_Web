@@ -31,6 +31,4 @@ public class MainController {
     public String checkuser() {
         return "checkuser";
     }
-
-    
 }
