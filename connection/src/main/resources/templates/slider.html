@@ -3,14 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Range Slider</title>
-
+    <!-- <title>Range Slider</title> -->
+    <title>Webcam Feed</title>
 </head>
 <body>
-    <h1>슬라이더 값 변경</h1>
-    <input type="range" min="0" max="100" oninput="sendValue(this.value)" />
+    <!-- <p>
+        <h1>슬라이더 값 변경</h1>
+        <input type="range" min="0" max="100" value="0" oninput="sendValue(this.value)" />
+    </p>
+
+    <p>
+    <h1>버튼 값 전송</h1>
+        <button onclick="updateValue(10)">10</button>
+        <button onclick="updateValue(20)">20</button>
+        <button onclick="updateValue(30)">30</button>
+    </p>
+    <p id="currentValue">현재 값: 0</p>
+
+    <p>
+        <h3>바뀐 색상</h3>
+        <button id="colorButton" onclick="changeColor()">색상 변경</button>
+    </p> -->
+
+    <p>
+        <h1>Webcam Feed</h1>
+        <img id="video" src="" alt="Video Feed" style="width: 640px; height: 480px;"/>
+    </p>
 
     <script>
+        // 슬라이더 값 POST로 전송
         function sendValue(value) {
             fetch('/slider', {
                 method: 'POST',
@@ -20,6 +41,19 @@
                 body: JSON.stringify({ value: value })
             });
         }
+        ///////// 비디오 연결 //////////
+        const videoElement = document.getElementById('video');
+        const websocket = new WebSocket('ws://127.0.0.1:8080/video-feed');
+
+        websocket.onmessage = function(event) {
+            const blob = new Blob([event.data], { type: 'image/jpeg' });
+            const url = URL.createObjectURL(blob);
+            videoElement.src = url;
+        };
+
+        websocket.onclose = function(event) {
+            console.log('WebSocket closed:', event);
+        };
     </script>
 </body>
 </html>
