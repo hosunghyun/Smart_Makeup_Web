@@ -1,0 +1,3 @@
+opacity=8
+hex=#00ff00
+bgr_color=(0, 255, 0)

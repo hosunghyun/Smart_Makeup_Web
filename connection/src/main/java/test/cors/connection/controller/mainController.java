@@ -15,20 +15,34 @@ import test.cors.connection.connect.dataSendService;
 @Controller
 public class mainController {
 
-    @GetMapping("/slider")
+    @GetMapping("/makeup")
     public String getSliderPage() {
-        return "slider"; // templates/slider.html을 반환
+        return "makeup";// templates/makeup.html을 반환
     }
 
     @PostMapping("/slider")
-    public void receiveSliderValue(@RequestBody SliderValue sliderValue) {
-        dataSendService.sendVariable(sliderValue.getValue(), "/generate");
-        System.out.println("Received slider value: " + sliderValue.getValue());
+    public String getSliderValue(@RequestBody SliderValue sliderValue) {
+        dataSendService.sendIntVariable(sliderValue.getOpacity(), "/slider");
+        System.out.println("Received slider value: " + sliderValue.getOpacity());
+        return "makeup";
+    }
+
+    @PostMapping("/btnColor")
+    public String getBtnColor(@RequestBody BtnValue btnValue) {
+        dataSendService.sendStringVariable(btnValue.getHex(), "/btnColor");
+        System.out.println("Received btnColor : " + btnValue.getHex());
+        return "makeup";
     }
 
     @Getter
     @Setter
     public static class SliderValue {
-        private String value;
+        private String opacity;
+    }
+
+    @Getter
+    @Setter
+    public static class BtnValue {
+        private String hex;
     }
 }
