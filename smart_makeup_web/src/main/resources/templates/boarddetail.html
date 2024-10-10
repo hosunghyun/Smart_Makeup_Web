@@ -82,6 +82,19 @@
         <!-- 로그인된 사용자일 경우 댓글 수정 삭제 버튼 클릭 가능 -->
         <div sec:authorize="isAuthenticated()">
             <script>
+                (()=>{
+                    const $CDbtn = document.getElementById("CDbtn");
+
+                    $CDbtn.addEventListener('click', ()=>{
+                        
+                    });
+                })();
+            </script>
+        </div>
+
+        <!-- 로그인이 안된 사용자가 댓글 수정 삭제 버튼 클릭 기능 -->
+        <div sec:authorize="isAnonymous()">
+            <script>
                 const $CDbtn = document.getElementById("CDbtn");
 
                 $CDbtn.addEventListener('click', ()=>{
@@ -89,6 +102,7 @@
                 });
             </script>
         </div>
+
     </div>
 </body>
 </html>
