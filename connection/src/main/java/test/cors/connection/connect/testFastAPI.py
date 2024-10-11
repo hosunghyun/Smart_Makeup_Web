@@ -15,6 +15,7 @@ from pydantic import BaseModel, field_validator
 from fastapi.middleware.cors import CORSMiddleware
 
 import numpy as np
+import os
 
 import threading
 
@@ -40,15 +41,6 @@ app.add_middleware(
 params = {}
 params_lock = threading.Lock()
 params_file = "src\\main\\java\\test\\cors\\connection\\connect\\params.txt"
-
-# def read_params():
-#     global params
-#     with params_lock:
-#         with open(params_file, "r") as f:
-#             lines = f.readlines()
-#             for line in lines:
-#                 key, value = line.strip().split("=")
-#                 params[key] = int(value)
 
 def load_params():
     """파일에서 파라미터를 읽어와 params 딕셔너리를 초기화합니다."""
@@ -100,48 +92,9 @@ def set_TxtValue(key, value):
             for k, v in params.items():
                 f.write(f"{k}={v}\n")  # 기록
 
-
-
-
-
-
-
-
-
-
-# def set_TxtValue(key, value):
-#     """키와 값을 설정하고 params.txt에 기록합니다. 중복 키가 있을 경우 갱신하고, 없으면 추가합니다."""
-#     with params_lock:
-#         # 기존 키가 있다면 갱신
-#         if key in params:
-#             params[key] = value
-#         else:
-#             # 새로운 키-값 쌍 추가
-#             params[key] = value
-
-#         # 파일에 모든 키-값 쌍을 한 줄씩 기록
-#         with open(params_file, "w") as f:
-#             for k, v in params.items():
-#                 if isinstance(v, tuple):  # 튜플인 경우 괄호와 함께 기록
-#                     v_str = f"({','.join(map(str, v))})"
-#                     f.write(f"{k}={v_str}\n")
-#                 else:
-#                     f.write(f"{k}={v}\n")
-
-
-
-
-
-
 app = FastAPI()
 templates = Jinja2Templates(directory="src\\main\\resources\\templates")
 
-class Foundation(BaseModel):
-    opacity: int = 0
-    hex: str = "0"
-    # colorBGR: np.ndarray = None
-    # class Config:
-    #     arbitrary_types_allowed = True  # numpy.ndarray와 같은 임의 타입을 허용
 
 def hex_to_bgr(hex_code):
     # 헥사 코드 형식 확인
@@ -161,82 +114,26 @@ def hex_to_bgr(hex_code):
     # BGR 형식으로 반환
     return (b, g, r)
 
-# def update_value(file_path, key, value):
-#     with open(file_path, 'r') as file:
-#         lines = file.readlines()
-
-#     with open(file_path, 'w') as file:
-#         for line in lines:
-#             # 줄을 공백으로 나누기 전에 유효성 검사
-#             if line.strip() == '':
-#                 continue  # 빈 줄은 건너뛰기
-#             if ':' not in line:
-#                 continue  # ':'가 없는 줄은 건너뛰기
-            
-#             try:
-#                 k, v = line.strip().split(':', 1)  # 최대 1회만 분할
-#                 if k == key:
-#                     file.write(f"{key}:{value}\n")
-#                 else:
-#                     file.write(line)  # 기존의 줄을 그대로 유지
-#             except ValueError:
-#                 continue  # 에러가 발생하면 해당 줄은 무시
-
-#         # 마지막에 새로운 키-값 쌍을 추가
-#         if not any(k == key for k, _ in (line.strip().split(':', 1) for line in lines if ':' in line)):
-#             file.write(f"{key}:{value}\n")
-
-
-# def update_value(file_path, key, value):
-#     try:
-#         with open(file_path, 'r') as file:
-#             lines = file.readlines()
-
-#         with open(file_path, 'w') as file:
-#             found_key = False
-#             for line in lines:
-#                 line = line.strip()
-#                 # 빈 줄 또는 잘못된 형식의 줄은 건너뛰기
-#                 if line == '' or ':' not in line:
-#                     continue
-                
-#                 k, v = line.split(':', 1)
-#                 if k == key:
-#                     file.write(f"{key}:{value}\n")
-#                     found_key = True  # 키를 찾았음을 기록
-#                 else:
-#                     file.write(line + '\n')  # 기존 줄 그대로 유지
-
-#             # 키가 존재하지 않는 경우 추가
-#             if not found_key:
-#                 file.write(f"{key}:{value}\n")
-                
-#     except Exception as e:
-#         print(f"오류 발생: {e}")
 
 
 
 
-# def set_TxtValue(txtFile, key, value):
-#     # 파일에 기록
-#     with open(txtFile, "w") as f:
-#         f.write(f"{key}={value}\n")
-#         print("된듯?")
+
+
+
+class Foundation(BaseModel):
+    opacity: int = 0
+    hex: str = "0"
 
 # 전역 변수로 foundation 인스턴스 생성
 foundation = Foundation()
-current_websocket = None  # 현재 웹소켓 연결을 저장할 변수
-
-
-
+# current_websocket = None  # 현재 웹소켓 연결을 저장할 변수
 
 @app.post("/slider")
 async def slider_data(data: Foundation):
     set_TxtValue("opacity", data.opacity)
     print("Received:", data.opacity, type(data.opacity))
     return {"message": "Data received", "received": data.opacity}
-
-
 
 @app.post("/btnColor")
 async def slider_data(data: Foundation):
@@ -274,13 +171,9 @@ async def video_feed(websocket: WebSocket):
 
             load_params()  # 주기적으로 매개변수 읽기
 
-            # frame = putText_frames(frame, yourDataObject.value, 10)
-            # # 매개변수 적용 (예: 밝기와 대비 조정)
-            # frame = cv2.convertScaleAbs(frame, alpha=params["contrast"], beta=params["brightness"])
-
-            # 매개변수를 텍스트로 출력
-            print(f"opacity: {params['opacity']}, hex: {params['hex']}, bgr_color: {params['bgr_color']}")
-            print(f"opacity: {type(params['opacity'])}, hex: {type(params['hex'])}, bgr_color: {type(params['bgr_color'])}")
+            # # 매개변수를 텍스트로 출력
+            # print(f"opacity: {params['opacity']}, hex: {params['hex']}, bgr_color: {params['bgr_color']}")
+            # print(f"opacity: {type(params['opacity'])}, hex: {type(params['hex'])}, bgr_color: {type(params['bgr_color'])}")
 
             text = f"opacity: {params['opacity']}, hex: {params['hex']}, bgr_color: {params['bgr_color']}"
             putText_frames(frame, text, params['bgr_color'], 30)
@@ -324,8 +217,12 @@ async def feed(websocket: WebSocket):
     await video_feed(websocket)
 
 
-
-
+## 서버 종료
+@app.post("/shutdown")
+async def shutdown():
+    # 서버 종료
+    os._exit(0)  # 0은 정상 종료 상태 코드
+    return {"message": "서버가 종료됩니다."}
 
 
 
@@ -344,14 +241,29 @@ def is_camera_in_use(camera_index=0):
 
 ## 서버 실행 명령어 uvicorn main:app --reload
 if __name__ == "__main__":
+    uvicorn.run(app, port=8080)
+    ## 테스트용)
+    # uvicorn.run(app, host="127.0.0.1", port=8080, reload=False) # 디버깅아님
+    # uvicorn.run(app, host="127.0.0.1", port=8080, reload=True) # 디버깅모드임
+    # uvicorn.run(app, port=8080)
+
     if is_camera_in_use():
         print("웹캠이 이미 사용 중입니다.")
     else:
         print("웹캠을 사용할 수 있습니다.")
-    uvicorn.run(app, host="127.0.0.1", port=8080, reload=False) # 디버깅아님
-    uvicorn.run(app, host="127.0.0.1", port=8080, reload=True) # 디버깅모드임
-    # uvicorn.run(app, port=8080)
+    
+    # txt 초기값
+    set_TxtValue("opacity",0)
+    set_TxtValue("hex","#000000")
+    set_TxtValue("bgr_color",hex_to_bgr("#000000"))
 
-## /docs 참고하면, 자동 대화형 API 문서 확인 가능
-## tasklist | findstr python
-## taskkill /F /PID 포트번호
+    # # 테스트용) 매개변수를 텍스트로 출력
+    # print(f"opacity: {params['opacity']}, hex: {params['hex']}, bgr_color: {params['bgr_color']}")
+    # print(f"opacity: {type(params['opacity'])}, hex: {type(params['hex'])}, bgr_color: {type(params['bgr_color'])}")
+    # ## opacity: <class 'str'>, hex: <class 'str'>, bgr_color: <class 'tuple'> 으로 저장됨
+
+## 경로/docs 참고하면, 자동 대화형 API 문서 확인 가능
+
+## 종료방법 :
+### tasklist | findstr python
+### taskkill /F /PID 포트번호
