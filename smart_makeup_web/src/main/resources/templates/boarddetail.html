@@ -44,65 +44,63 @@
     <!-- 로그인된 사용자일 경우 게시글 수정 삭제 버튼 클릭 가능 -->
     <div sec:authorize="isAuthenticated()">
         <script th:inline="javascript">
-            /*<![CDATA[*/ 
-            const $editbtn = document.getElementById("editbtn");        // 수정 버튼
-            const $deletebtn = document.getElementById("deletebtn");    // 삭제 버튼
-            
-            // 이미지 ID를 가져오는 방법
-            const imageId = /*[[${board.getId()}]]*/ ''; // 첫 번째 이미지의 ID를 가져옵니다.
-            const username = /*[[${#authentication.principal.username}]]*/ '';    // 현재 로그인한 사용자명
-            
-            // 수정하는 기능
-            $editbtn.addEventListener('click', () => {
-                fetch(`/checkuser/board_id=${imageId}`)     // 변경하기 전에 현재 로그인 중인 사용자와 게시판 작성자가 맞는지 확인하기
-                    .then((message) => { return message.text(); })
-                    .then((message) => {
-                        if (message === "NO-WRITTER") { // 게시판 작성자와 현재 로그인 중인 사용자가 같지 않다.
-                            alert(`${username}님은 해당 게시글을 작성한 작성자가 아닙니다.`); // 중복일 경우 알림
-                        }
-                        else {  // 게시판 작성자와 현재 로그인 중인 사용자가 같다.
-                            window.location.href=`/edit/board_id=${imageId}`;
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error); // 에러 처리
-                    });
-            });
+            (()=>{
+                /*<![CDATA[*/ 
+                const $editbtn = document.getElementById("editbtn");        // 수정 버튼
+                const $deletebtn = document.getElementById("deletebtn");    // 삭제 버튼
 
-            // 삭제하는 기능
-            $deletebtn.addEventListener('click', ()=>{
-                const del = confirm("정말로 삭제하시겠습니까?");
-                if(del) {
-                    window.location.href=`/delete/board=${imageId}`;
-                }
-            });
-            /*]]>*/
+                // 이미지 ID를 가져오는 방법
+                const imageId = /*[[${board.getId()}]]*/ ''; // 첫 번째 이미지의 ID를 가져옵니다.
+                const username = /*[[${#authentication.principal.username}]]*/ '';    // 현재 로그인한 사용자명
+
+                // 수정하는 기능
+                $editbtn.addEventListener('click', () => {
+                    fetch(`/checkuser/board_id=${imageId}`)     // 변경하기 전에 현재 로그인 중인 사용자와 게시판 작성자가 맞는지 확인하기
+                        .then((message) => { return message.text(); })
+                        .then((message) => {
+                            if (message === "NO-WRITTER") { // 게시판 작성자와 현재 로그인 중인 사용자가 같지 않다.
+                                alert(`${username}님은 해당 게시글을 작성한 작성자가 아닙니다.`); // 중복일 경우 알림
+                            }
+                            else {  // 게시판 작성자와 현재 로그인 중인 사용자가 같다.
+                                window.location.href=`/edit/board_id=${imageId}`;
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error); // 에러 처리
+                        });
+                });
+            
+                // 삭제하는 기능
+                $deletebtn.addEventListener('click', ()=>{
+                    const del = confirm("정말로 삭제하시겠습니까?");
+                    if(del) {
+                        window.location.href=`/delete/board=${imageId}`;
+                    }
+                    else {
+                        window.location.href= `/boarddetail/id=${imageId}`;
+                    }
+                });
+                /*]]>*/
+            })();
         </script>
+    </div>
 
-        <!-- 로그인된 사용자일 경우 댓글 수정 삭제 버튼 클릭 가능 -->
-        <div sec:authorize="isAuthenticated()">
-            <script>
-                (()=>{
-                    const $CDbtn = document.getElementById("CDbtn");
+    <!-- 로그인되지 않은 사용자가 게시판 글 수정 삭제 버튼 클릭 -->
+    <div sec:authorize="isAnonymous()">
+        <script th:src="@{/unsignedboarddetail.js}" defer></script>
+    </div>
 
-                    $CDbtn.addEventListener('click', ()=>{
-                        
-                    });
-                })();
-            </script>
-        </div>
-
-        <!-- 로그인이 안된 사용자가 댓글 수정 삭제 버튼 클릭 기능 -->
-        <div sec:authorize="isAnonymous()">
-            <script>
+    <!-- 로그인되지 않은 사용자일 경우 댓글 수정 삭제 버튼 클릭 -->
+    <div sec:authorize="isAnonymous()">
+        <script>
+            (()=>{
                 const $CDbtn = document.getElementById("CDbtn");
 
                 $CDbtn.addEventListener('click', ()=>{
                     
                 });
-            </script>
-        </div>
-
+            })();
+        </script>
     </div>
 </body>
 </html>

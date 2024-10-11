@@ -29,40 +29,17 @@
         </a>
     </div>
     
-
-    <!-- 글 작성하기 버튼 -->
+    <!-- 글 작성하기 버튼으로 클릭 시 게시판 글 작성하는 페이지로 이동하는 버튼 -->
     <button type="button" id="wbtn">작성하기</button>
     
-    <!-- 로그인된 사용자일 경우 작성하기 버튼 클릭 가능 -->
+    <!-- 로그인된 사용자일 경우 작성하기 버튼 클릭하면 게시판 글을 작성하는 페이지로 이동 -->
     <div sec:authorize="isAuthenticated()"> 
-        <script>
-            (()=>{
-                const $wbtn = document.getElementById("wbtn");
-
-                $wbtn.addEventListener('click', ()=>{
-                    window.location.href="/boardwrite";
-                });
-            })();
-        </script>
+        <script src="signedboard.js"></script>
     </div>
 
-    <!-- 로그인 되지 않은 사용자이므로 아래와 같은 동작 실행 -->
+    <!-- 로그인 되지 않은 사용자이므로 사용자를 로그인 페이지로 이동 혹은 메인 페이지로 이동 -->
     <div sec:authorize="isAnonymous()">
-        <script>
-            (()=>{
-                const $wbtn = document.getElementById("wbtn");
-
-                $wbtn.addEventListener('click', ()=>{
-                    const log = confirm("아이디를 로그인해주세요.");    // TF 신호를 주는 메시지 박스 사용해서 로그인 요청
-                    if(log) {   // 확인을 눌렀으니 로그인 화면으로 이동
-                        window.location.href="/sign";
-                    }
-                    else {      // 취소를 눌렀으니 메인 화면으로 이동
-                        window.location.href="/index";
-                    }
-                });
-            })();
-        </script>
+        <script src="unsignedboard.js"></script>
     </div>
 </body>
 </html>

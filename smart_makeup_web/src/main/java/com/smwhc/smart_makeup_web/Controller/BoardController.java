@@ -163,9 +163,6 @@ public class BoardController {
         Board board = boardService.getBoardByDetailPage(id);
         model.addAttribute("board", board);
         
-        // 2. 이미지 파일도 필요하니 전송
-        List<Image> image = imageService.getImageUrlByBoardId(Long.parseLong(id));
-        
         model.addAttribute("boardid", id);
         return "edit";
     }
