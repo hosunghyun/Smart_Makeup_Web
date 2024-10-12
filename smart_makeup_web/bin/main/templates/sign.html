@@ -16,6 +16,14 @@
         <label for="password">비밀번호</label><input type="password" name="password" id="password">     <!-- 비밀번호도 아이디와 마찬가지로 정해진 규칙이 존재함 -->
         <button type="submit">전송</button>
         <button type="button" id="joinbtn">회원가입</button>        <!-- 회원가입 페이지로 이동하기 위한 버튼 -->
+        <button type="button" id="findidbtn">아이디 찾기</button>
+        <button type="button" id="findpwdbtn">비밀번호 찾기</button>
+    </form>
+
+    <form action="/find/id" style=" display: none;" method="POST" id="findid_form">
+        <label for="email">이메일</label><input type="email" name="email" id="email">
+        <label for="phone">연락처</label><input type="tel" name="phone" id="phone">
+        <button type="button" id="sbbtn">아이디 찾기</button>
     </form>
     
     <!-- 회원 가입 버튼의 기능으로 클릭 시 회원 가입 페이지로 이동 -->
@@ -25,5 +33,22 @@
             window.location.href = '/join';
         });
     </script>
+
+    <!-- 아이디 찾기 기능 -->
+    <script>
+        const $findidbtn = document.getElementById("findidbtn");
+        const $findid_form = document.getElementById("findid_form");
+
+        $findidbtn.addEventListener('click', ()=>{
+            if($findid_form.style.display === 'none') {
+                $findid_form.style.display = 'block';
+            }
+            else {
+                $findid_form.style.display = 'none';
+            }
+        });
+    </script>
+
+    <!-- 비밀번호 찾기 기능 -->
 </body>
 </html>
