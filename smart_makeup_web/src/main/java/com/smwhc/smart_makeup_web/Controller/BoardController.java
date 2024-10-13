@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.smwhc.smart_makeup_web.Board.Board;
+import com.smwhc.smart_makeup_web.Board.BoardDTO;
 import com.smwhc.smart_makeup_web.Board.BoardService;
 import com.smwhc.smart_makeup_web.Comment.Comment;
 import com.smwhc.smart_makeup_web.Comment.CommentDTO;
@@ -171,10 +172,26 @@ public class BoardController {
     }
     
     // 게시판 글 삭제하는 기능
-    @GetMapping("/delete/board={id}")
-    public String deleteboard(@PathVariable("id") String id) {
-        boardService.deleteBoard(id);
-        return "redirect:/board";
+    @PostMapping("/delete/board={id}")
+    public ResponseEntity<String> deleteboard(@RequestBody BoardDTO boardDTO) {
+        String result;
+
+        // 현재 로그인된 사용자 정보를 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName(); // 사용자 아이디
+
+        Board board = boardService.getBoardByDetailPage(boardDTO.getBoard_id());
+
+        if(currentUsername.equals(board.getMember().getMember_id())) {
+            boardService.deleteBoard(boardDTO.getMember_id());
+            result = "successs";
+        }
+        else {
+            result = "fails";
+        }
+
+        
+        return ResponseEntity.status(200).body(result);     // 결과를 반한
     }
 
     // 게시판에 작성된 댓글 삭제하는 기능

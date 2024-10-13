@@ -60,4 +60,8 @@ public class BoardService {
         Optional<Board> board = boardRepository.findById(id);   // 레포지토리에서 id에 맞는 Board 객체 찾기
         return board.get();
     }
+    public Board getBoardByDetailPage(Long board_id) {
+        Optional<Board> board = boardRepository.findById(board_id);   // 레포지토리에서 id에 맞는 Board 객체 찾기
+        return board.get();
+    }
 }

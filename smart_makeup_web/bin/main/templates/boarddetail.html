@@ -75,7 +75,23 @@
                 $deletebtn.addEventListener('click', ()=>{
                     const del = confirm("정말로 삭제하시겠습니까?");
                     if(del) {
-                        window.location.href=`/delete/board=${imageId}`;
+                        fetch(`/delete/board=${imageId}`, {
+                            method : 'POST',
+                            headers : { "Content-Type" : "application/json" },
+                            body : JSON.stringify({"board_id" : imageId})
+                        })
+                        .then((message) => { return message.text(); })
+                        .then((message) => {
+                            // if (message === "fails") { // 게시판 작성자와 현재 로그인 중인 사용자가 같지 않다.
+                            //     alert(`${username}님은 해당 댓글을 작성한 작성자가 아닙니다.`); // 중복일 경우 알림
+                            // }
+                            // else {  // 댓글 삭제 성공
+                            //     window.location.href=`/boarddetail/id=${imageId}`;
+                            // }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error); // 에러 처리
+                        });
                     }
                     else {
                         window.location.href= `/boarddetail/id=${imageId}`;
