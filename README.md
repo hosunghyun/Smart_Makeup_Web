@@ -60,6 +60,7 @@
 
 
 <!--
+https://github.com/CJW00113/Smart_Makeup_Archive
 
 레포지토리 리드미 구성
 프로젝트 구성
