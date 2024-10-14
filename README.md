@@ -119,4 +119,6 @@ Table ImageLink {
   ImageCode int [pk]
   ImageLink verchar [not null]
 }
+
+https://github.com/CJW00113/Smart_Makeup_Archive
 -->
