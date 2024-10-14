@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,9 +22,7 @@ import com.smwhc.smart_makeup_web.Board.Board;
 import com.smwhc.smart_makeup_web.Board.BoardDTO;
 import com.smwhc.smart_makeup_web.Board.BoardService;
 import com.smwhc.smart_makeup_web.Comment.Comment;
-import com.smwhc.smart_makeup_web.Comment.CommentDTO;
 import com.smwhc.smart_makeup_web.Comment.CommentService;
-import com.smwhc.smart_makeup_web.Image.Image;
 import com.smwhc.smart_makeup_web.Image.ImageService;
 import com.smwhc.smart_makeup_web.Member.Member;
 import com.smwhc.smart_makeup_web.Member.MemberService;
@@ -191,28 +188,6 @@ public class BoardController {
         }
 
         
-        return ResponseEntity.status(200).body(result);     // 결과를 반한
-    }
-
-    // 게시판에 작성된 댓글 삭제하는 기능
-    @PostMapping("/deletecomment")
-    public ResponseEntity<String> deletecomment(@RequestBody CommentDTO commentDTO){
-        String result;
-
-        // 현재 로그인된 사용자 정보를 가져오기
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = authentication.getName(); // 사용자 아이디
-
-        Comment comment = commentService.findById(commentDTO.getComment_id());
-        
-        if(currentUsername.equals(comment.getMember().getMember_id())) {
-            commentService.deletecomment(commentDTO.getComment_id());
-            result = "success";
-        }
-        else {
-            result = "fails";
-        }
-
         return ResponseEntity.status(200).body(result);     // 결과를 반한
     }
 }
