@@ -5,41 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>제품 추천하기</title>
     <link rel="stylesheet" th:href="@{/main.css}">
-    <link rel="stylesheet" th:href="@{/slider.css}">
 </head>
 <body>
     <!-- 메뉴바 -->
     <div th:replace="~{menubar.html::global-menubar}"></div>
-    <div class="container">
-        <div class='slide'></div>
-        <div class='slide'></div>
-        <div class='slide'></div>
-        <div class='slide'></div>
-        <div class='slide'></div>
-        <div class='slide'></div>
-        <div class='slide'></div>
+
+    <div th:each="product : ${products}">
+        <div th:each="image : ${product.images}">
+            <img th:src="${image.image_link}" alt="Product Image"/>
+        </div>
     </div>
+    
+    <!-- <div class="container" th:each="">
+        <img class="slide" id="img1" th:src="">
+        <img class="slide" id="img2" th:src="">
+        <img class="slide" id="img3" th:src="">
+        <img class="slide" id="img4" th:src="">
+        <img class="slide" id="img5" th:src="">
+        <img class="slide" id="img6" th:src="">
+        <img class="slide" id="img7" th:src="">
+    </div> -->
 
     <div class='buttons'>
         <button class='prev'>뒤로</button>
         <button class='next'>앞으로</button>
     </div>
-
-    <script>
-        // https://duklook.tistory.com/543
-        const container = document.querySelector('.container');
-        const prev = document.querySelector('.prev');
-        const next = document.querySelector('.next');
-
-        prev.addEventListener('click', () => {
-            const slides = document.querySelectorAll('.slide');
-            container.append(slides[0]);
-        });
-
-        next.addEventListener('click', () => {
-            const slides = document.querySelectorAll('.slide');
-            container.prepend(slides[slides.length - 1]);
-        });
-    </script>
 </body>
 </html>

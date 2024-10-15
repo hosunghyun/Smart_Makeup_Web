@@ -23,6 +23,7 @@ import com.smwhc.smart_makeup_web.Board.BoardDTO;
 import com.smwhc.smart_makeup_web.Board.BoardService;
 import com.smwhc.smart_makeup_web.Comment.Comment;
 import com.smwhc.smart_makeup_web.Comment.CommentService;
+import com.smwhc.smart_makeup_web.Image.Image;
 import com.smwhc.smart_makeup_web.Image.ImageService;
 import com.smwhc.smart_makeup_web.Member.Member;
 import com.smwhc.smart_makeup_web.Member.MemberService;
@@ -178,16 +179,20 @@ public class BoardController {
         String currentUsername = authentication.getName(); // 사용자 아이디
 
         Board board = boardService.getBoardByDetailPage(boardDTO.getBoard_id());
+        String Dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static";
 
         if(currentUsername.equals(board.getMember().getMember_id())) {
-            boardService.deleteBoard(boardDTO.getMember_id());
+            for(Image image : board.getImages()) {  // 게시판에 이미지 링크를 전부 가져와서 해당 경로의 이미지를 전부 삭제
+                File file = new File(Dir + image.getImage_link());
+                file.delete();
+            }
+            boardService.deleteBoard(board.getId());    // 게시판을 지우면 이미지 데이터베이스 또한 함께 삭제 된다.
             result = "successs";
         }
         else {
             result = "fails";
         }
 
-        
         return ResponseEntity.status(200).body(result);     // 결과를 반한
     }
 }

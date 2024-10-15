@@ -3,7 +3,7 @@ package com.smwhc.smart_makeup_web.Product;
 import java.util.Set;
 
 import com.smwhc.smart_makeup_web.Image.Image;
-import com.smwhc.smart_makeup_web.Product_Type.ProductType;
+import com.smwhc.smart_makeup_web.Product_Makeup.ProductMakeup;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -34,9 +34,13 @@ public class Product {
     @Column(name = "price", nullable = false)
     private Integer price;
 
+    // 제품의 종류
+    @Column(name = "category", nullable = false, length = 50)
+    private String category;
+
     // 제품종류와의 관계를 나타냄
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private Set<ProductType> product_types;
+    private Set<ProductMakeup> product_types;
     
     // 이미지와의 관계를 나타냄
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
@@ -44,8 +48,9 @@ public class Product {
 
     // 생성자
     public Product() {}
-    public Product(String product_name, Integer price) {
+    public Product(String product_name, Integer price, String category) {
         this.product_name = product_name;
         this.price = price;
+        this.category = category;
     }
 }

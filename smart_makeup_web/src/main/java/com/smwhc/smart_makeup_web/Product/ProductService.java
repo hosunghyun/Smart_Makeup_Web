@@ -1,5 +1,7 @@
 package com.smwhc.smart_makeup_web.Product;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,4 +21,8 @@ public class ProductService {
     // 3. 제품 삭제
 
     // 4. 제품 찾기
+    public List<Product> findByAllProduct() {
+        List<Product> products = productRepository.findAll();
+        return products;
+    }
 }

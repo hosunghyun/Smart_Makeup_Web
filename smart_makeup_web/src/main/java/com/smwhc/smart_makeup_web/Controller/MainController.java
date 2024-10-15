@@ -31,10 +31,4 @@ public class MainController {
     public String checkuser() {
         return "checkuser";
     }
-
-    // 사용자가 메뉴바에서 제품 추천 메뉴를 클릭시 이동
-    @GetMapping("/recommendation")
-    public String recommendation() {
-        return "recommendation";
-    }
 }
