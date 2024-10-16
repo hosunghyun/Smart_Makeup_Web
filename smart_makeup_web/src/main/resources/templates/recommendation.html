@@ -5,30 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>제품 추천하기</title>
     <link rel="stylesheet" th:href="@{/main.css}">
+    <style>
+        body {
+            background-color: black;
+        }
+        .slider {
+            display: flex;
+        }
+
+    </style>
 </head>
 <body>
     <!-- 메뉴바 -->
     <div th:replace="~{menubar.html::global-menubar}"></div>
 
-    <div th:each="product : ${products}">
-        <div th:each="image : ${product.images}">
-            <img th:src="${image.image_link}" alt="Product Image"/>
+    <div class="slider">
+        <button type="button" id="prebtn">이전</button>
+        <div th:each="product : ${products}" class="sliders">
+            <div class="image-container" th:each="image : ${product.images}" th:id="'img_' + ${product.id}">
+                <img th:src="${image.image_link}" alt="Product Image"/>
+            </div>
         </div>
+        <button type="button" id="nextbtn">이후</button>
     </div>
-    
-    <!-- <div class="container" th:each="">
-        <img class="slide" id="img1" th:src="">
-        <img class="slide" id="img2" th:src="">
-        <img class="slide" id="img3" th:src="">
-        <img class="slide" id="img4" th:src="">
-        <img class="slide" id="img5" th:src="">
-        <img class="slide" id="img6" th:src="">
-        <img class="slide" id="img7" th:src="">
-    </div> -->
 
-    <div class='buttons'>
-        <button class='prev'>뒤로</button>
-        <button class='next'>앞으로</button>
-    </div>
+    <script th:inline="javascript">
+        (()=>{
+            /*<![CDATA[*/ 
+            const product = /*[[${products]]*/ [];
+            console.log(product);
+            /*]]>*/
+        })();
+    </script>
 </body>
 </html>
+

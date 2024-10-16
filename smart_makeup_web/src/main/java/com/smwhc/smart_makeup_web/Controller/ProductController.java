@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.smwhc.smart_makeup_web.Image.Image;
 import com.smwhc.smart_makeup_web.Product.Product;
 import com.smwhc.smart_makeup_web.Product.ProductService;
 
@@ -23,7 +24,14 @@ public class ProductController {
     @GetMapping("/recommendation")
     public String recommendation(Model model) {
         List<Product> products = productService.findByAllProduct();
+        List<Image> images;
+        List<String> imagelinks;
 
+        for(Product product : products) {
+            for(Image image : product.getImages()) {
+                imagelinks.add(image.getImage_link());
+            }
+        }
 
         model.addAttribute("products", products);
         return "recommendation";
