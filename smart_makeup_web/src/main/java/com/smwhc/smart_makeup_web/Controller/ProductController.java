@@ -1,7 +1,7 @@
 package com.smwhc.smart_makeup_web.Controller;
 
 import java.util.List;
-
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,16 +24,16 @@ public class ProductController {
     @GetMapping("/recommendation")
     public String recommendation(Model model) {
         List<Product> products = productService.findByAllProduct();
-        List<Image> images;
-        List<String> imagelinks;
+
+        List<String> imagelinks = new ArrayList<>();
 
         for(Product product : products) {
             for(Image image : product.getImages()) {
                 imagelinks.add(image.getImage_link());
             }
         }
-
-        model.addAttribute("products", products);
+        
+        model.addAttribute("images", imagelinks);
         return "recommendation";
     }
 }

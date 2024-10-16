@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제품 추천하기</title>
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <style>
+        body {
+            background-color: black;
+        }
+        .slider {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <!-- 메뉴바 -->
+    <div th:replace="~{menubar.html::global-menubar}"></div>
+
+    <div>
+        <button type="button" id="prebtn">이전</button>
+        <img id="img1">
+        <img id="img2">
+        <img id="img3">
+        <img id="img4">
+        <img id="img5">
+        <button type="button" id="nextbtn">다음</button>
+    </div>
+
+    <script th:inline="javascript">
+        (() => {
+            /*<![CDATA[*/ 
+            const img1 = document.getElementById("img1");
+            const img2 = document.getElementById("img2");
+            const img3 = document.getElementById("img3");
+            const img4 = document.getElementById("img4");
+            const img5 = document.getElementById("img5");
+            const prebtn = document.getElementById("prebtn");
+            const nextbtn = document.getElementById("nextbtn");
+            const images = /*[[${images}]]*/ [];
+
+            let index = 0;
+
+            function updateImages() {
+                img1.src = images[(index + 0) % images.length];
+                img2.src = images[(index + 1) % images.length];
+                img3.src = images[(index + 2) % images.length];
+                img4.src = images[(index + 3) % images.length];
+                img5.src = images[(index + 4) % images.length];
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                updateImages(); // 페이지 로드 시 이미지 설정
+            });
+
+            prebtn.addEventListener('click', () => {
+                index = (index - 1 + images.length) % images.length; // 인덱스를 감소하고, 순환
+                updateImages(); // 이미지 업데이트
+            });
+
+            nextbtn.addEventListener('click', () => {
+                index = (index + 1) % images.length; // 인덱스를 증가하고, 순환
+                updateImages(); // 이미지 업데이트
+            });
+            /*]]>*/
+        })();
+    </script>
+    
+</body>
+</html>
