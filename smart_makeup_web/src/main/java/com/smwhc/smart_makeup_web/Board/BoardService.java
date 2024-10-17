@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import com.smwhc.smart_makeup_web.Member.Member;
-import com.smwhc.smart_makeup_web.Member.MemberRepository;
 
 @Service
 public class BoardService {
