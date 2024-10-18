@@ -9,43 +9,83 @@
     <!-- 부트스트랩 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+        }
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 20px;
+            background-color: #1e1e1e;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <!-- 메뉴바 -->
     <div th:replace="~{menubar.html::global-menubar}"></div>
 
-    <label for="">아이디</label><input type="text" th:value="${member.getMember_id()}" readonly>
-    <form action="">
-        <label for="pwd">새 비밀번호</label><input type="password" name="pwd" id="pwd"><br>
-        <label for="newpwd">새 비밀번호 확인</label><input type="password" name="newpwd" id="newpwd"><p id="checkpwd"></p><br>
-        <label for="email">이메일</label><input type="email" name="email" id="email" th:value="${member.getEmail()}"><br>
-        <label for="phone">연락처</label><input type="tel" name="phone" id="phone" th:value="${member.getPhone()}"><br>
-        <button type="button" id="chbtn">수정하기</button>
-        <button type="button" id="delbtn">회원탈퇴</button>
-    </form>
+    <div class="container">
+        <h2 class="text-center">프로필 정보 수정</h2>
+        <form action="">
+            <div class="mb-3">
+                <label for="member_id" class="form-label">아이디</label>
+                <input type="text" th:value="${member.getMember_id()}" readonly class="form-control" id="member_id">
+            </div>
+            <div class="mb-3">
+                <label for="pwd" class="form-label">새 비밀번호</label>
+                <input type="password" name="pwd" id="pwd" class="form-control" placeholder="새 비밀번호 입력">
+            </div>
+            <div class="mb-3">
+                <label for="newpwd" class="form-label">새 비밀번호 확인</label>
+                <input type="password" name="newpwd" id="newpwd" class="form-control" placeholder="비밀번호 확인">
+                <p id="checkpwd" class="mt-2"></p>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">이메일</label>
+                <input type="email" name="email" id="email" th:value="${member.getEmail()}" class="form-control" placeholder="example@domain.com">
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">연락처</label>
+                <input type="tel" name="phone" id="phone" th:value="${member.getPhone()}" class="form-control" placeholder="010-1234-5678">
+            </div>
+            <button type="button" id="chbtn" class="btn btn-custom w-100">수정하기</button>
+            <button type="button" id="delbtn" class="btn btn-danger w-100 mt-2">회원탈퇴</button>
+        </form>
+    </div>
 
     <!-- 회원 탈퇴하는 기능 -->
     <script>
-        (()=>{
-            document.getElementById("delbtn").addEventListener('click', ()=>{
+        (() => {
+            document.getElementById("delbtn").addEventListener('click', () => {
                 const yn = confirm("정말로 탈퇴하시겠습니까?");
-                if(yn) {
+                if (yn) {
                     const pwd = prompt("비밀번호를 입력해주세요.", "");
                     fetch(`/withdraw`, {
-                        method : 'POST',
-                        headers : { "Content-Type" : "application/json" },
-                        body : JSON.stringify({"member_password" : pwd})
+                        method: 'POST',
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ "member_password": pwd })
                     })
-                    .then((message)=>{ return message.text() })
-                    .then((message)=>{
-                    if(message == "fails") {    // 컨트롤러에서 비밀번호가 맞는 확인한 결과
-                        alert(`잘못된 비밀번호입니다.`);
-                    }
-                    else {
-                        alert("회원 탈퇴에 성공했습니다.")
-                        window.location.href = `/index`;
-                    }
-                });
+                    .then((message) => message.text())
+                    .then((message) => {
+                        if (message === "fails") {
+                            alert("잘못된 비밀번호입니다.");
+                        } else {
+                            alert("회원 탈퇴에 성공했습니다.");
+                            window.location.href = `/index`;
+                        }
+                    });
                 }
             });
         })();
@@ -53,26 +93,22 @@
 
     <!-- 새 비밀번호와 새 비밀번호 확인이 서로 맞는지 확인 -->
     <script>
-        (()=>{
+        (() => {
             const $pwd = document.getElementById("pwd");
             const $checkpwd = document.getElementById("checkpwd");
             const $newpwd = document.getElementById("newpwd");
-            
+
             $newpwd.addEventListener('input', () => {
-                // 새 비밀번호 입력이 비어있는 경우
                 if ($newpwd.value === "") {
                     $checkpwd.textContent = "";
                     return;
                 }
-
-                // 비밀번호가 같은 경우
                 if ($pwd.value === $newpwd.value) {
                     $checkpwd.textContent = "비밀번호가 같습니다.";
-                    $checkpwd.style.color = "green"; // 초록색으로 표시
+                    $checkpwd.style.color = "green";
                 } else {
-                    // 비밀번호가 다른 경우
                     $checkpwd.textContent = "비밀번호가 다릅니다.";
-                    $checkpwd.style.color = "red"; // 빨간색으로 표시
+                    $checkpwd.style.color = "red";
                 }
             });
         })();
@@ -81,22 +117,20 @@
     <!-- 회원 수정하기 버튼 구현 -->
     <script th:inline="javascript">
         (() => {
-            /*<![CDATA[*/
             const $member_id = /*[[${member.getMember_id()}]]*/ ''; // 회원 아이디 가져오기
-            const $pwd = document.getElementById("pwd");          // 변경할 비밀번호
-            const $newpwd = document.getElementById("newpwd");    // 새 비밀번호 확인
-            const $email = document.getElementById("email");      // 이메일
-            const $phone = document.getElementById("phone");      // 연락처
-            const $chbtn = document.getElementById("chbtn");      // 회원 수정 버튼
-        
+            const $pwd = document.getElementById("pwd");
+            const $newpwd = document.getElementById("newpwd");
+            const $email = document.getElementById("email");
+            const $phone = document.getElementById("phone");
+            const $chbtn = document.getElementById("chbtn");
+
             $chbtn.addEventListener('click', () => {
-                // 비밀번호 확인
                 if ($pwd.value === $newpwd.value) {
                     const $member = {
                         member_id: $member_id,
-                        member_password: $pwd.value, // 비밀번호 값을 가져옴
-                        email: $email.value,         // 이메일 값을 가져옴
-                        phone: $phone.value          // 전화번호 값을 가져옴
+                        member_password: $pwd.value,
+                        email: $email.value,
+                        phone: $phone.value
                     };
                     fetch(`/change/member-info`, {
                         method: 'POST',
@@ -105,7 +139,7 @@
                     })
                     .then(response => response.text())
                     .then(message => {
-                        if (message === "fails") { // 회원 정보 수정 실패
+                        if (message === "fails") {
                             alert("회원정보 수정에 실패했습니다.");
                         } else {
                             alert("회원정보 수정에 성공했습니다.");
@@ -119,7 +153,6 @@
                     alert("비밀번호가 일치하지 않습니다.");
                 }
             });
-            /*]]>*/
         })();
     </script>        
 </body>
