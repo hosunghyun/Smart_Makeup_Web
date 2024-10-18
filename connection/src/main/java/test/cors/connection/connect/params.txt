@@ -1,3 +1,0 @@
-opacity=46
-hex=#ff0000
-bgr_color=(0, 0, 255)
