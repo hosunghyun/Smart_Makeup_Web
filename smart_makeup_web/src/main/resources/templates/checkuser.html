@@ -9,23 +9,52 @@
     <!-- 부트스트랩 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+        }
+        .card {
+            background-color: #1e1e1e;
+            border: none;
+            max-width: 400px; /* 카드 최대 너비 설정 */
+            margin: auto; /* 중앙 정렬 */
+            padding: 20px;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <!-- 메뉴바 -->
     <div th:replace="~{menubar.html::global-menubar}"></div>
-    
-    <form th:action="@{|/checkpassowrd|}" method="POST">
-        <label for="pwd">비밀번호</label> <input type="password" name="password" id="pwd">
-        <button type="button" id="checkbtn">확인</button>
-    </form>
-    
+
+    <div class="container mt-5">
+        <!-- 비밀번호 확인 카드 -->
+        <div class="card p-4">
+            <h2 class="text-center" style="color: white;">비밀번호 확인</h2>
+            <form th:action="@{/checkpassword}" method="POST" class="mt-3">
+                <div class="mb-3">
+                    <label for="pwd" class="form-label" style="color: white;">비밀번호</label>
+                    <input type="password" name="password" id="pwd" class="form-control" placeholder="비밀번호를 입력하세요" required>
+                </div>
+                <button type="button" id="checkbtn" class="btn btn-custom w-100">확인</button>
+            </form>
+        </div>
+    </div>
+
     <script>
         const $checkbtn = document.getElementById("checkbtn");
         const $pwd = document.getElementById("pwd");
-        
+
         // 버튼을 클릭 시
         $checkbtn.addEventListener('click', ()=>{
-            // event.preventDefault(); // 폼 제출 방지
             const pwd = $pwd.value;
 
             fetch(`/checkpassword`, {
@@ -35,7 +64,7 @@
             })
             .then((message)=>{ return message.text() })
             .then((message)=>{
-                if(message == "fails") {    // 컨트롤러에서 비밀번호가 맞는 확인한 결과
+                if(message == "fails") {    // 컨트롤러에서 비밀번호가 맞는지 확인한 결과
                     alert(`잘못된 비밀번호입니다.`);
                 }
                 else {
@@ -43,11 +72,11 @@
                 }
             });
         });
-        
-        // 버튼 대신 엔터키를 눌렀을 경우
+
+        // 엔터키 눌렀을 때
         $pwd.addEventListener('keypress', (event)=>{
             if(event.key == 'Enter') {
-                event.preventDefault(); // 폼 제출 방지
+                event.preventDefault();
                 const pwd = $pwd.value;
 
                 fetch(`/checkpassword`, {
@@ -57,7 +86,7 @@
                 })
                 .then((message)=>{ return message.text() })
                 .then((message)=>{
-                    if(message == "fails") {    // 컨트롤러에서 비밀번호가 맞는 확인한 결과
+                    if(message == "fails") {
                         alert(`잘못된 비밀번호입니다.`);
                     }
                     else {
