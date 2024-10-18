@@ -92,9 +92,8 @@ public class BoardController {
             if (file != null && !file.isEmpty()) {  // 이미지가 있는 경우에만 실행
                 try {
                     // 절대 경로 지정
-                    String uploadDir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\";
+                    String uploadDir = System.getProperty("user.dir") + "\\smart_makeup_web\\src\\main\\resources\\static\\img\\";
                     File dir = new File(uploadDir);
-                    
                     
                     // 파일명 생성 (현재 시간 + 원래 파일명)
                     String newFileName = currentUsername + "_" + System.currentTimeMillis() + "_" + file.getOriginalFilename();

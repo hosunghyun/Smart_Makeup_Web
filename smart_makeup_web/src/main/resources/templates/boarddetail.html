@@ -14,32 +14,57 @@
     <!-- 메뉴바 -->
     <div th:replace="~{menubar.html::global-menubar}"></div>
 
-    <!-- 글을 보여주는 부분 -->
-     <div>
-        <p th:text="${board.getTitle()}">제목</p>
-        <div th:each="image : ${board.getImages()}">
-            <img th:src="${image.image_link}" alt="이미지">
+    <div class="container mt-5">
+        <!-- 게시글 제목 -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 th:text="${board.getTitle()}">제목</h3>
+            </div>
+            <div class="card-body">
+                <!-- 게시글 이미지들 -->
+                <div class="row mb-3">
+                    <div th:each="image : ${board.getImages()}" class="col-md-4">
+                        <img th:src="${image.image_link}" class="img-fluid rounded" alt="이미지">
+                    </div>
+                </div>
+                <!-- 게시글 내용 -->
+                <p th:text="${board.getContent_text()}">내용</p>
+            </div>
         </div>
-        <p th:text="${board.getContent_text()}">내용</p>
-     </div>
 
-    <!-- 수정과 삭제 버튼 -->
-    <div>
-        <button id="editbtn" type="button">수정</button>
-        <button id="deletebtn" type="button">삭제</button>
-    </div>
+        <!-- 수정과 삭제 버튼 -->
+        <div class="d-flex justify-content-end mb-4">
+            <button id="editbtn" type="button" class="btn btn-primary me-2">수정</button>
+            <button id="deletebtn" type="button" class="btn btn-danger">삭제</button>
+        </div>
 
-    <!-- 게시판에 댓글을 작성하는 부분 -->
-    <form th:action="@{|/write/content/${board.getId()}|}" method="POST">
-        <label for="contents">댓글</label><input type="text" name="contents" id="contents">
-        <button type="submit">댓글저장</button>
-    </form>
+        <!-- 댓글 작성 폼 -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <form th:action="@{|/write/content/${board.getId()}|}" method="POST">
+                    <div class="mb-3">
+                        <label for="contents" class="form-label">댓글</label>
+                        <input type="text" name="contents" id="contents" class="form-control" placeholder="댓글을 입력하세요" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">댓글 저장</button>
+                </form>
+            </div>
+        </div>
 
-    <!-- 게시판에 작성된 댓글 보여주는 부분 -->
-    <div th:each="content : ${contents}">
-        <p th:text="${content.getMember().getMember_id()}"></p>
-        <p th:text="${content.getComment_content()}"></p>
-        <button type="button" th:id="'CDbtn_' + ${content.getId()}">댓글 삭제</button>
+        <!-- 댓글 리스트 -->
+        <div class="card">
+            <div class="card-body">
+                <div th:each="content : ${contents}" class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong th:text="${content.getMember().getMember_id()}"></strong>
+                            <p th:text="${content.getComment_content()}"></p>
+                        </div>
+                        <button type="button" th:id="'CDbtn_' + ${content.getId()}" class="btn btn-sm btn-outline-danger">댓글 삭제</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     
     
