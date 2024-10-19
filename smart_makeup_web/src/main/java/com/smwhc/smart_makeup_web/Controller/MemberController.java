@@ -129,4 +129,12 @@ public class MemberController {
         return ResponseEntity.status(200).body(result);     // 결과를 반한
     }
 
+    // 아이디를 찾는 기능으로 이메일과 전화번호를 받아서 찾는다.
+    @PostMapping("/searchId")
+    public ResponseEntity<String> searchid(@RequestBody MemberDTO memberDTO) {
+        String result;
+
+        result = "fails";
+        return ResponseEntity.status(200).body(result);
+    }
 }

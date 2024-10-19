@@ -86,7 +86,10 @@
             const $findidbtn = document.getElementById("findidbtn");
             const $findid_form = document.getElementById("findid_form");
             const $login_form = document.getElementById("login_form");
-            const $escbtn = document.getElementById("escbtn");
+            const $escbtn = document.getElementById("escbtn");  // 아이디 찾기 취소 버튼
+            const $sbbtn = document.getElementById("sbbtn");    // 아이디 찾기 버튼
+            const $email = document.getElementById("email");    // 이메일
+            const $phone = document.getElementById("phone");    // 전화번호
 
             // 회원가입 버튼 클릭 시 회원가입 페이지로 이동
             $joinbtn.addEventListener('click', () => {
@@ -103,6 +106,26 @@
             $escbtn.addEventListener('click', () => {
                 $findid_form.style.display = 'none';
                 $login_form.style.display = 'block';
+            });
+
+            // 이메일과 전화번호로 아이디 찾기
+            $sbbtn.addEventListener('click', ()=>{
+                const $emailvalue = $email.value;
+                const $phonevalue = $phone.value;
+
+                console.log($emailvalue);
+                fetch(`/searchId`, {
+                    method : 'POST',
+                    headers : { "Content-Type" : "application/json" },
+                    body : JSON.stringify({"email" : $emailvalue, "phone" : $phonevalue})
+                })
+                .then((message) => { return message.text()})
+                .then((message) => {
+
+                })
+                .catch((Error) => {
+                    console.error('Error:', error); // 에러 처리
+                });
             });
         })();
     </script>
