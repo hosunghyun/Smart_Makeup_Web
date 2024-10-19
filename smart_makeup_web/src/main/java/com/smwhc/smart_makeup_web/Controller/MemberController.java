@@ -133,8 +133,16 @@ public class MemberController {
     @PostMapping("/searchId")
     public ResponseEntity<String> searchid(@RequestBody MemberDTO memberDTO) {
         String result;
-
-        result = "fails";
+        
+        if(memberDTO.getEmail() != null || !memberDTO.getEmail().isEmpty() ||
+            memberDTO.getPhone() != null || !memberDTO.getPhone().isEmpty()) {
+                Member member = memberService.findByMemberId(memberDTO);
+                result = member.getMember_id();
+            }
+        else {
+            result = "fails";
+        }
+        
         return ResponseEntity.status(200).body(result);
     }
 }

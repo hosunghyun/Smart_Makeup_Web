@@ -52,4 +52,10 @@ public class MemberService {
         Member member = memberRepository.findById(member_id).get();
         return member;
     }
+
+    // 5. 아이디 찾기
+    public Member findByMemberId(MemberDTO memberDTO) {
+        Member member = memberRepository.findByEmail(memberDTO.getEmail());
+        return member;
+    }
 }
