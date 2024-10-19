@@ -94,6 +94,9 @@
         </div>
     </form>
 
+    <!-- 비밀번호를 찾는 폼 -->
+     
+
     <script>
         (() => {
             const $joinbtn = document.getElementById("joinbtn");
@@ -108,6 +111,8 @@
             const $printid_form = document.getElementById("printid_form");  // 아이디 찾은 결과
             const $member_id = document.getElementById("member_id");        // 아이디 출력하기 위한 label
             const $okbtn = document.getElementById("okbtn");
+
+            const $findpwdbtn = document.getElementById("findpwdbtn");      // 비밀번호 찾기 기능
 
             // 회원가입 버튼 클릭 시 회원가입 페이지로 이동
             $joinbtn.addEventListener('click', () => {
@@ -157,6 +162,11 @@
             // 아이디 찾고 확인 버튼을 눌렀을 때
             $okbtn.addEventListener('click', ()=>{
                 window.location.href = "/sign";
+            });
+
+            // 비밀번호를 찾는 부분
+            $findpwdbtn.addEventListener('click', ()=>{
+                $findid_form.style.display = 'none';    // 로그인 폼 안보이게 하기
             });
         })();
     </script>
