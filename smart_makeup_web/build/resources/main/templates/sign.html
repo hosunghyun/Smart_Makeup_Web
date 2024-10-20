@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" th:href="@{/CSS/main.css}">
     
     <!-- 부트스트랩 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -113,13 +113,17 @@
         </div>
     </div>
 
-    <!-- 찾은 비밀번호 출력 -->
+    <!-- 비밀번호 변경하기 -->
     <form style="display: none;" id="printpwd_form" class="container mt-5">
         <div class="card p-4">
-            <h4 class="text-center" style="color: white;">비밀번호 찾기 결과</h4>
+            <h4 class="text-center" style="color: white;">비밀번호 변경하기</h4>
                 <div class="mb-3">
-                    <label for="member_pwd" class="form-label" style="color: white;">비밀번호</label>
-                    <input type="text" name="member_pwd" id="member_pwd" class="form-control" readonly>
+                    <label for="member_pwd" class="form-label" style="color: white;">새 비밀번호</label>
+                    <input type="password" name="member_pwd" id="member_pwd" class="form-control" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="checkmember_pwd" class="form-label" style="color: white;">새 비밀번호 확인</label>
+                    <input type="password" name="checkmember_pwd" id="checkmember_pwd" class="form-control" readonly>
                 </div>
                 <div class="d-flex justify-content-between">
                     <button type="button" id="pwdfindokbtn" class="btn btn-custom">확인</button>
@@ -127,123 +131,9 @@
         </div>
     </form>
 
-    <script>
-        (() => {
-            const $joinbtn = document.getElementById("joinbtn");
-            const $findidbtn = document.getElementById("findidbtn");
-            const $findid_form = document.getElementById("findid_form");
-            const $login_form = document.getElementById("login_form");
-            const $escbtn = document.getElementById("escbtn");  // 아이디 찾기 취소 버튼
-            const $sbbtn = document.getElementById("sbbtn");    // 아이디 찾기 버튼
-            const $email = document.getElementById("email");    // 이메일
-            const $phone = document.getElementById("phone");    // 전화번호
-
-            const $printid_form = document.getElementById("printid_form");  // 아이디 찾은 결과
-            const $member_id = document.getElementById("member_id");        // 아이디 출력하기 위한 label
-            const $okbtn = document.getElementById("okbtn");
-
-            const $findpwdbtn = document.getElementById("findpwdbtn");      // 비밀번호 찾기 기능
-            const $findpwd_form = document.getElementById("findpwd_form");  // 비밀번호 찾는 폼
-            const $pwdmember_id = document.getElementById("pwdmember_id");  // 비밀번호 찾을 때 아이디
-            const $pwdemail = document.getElementById("pwdemail");          // 비밀번호 찾을 때 이메일
-            const $pwdokbtn = document.getElementById("pwdokbtn");          // 비밀번호 찾을 때 확인 버튼
-            const $pwdescbtn = document.getElementById("pwdescbtn");        // 비밀번호 찾을 때 취소 버튼
-
-            const $printpwd_form = document.getElementById("printpwd_form");    // 비밀번호 찾기에 성공했을 때 출력하는 폼
-            const $member_pwd = document.getElementById("member_pwd");          // 비밀번호를 출력할 라벨
-            const $pwdfindokbtn = document.getElementById("pwdfindokbtn");      // 비밀번호를 확인했고 로그인 페이지로 넘어가기 위한 확인 버튼
-
-            // 회원가입 버튼 클릭 시 회원가입 페이지로 이동
-            $joinbtn.addEventListener('click', () => {
-                window.location.href = '/join';
-            });
-
-            // 아이디 찾기 버튼 클릭 시 로그인 폼 숨기고 아이디 찾기 폼 표시
-            $findidbtn.addEventListener('click', () => {
-                $findid_form.style.display = 'block';
-                $login_form.style.display = 'none';
-            });
-
-            // 취소 버튼 클릭 시 아이디 찾기 폼 숨기고 로그인 폼 표시
-            $escbtn.addEventListener('click', () => {
-                $findid_form.style.display = 'none';
-                $login_form.style.display = 'block';
-            });
-
-            // 이메일과 전화번호로 아이디 찾기
-            $sbbtn.addEventListener('click', ()=>{
-                const $emailvalue = $email.value;
-                const $phonevalue = $phone.value;
-
-                fetch(`/searchId`, {
-                    method : 'POST',
-                    headers : { "Content-Type" : "application/json" },
-                    body : JSON.stringify({"email" : $emailvalue, "phone" : $phonevalue})
-                })
-                .then((message) => { return message.text()})
-                .then((message) => {
-                    if(message == "fails") {
-                        alert(`${$emailvalue}로 아이디를 찾을 수 없습니다.`);
-                    }
-                    else {
-                        $findid_form.style.display = 'none';
-                        $printid_form.style.display = "block";
-                        $member_id.value = message;
-                    }
-                })
-                .catch((Error) => {
-                    console.error('Error:', error); // 에러 처리
-                });
-            });
-
-            // 아이디 찾고 확인 버튼을 눌렀을 때
-            $okbtn.addEventListener('click', ()=>{
-                window.location.href = "/sign";
-            });
-
-            // 비밀번호를 찾는 부분
-            $findpwdbtn.addEventListener('click', ()=>{
-                $login_form.style.display = 'none';    // 로그인 폼 안보이게 하기
-                $findpwd_form.style.display = "block";  // 비밀번호 찾기 폼 보이게 하기
-            });
-
-            // 비밀번호 찾을 때 취소 버튼 클릭시
-            $pwdescbtn.addEventListener('click', ()=>{
-                $login_form.style.display = 'block';    // 로그인 폼 보이게하기
-                $findpwd_form.style.display = "none";  // 비밀번호 찾기 폼 안 보이게 하기
-            });
-
-            // 비밀번호 찾을 때 이메일 아이디 입력 후 확인 버튼 클릭할 때
-            $pwdokbtn.addEventListener('click', ()=>{
-                const pwdid = $pwdmember_id.value;
-                const pwdemail = $pwdemail.value;
-
-                fetch(`/searchpwd`, {
-                    method : 'POST',
-                    headers : { "Content-Type" : "application/json" },
-                    body : JSON.stringify({"member_id" : pwdid, "email" : pwdemail})
-                })
-                .then((message) => { return message.text()})
-                .then((message) => {
-                    if(message == "fails") {
-                        alert(`${pwdid}로 비밀번호를 찾을 수 없습니다.`);
-                    }
-                    else {
-                        $findpwd_form.style.display = 'none';
-                        $printpwd_form.style.display = "block";
-                        $member_pwd.value = message;
-                    }
-                })
-                .catch((Error) => {
-                    console.error('Error:', error); // 에러 처리
-                });
-            });
-
-            //비밀번호를 확인했고 로그인 페이지로 넘어가기 위한 확인 버튼
-            $pwdfindokbtn.addEventListener('click', ()=>{
-                window.location.href = '/sign';
-            });
-        })();
-    </script>
+    <script th:src="@{/JS/sign/form.js}"></script>
+    <script th:src="@{/JS/sign/findid.js}"></script>
+    <script th:src="@{/JS/sign/findpwd.js}"></script>
+    <script th:src="@{/JS/sign/signbtnfunction.js}"></script>
 </body>
 </html>
