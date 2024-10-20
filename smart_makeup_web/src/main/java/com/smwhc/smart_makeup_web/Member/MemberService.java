@@ -58,4 +58,10 @@ public class MemberService {
         Member member = memberRepository.findByEmail(memberDTO.getEmail());
         return member;
     }
+
+    // 6. 비밀번호 찾기
+    public Member findByMemberpwd(MemberDTO memberDTO) {
+        Member member = memberRepository.findById(memberDTO.getMember_id()).get();
+        return member;
+    }
 }

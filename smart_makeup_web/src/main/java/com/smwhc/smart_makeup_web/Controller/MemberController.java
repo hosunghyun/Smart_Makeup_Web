@@ -145,4 +145,23 @@ public class MemberController {
         
         return ResponseEntity.status(200).body(result);
     }
+
+    // 비밀번호 찾을 때 기능으로 아이디와 이메일을 받아서 처리
+    @PostMapping("/searchpwd")
+    public ResponseEntity<String> searchpwd(@RequestBody MemberDTO memberDTO) {
+        String result;
+
+        if (memberDTO.getMember_id() != null || !memberDTO.getMember_id().isEmpty() ||
+            memberDTO.getEmail() != null || !memberDTO.getEmail().isEmpty()) {
+            Member member = memberService.findByMemberpwd(memberDTO);
+            result = member.getMember_password();
+        }
+        else {
+            result = "fails";
+        }
+
+
+        
+        return ResponseEntity.status(200).body(result);
+    }
 }
