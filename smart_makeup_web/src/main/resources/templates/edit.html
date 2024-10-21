@@ -47,12 +47,20 @@
                 <div class="mb-3">
                     <label for="imageInput" class="form-label" style="color: white;">이미지</label>
                     <input type="file" id="imageInput" name="imageInput" accept="image/*" multiple class="form-control">
+                    <div th:each="image : ${board.getImages()}">
+                        <input type="checkbox" th:name="'img_'+ ${image.getId()}" th:id="'img_'+ ${image.getId()}">
+                        <img th:src="${image.getImage_link()}" alt="">
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="content" class="form-label" style="color: white;">본문</label>
                     <input type="text" name="content" id="content" th:value="${board.getContent_text()}" class="form-control" required>
                 </div>
-                <button type="submit" class="btn btn-custom">저장</button>
+                
+                <div class="d-flex justify-content-between">
+                    <button type="button" id="okbtn" class="btn btn-custom">확인</button>
+                    <button type="button" id="escbtn" class="btn btn-custom">취소</button>
+                </div>
             </form>
         </div>
     </div>

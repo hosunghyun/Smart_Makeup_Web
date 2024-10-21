@@ -37,13 +37,19 @@ public class CommentController {
 
         Comment comment = new Comment();    // 댓글을 저장하기 위한 객체
 
+        // 인증 정보가 null이거나 익명 사용자라면 로그인 페이지로 리다이렉트
+        if (authentication == null || !authentication.isAuthenticated() || 
+            authentication.getName().equals("anonymousUser")) {
+            return "redirect:/sign"; // 로그인 페이지로 리다이렉트
+        }
+
         comment.setBoard(boardService.getBoardByDetailPage(id));    // 객체에 게시판 아이디 담기
         comment.setComment_content(content);                        // 객체에 댓글 내용 담기 
         comment.setMember(memberService.findById(currentUsername)); // 객체에 작성자 담기
 
         commentService.saveComment(comment);    // 객체를 레포지토리에 전송해서 저장하기
 
-        return "redirect:/index";
+        return "redirect:/boarddetail/id=" + id;
     }
 
     // 게시판에 작성된 댓글 삭제하는 기능

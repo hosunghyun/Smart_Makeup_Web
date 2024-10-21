@@ -114,8 +114,8 @@
                             if (message === "fails") { // 게시판 작성자와 현재 로그인 중인 사용자가 같지 않다.
                                 alert(`${username}님은 해당 댓글을 작성한 작성자가 아닙니다.`); // 중복일 경우 알림
                             }
-                            else {  // 댓글 삭제 성공
-                                window.location.href=`/boarddetail/id=${imageId}`;
+                            else {  // 게시판 글 삭제 성공
+                                window.location.href=`/board`;
                             }
                         })
                         .catch(error => {
@@ -141,7 +141,7 @@
         <script th:src="@{/JS/boarddetail/unsignedUDbtn.js}"></script>
     </div>
 
-    <!-- 로그인된 사용자가 댓글 수정 삭제 버튼 클릭 -->
+    <!-- 로그인된 사용자가 댓글 삭제 버튼 클릭 -->
     <div sec:authorize="isAuthenticated()">
         <script th:inline="javascript">
             (()=>{

@@ -64,4 +64,15 @@ public class MemberService {
         Member member = memberRepository.findById(memberDTO.getMember_id()).get();
         return member;
     }
+
+    // 7. 비밀번호를 잊어버려 새로 변경하기
+    public Member changePWD(MemberDTO memberDTO) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();    // 패스워드 암호화
+        Member member = memberRepository.findById(memberDTO.getMember_id()).get();
+
+        member.setMember_password(passwordEncoder.encode(memberDTO.getMember_password()));
+
+        memberRepository.save(member);
+        return member;
+    }
 }

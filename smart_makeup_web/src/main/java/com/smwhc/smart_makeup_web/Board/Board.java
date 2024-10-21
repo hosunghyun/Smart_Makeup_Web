@@ -2,7 +2,6 @@ package com.smwhc.smart_makeup_web.Board;
 
 
 import com.smwhc.smart_makeup_web.Image.Image;
-import com.smwhc.smart_makeup_web.Makeup.MakeUp;
 import com.smwhc.smart_makeup_web.Member.Member;
 import java.util.Set;
 

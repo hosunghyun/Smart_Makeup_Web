@@ -159,9 +159,25 @@ public class MemberController {
         else {
             result = "fails";
         }
-
-
         
+        return ResponseEntity.status(200).body(result);
+    }
+
+    // 아이디와 이메일이 동일하므로 새 비밀번호로 변경하기
+    @PostMapping("/newpwd")
+    public ResponseEntity<String> newpwd(@RequestBody MemberDTO memberDTO) {
+        String result;
+
+        if(memberDTO.getMember_id() != null || !memberDTO.getMember_id().isEmpty() ||
+            memberDTO.getMember_password() != null || !memberDTO.getMember_password().isEmpty()) {
+            //Member member = 
+            memberService.changePWD(memberDTO);
+            result = "success";
+        }
+        else {
+            result = "falis";
+        }
+
         return ResponseEntity.status(200).body(result);
     }
 }

@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MainController {
-
     // 메뉴바 컨트롤러 부분
 
     // 메인 페이지
