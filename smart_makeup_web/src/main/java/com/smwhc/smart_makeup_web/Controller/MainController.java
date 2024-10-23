@@ -10,6 +10,7 @@ public class MainController {
     // 메인 페이지
     @GetMapping({"/", "/index", "/home"})
     public String index() {
+        
         return "index";
     }
 

@@ -61,4 +61,12 @@ public class BoardService {
         Optional<Board> board = boardRepository.findById(board_id);   // 레포지토리에서 id에 맞는 Board 객체 찾기
         return board.get();
     }
+
+    // 6. 게시판 페이지의 개수 구하기
+    public Integer getBoardByPageSize() {
+        List<Board> boards = boardRepository.findAll();
+        Integer size = boards.size();
+
+        return size;
+    }
 }

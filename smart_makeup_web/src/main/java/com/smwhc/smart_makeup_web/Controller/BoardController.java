@@ -51,19 +51,24 @@ public class BoardController {
     
     // 게시판 페이지
     @GetMapping("/board")
-    public String board(Model model) {
+    public String board(@RequestParam(value="page", required = false) String page, Model model) {
         Integer pageSize = 10;  // 한 페이지에 보이는 글의 수
+        if (page == null) {
+            return "redirect:/board?page=1";
+        }
+        Integer pageNum = Integer.parseInt(page);
 
         // 게시글 가져오기
-        List<Board> boards = boardService.getBoardByPage(0, pageSize);  // 게시판 가져와서 보여주기 0페이지로 설정되었으므로 나중에 수정할 부분
+        List<Board> boards = boardService.getBoardByPage(pageNum - 1, pageSize);  // 게시판 가져와서 보여주기 0페이지로 설정되었으므로 나중에 수정할 부분
 
+        Integer size = boardService.getBoardByPageSize();
         if (boards == null) {
             boards = new ArrayList<>(); // boards가 null인 경우 빈 리스트로 초기화
         }
         
         // 모델에 추가
         model.addAttribute("boards", boards);
-
+        model.addAttribute("size", size);
         return "board";
     }
 
