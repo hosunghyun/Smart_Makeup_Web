@@ -51,21 +51,23 @@
 ### 데이터베이스 구현
 ![캡처](https://github.com/user-attachments/assets/46aa523b-6104-4259-b040-0c2bdafbbe25)
 
+
 ### 메인 페이지
-![캡처6](https://github.com/user-attachments/assets/85092054-c0c3-4f06-befe-322eb21358d6)
+![11 (2)](https://github.com/user-attachments/assets/0c2ed386-b9fe-4c62-a68a-346cfe744447)
 
 ### 회원 가입 기능
-![캡처1](https://github.com/user-attachments/assets/44d1a7e4-e979-4ae0-be93-4a42758bcda5)
+![그림4 (2)](https://github.com/user-attachments/assets/70478c2f-840b-46b1-9f99-c63c6abec768)
 
 ### 로그인 기능
-![캡처2](https://github.com/user-attachments/assets/43bb466e-7c8c-402e-9c92-0995d35759ce)
+![그림3 (2)](https://github.com/user-attachments/assets/deee3f67-b335-4313-939f-da6522d1f371)
 
 ### 게시판
-![캡처3](https://github.com/user-attachments/assets/2235b511-6d9c-402f-a1ac-fd2a4da44ff1)
-![캡처4](https://github.com/user-attachments/assets/fd47a73e-d89f-4227-860f-663457842b4d)
+![그림2 (2)](https://github.com/user-attachments/assets/fc35b9b2-e91a-41e2-8066-f343e869e662)
+![그림1 (2)](https://github.com/user-attachments/assets/45ffdfe3-80c9-4965-9445-4b1b7ee3e886)
 
 ### 제품 추천하기
-![캡처5](https://github.com/user-attachments/assets/15e05694-a43d-4c5e-941e-ba18991d7d85)
+![22 (2)](https://github.com/user-attachments/assets/354c8212-2c4f-48d3-bfe2-3826e4663245)
+
 
 
 
