@@ -48,18 +48,28 @@
 
 ### 구현 기능
 #
+
+### 메인 페이지
+![캡처6](https://github.com/user-attachments/assets/85092054-c0c3-4f06-befe-322eb21358d6)
+
 ### 데이터베이스 구현
 ![캡처](https://github.com/user-attachments/assets/46aa523b-6104-4259-b040-0c2bdafbbe25)
 
 ### 회원 가입 기능
+![캡처1](https://github.com/user-attachments/assets/44d1a7e4-e979-4ae0-be93-4a42758bcda5)
 
 ### 로그인 기능
+![캡처2](https://github.com/user-attachments/assets/43bb466e-7c8c-402e-9c92-0995d35759ce)
 
-### 게시판 글 작성 기능
+### 게시판
+![캡처3](https://github.com/user-attachments/assets/2235b511-6d9c-402f-a1ac-fd2a4da44ff1)
+![캡처4](https://github.com/user-attachments/assets/fd47a73e-d89f-4227-860f-663457842b4d)
 
-### 게시판 글 삭제 기능
+### 제품 추천하기
+![캡처5](https://github.com/user-attachments/assets/15e05694-a43d-4c5e-941e-ba18991d7d85)
 
-## 4. 구현 결과물
+
+
 
 
 
