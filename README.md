@@ -1,5 +1,5 @@
-# **Smart Makeup Web**
-## **1. 개요**
+# Smart Makeup Web
+## 1. 개요
 
 ### ■ 만든 목적
  이전에 최준원, 한기윤 외 1명이 진행했던 Smart IoT Vanity [프로젝트](https://github.com/zecube/Smart_Makeup) 를 현호성, 최준원, 한기윤이 웹 서버 구현으로 확장시키기 위해 구현했습니다.
@@ -13,7 +13,7 @@
 - 대진대학교 휴먼로봇융합전공 **최준원**
 - 대진대학교 휴먼로봇융합전공 **한기윤**
 
-## **2. 사용 기술 및 개발 환경**
+## 2. 사용 기술 및 개발 환경
 - **Language** :
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
@@ -44,12 +44,12 @@
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 
 
-## **3. 내용**
+## 3. 내용
 
 ### 구현 기능
----
-
-## **4. 구현 결과물**
+#
+### 데이터베이스 구현
+![캡처](https://github.com/user-attachments/assets/46aa523b-6104-4259-b040-0c2bdafbbe25)
 
 ### 회원 가입 기능
 
@@ -58,6 +58,10 @@
 ### 게시판 글 작성 기능
 
 ### 게시판 글 삭제 기능
+
+## 4. 구현 결과물
+
+
 
 
 <!--
