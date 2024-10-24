@@ -69,4 +69,8 @@ public class BoardService {
 
         return size;
     }
+    // 7. 게시판 수정하기
+    public void updateBoard(Board board) {
+        boardRepository.save(board);
+    }
 }

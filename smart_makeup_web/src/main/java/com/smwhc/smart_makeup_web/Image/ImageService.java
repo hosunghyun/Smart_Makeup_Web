@@ -2,12 +2,9 @@ package com.smwhc.smart_makeup_web.Image;
 
 import java.util.Collections;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.smwhc.smart_makeup_web.Board.Board;
-import com.smwhc.smart_makeup_web.Board.BoardRepository;
 
 @Service
 public class ImageService {
@@ -40,6 +37,13 @@ public class ImageService {
         return images; // 이미지 리스트 반환
     }
     // 3. 이미지 삭제하기
+    public void deleteImage(Image image) {
+        imageRepository.delete(image);
+    }
 
-    // 4. 이미지 수정하기
+    // 4. 이미지 찾기
+    public Image findByImage(ImageDTO imageDTO) {
+        Image image = imageRepository.findById(imageDTO.getImage_code()).get();
+        return image;
+    }
 }

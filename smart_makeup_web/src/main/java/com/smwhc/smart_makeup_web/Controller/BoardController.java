@@ -24,6 +24,7 @@ import com.smwhc.smart_makeup_web.Board.BoardService;
 import com.smwhc.smart_makeup_web.Comment.Comment;
 import com.smwhc.smart_makeup_web.Comment.CommentService;
 import com.smwhc.smart_makeup_web.Image.Image;
+import com.smwhc.smart_makeup_web.Image.ImageDTO;
 import com.smwhc.smart_makeup_web.Image.ImageService;
 import com.smwhc.smart_makeup_web.Member.Member;
 import com.smwhc.smart_makeup_web.Member.MemberService;
@@ -173,7 +174,78 @@ public class BoardController {
         return "edit";
     }
 
-    // 게시판 수정하기
+    // 게시판 이미지 삭제하기
+    @PostMapping("/deleteimage")
+    public ResponseEntity<String> deleteimage(@RequestBody ImageDTO imageDTO) {
+        String result;
+        
+        if (imageDTO.getImage_code() != null || !imageDTO.getImage_link().isEmpty()) {
+            // 1. 디렉터리에 저장된 이미지 삭제하기
+            Image image = imageService.findByImage(imageDTO);
+            String Dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static";
+            File file = new File(Dir + image.getImage_link());
+            file.delete();
+
+            imageService.deleteImage(image);
+            result = "success";
+        }
+        else {
+            result = "fails";
+        }
+
+
+        return ResponseEntity.status(200).body(result);     // 결과를 반한
+    }
+
+    // 게시판 수정 완료
+    @PostMapping("/editboard")
+    public String editboard(@RequestParam(value="id", required = false) String boardid,
+                            @RequestParam("title") String title, 
+                            @RequestParam("content") String content,
+                            @RequestParam(value = "imageInput", required = false) List<MultipartFile> files) {
+        // 현재 로그인된 사용자 정보를 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName(); // 사용자 아이디
+
+        Board board = new Board();
+        Member member = memberService.findById(currentUsername);
+
+        board.setId(Long.parseLong(boardid));
+        board.setTitle(title);
+        board.setContent_text(content);
+        board.setMember(member);
+        
+        boardService.updateBoard(board);
+        
+        // 이미지를 저장하기 위한 부분
+        for(MultipartFile file : files) {   // 이미지가 여러개 일 수 있으므로 for-Each반복문 사용
+            if (file != null && !file.isEmpty()) {  // 이미지가 있는 경우에만 실행
+                try {
+                    // 절대 경로 지정
+                    String uploadDir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\";
+                    File dir = new File(uploadDir);
+                    
+                    // 파일명 생성 (현재 시간 + 원래 파일명)
+                    String newFileName = currentUsername + "_" + System.currentTimeMillis() + "_" + file.getOriginalFilename();
+                    File uploadFile = new File(dir, newFileName);
+
+                    // 파일 저장
+                    file.transferTo(uploadFile);
+
+                    // 저장한 파일 경로 생성
+                    String imageLink = "/img/" + newFileName;
+
+                    // 데이터베이스에 저장
+                    
+                    imageService.saveBoardImageLink(boardService.getBoardByDetailPage(boardid), imageLink);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return "board";
+    }
+
     
     // 게시판 글 삭제하는 기능
     @PostMapping("/delete/board={id}")
