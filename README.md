@@ -50,7 +50,7 @@
 #
 ### 데이터베이스 구현
 ![캡처](https://github.com/user-attachments/assets/46aa523b-6104-4259-b040-0c2bdafbbe25)
-
+MySQL로 작성하였습니다.
 
 ### 메인 페이지
 ![11 (2)](https://github.com/user-attachments/assets/0c2ed386-b9fe-4c62-a68a-346cfe744447)
@@ -68,73 +68,3 @@
 ### 제품 추천하기
 ![22 (2)](https://github.com/user-attachments/assets/354c8212-2c4f-48d3-bfe2-3826e4663245)
 
-
-
-
-
-
-
-
-<!--
-
-
-레포지토리 리드미 구성
-프로젝트 구성
-프로젝트 프로그램 설치방법
-프로젝트 프로그램 사용법
-저작권 및 사용권 정보
-프로그래머 정보
-버그 및 디버그
-참고 및 출처
-버전 및 업데이트 정보
-FAQ
-
-Table User {
-  UserID verchar [pk]
-  Password verchar [not null]
-  Email verchar [not null]
-  PhoneNumber verchar
-}
-
-Table Makeup {
-  MakeupID int [pk]
-  UserID verchar [ref: > User.UserID]
-  ColorCode verchar [not null]
-  Opacity verchar [not null]
-}
-
-Table ProductType {
-  MakeupID int [ref: > Makeup.MakeupID]
-  ProductCode int [ref: > Product.ProductCode]
-  ProductTypeName verchar [not null]
-}
-
-Table Product {
-  ProductCode int [pk]
-  ImageCode int [ref: > ImageLink.ImageCode]
-  ProductName verchar [not null]
-  Price int [not null]
-}
-
-Table Board {
-  BoardID int [pk]
-  UserID verchar [ref: > User.UserID]
-  ImageCode int [ref: > ImageLink.ImageCode]
-  Title verchar [not null]
-  Content verchar
-}
-
-Table Comment {
-  CommentID verchar [pk]
-  BoardID int [ref: > Board.BoardID]
-  UserID verchar [ref: > User.UserID]
-  CommentContent verchar [not null]
-}
-
-Table ImageLink {
-  ImageCode int [pk]
-  ImageLink verchar [not null]
-}
-
-https://github.com/CJW00113/Smart_Makeup_Archive
--->
