@@ -243,7 +243,7 @@ public class BoardController {
                 }
             }
         }
-        return "board";
+        return "redirect:/board";
     }
 
     

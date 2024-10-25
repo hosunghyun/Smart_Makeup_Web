@@ -3,108 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>슬라이드</title>
+    <title>이미지 슬라이드</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            width: 100%;
-            height: 100vh;
+        #image-container {
+            width: 500px; /* 원하는 너비 */
+            height: 300px; /* 원하는 높이 */
             overflow: hidden;
         }
-
-        .container {
+        img {
             width: 100%;
             height: 100%;
-            perspective: 500px;
-            transform-style: preserve-3d;
+            opacity: 0;
+            transition: opacity 1s ease;
         }
-
-        .slide {
-            transition: 0.5s;
-            width: 300px; /* 너비 조정 */
-            height: 400px; /* 높이 조정 */
-            box-shadow: 0 10px 50px gray;
-            background: white;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            overflow: hidden;
-        }
-
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* 이미지 비율 유지하면서 잘림 방지 */
-        }
-
-        .slide:nth-of-type(1), .slide:nth-of-type(2) {
-            transform: translate(calc(-50% * 5.1), -50%) translateZ(-100px);
-        }
-
-        .slide:nth-of-type(3) {
-            transform: translate(calc(-50% * 3.1), -50%) translateZ(-50px);
-        }
-
-        .slide:nth-of-type(4) {
-            transform: translate(calc(-50% * 1.1), -50%) translateZ(50px);
-        }
-
-        .slide:nth-of-type(5) {
-            transform: translate(calc(-50% * -0.9), -50%) translateZ(-50px);
-        }
-
-        .slide:nth-of-type(6), .slide:nth-of-type(7) {
-            transform: translate(calc(-50% * -2.9), -50%) translateZ(-100px);
-        }
-
-        /* 버튼 */
-        .buttons {
-            position: absolute;
-            z-index: 1;
-            bottom: 1em;
-            left: 50%;
-            transform: translate(-50%);
+        img.active {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
-    <hr style="height: 10px; background-color: red;">
-    <div class="container">
-        <div class='slide'><img src="image1.jpg" alt="슬라이드 1"></div>
-        <div class='slide'><img src="image2.jpg" alt="슬라이드 2"></div>
-        <div class='slide'><img src="image3.jpg" alt="슬라이드 3"></div>
-        <div class='slide'><img src="image4.jpg" alt="슬라이드 4"></div>
-        <div class='slide'><img src="image5.jpg" alt="슬라이드 5"></div>
-        <div class='slide'><img src="image6.jpg" alt="슬라이드 6"></div>
-        <div class='slide'><img src="image7.jpg" alt="슬라이드 7"></div>
-    </div>
 
-    <div class='buttons'>
-        <button class='prev'>뒤로</button>
-        <button class='next'>앞으로</button>
-    </div>
+<div id="image-container">
+    <img id="slide-image" src="" class="active" alt="슬라이드 이미지">
+</div>
 
-    <script>
-        const container = document.querySelector('.container');
-        const prev = document.querySelector('.prev');
-        const next = document.querySelector('.next');
+<script>
+    const images = [
+        'image1.jpg',
+        'image2.jpg',
+        'image3.jpg',
+        'image4.jpg',
+        'image5.jpg',
+        'image6.jpg',
+        'image7.jpg',
+        'image8.jpg',
+        'image9.jpg',
+        'image10.jpg'
+    ];
 
-        prev.addEventListener('click', () => {
-            const slides = document.querySelectorAll('.slide');
-            container.append(slides[0]);
-        });
+    let currentIndex = 0;
+    const slideImage = document.getElementById('slide-image');
 
-        next.addEventListener('click', () => {
-            const slides = document.querySelectorAll('.slide');
-            container.prepend(slides[slides.length - 1]);
-        });
-    </script>
+    function changeImage() {
+        slideImage.classList.remove('active'); // 현재 이미지 숨기기
+        currentIndex = (currentIndex + 1) % images.length; // 다음 이미지 인덱스
+        slideImage.src = images[currentIndex]; // 이미지 경로 변경
+        slideImage.onload = () => slideImage.classList.add('active'); // 이미지가 로드된 후 클래스 추가
+    }
+
+    slideImage.src = images[currentIndex]; // 초기 이미지 설정
+    setInterval(changeImage, 3000); // 3초마다 이미지 변경
+</script>
+
 </body>
 </html>

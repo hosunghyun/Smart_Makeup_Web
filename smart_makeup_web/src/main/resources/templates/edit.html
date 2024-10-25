@@ -64,7 +64,7 @@
                 
                 <div class="d-flex justify-content-between">
                     <button type="submit" id="okbtn" class="btn btn-custom">확인</button>
-                    <button type="button" id="escbtn" class="btn btn-custom">취소</button>
+                    <button type="button" id="escbtn" class="btn btn-custom" onclick="history.back()">취소</button>
                 </div>
             </form>
         </div>
@@ -101,7 +101,6 @@
     <script>
         (()=>{
             const $delbtn = document.querySelectorAll('[id^="imgbtn_"]');
-            const $okbtn = document.getElementById("okbtn");
 
             $delbtn.forEach(button => {
                 button.addEventListener('click', ()=>{
@@ -127,10 +126,6 @@
                         console.error('Error:', error); // 에러 처리
                     });
                 });
-            });
-
-            $okbtn.addEventListener('click', ()=>{
-
             });
         })();
     </script>
