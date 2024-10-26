@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${board.getTitle()}"> 페이지</title>
-    <link rel="stylesheet" th:href="@{/CSS/main.css}">
+    <link rel="stylesheet" th:href="@{/CSS/menubar.css}">
+    <link rel="stylesheet" th:href="@{/CSS/footer.css}">
     
     <!-- 부트스트랩 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -114,8 +115,8 @@
                             if (message === "fails") { // 게시판 작성자와 현재 로그인 중인 사용자가 같지 않다.
                                 alert(`${username}님은 해당 댓글을 작성한 작성자가 아닙니다.`); // 중복일 경우 알림
                             }
-                            else {  // 댓글 삭제 성공
-                                window.location.href=`/boarddetail/id=${imageId}`;
+                            else {  // 게시판 글 삭제 성공
+                                window.location.href=`/board`;
                             }
                         })
                         .catch(error => {
@@ -131,6 +132,34 @@
         </script>
     </div>
 
+    <footer>
+        <div class="footer_left">
+        </div>
+
+        <div class="footer_middle_left">
+            <a href="/index" style="text-decoration: none;">
+                <h1 class="overlay-text-small_one">Smart</h1>
+                <h1 class="overlay-text-small_two">Makeup</h1>
+            </a>
+        </div>
+
+        <div class="footer_middle">
+            <p style="line-height: 1.0;">© 2024 모든 권리 보유</p>
+            <p style="line-height: 0.5;">스마트 메이크업</p>
+            <p style="line-height: 0.5;"> 제작: 최준원, 한기윤, 현호성</p>
+            <p style="line-height: 1.0;">본 사이트는 GUI로 구현한 Smart_IoT_Vanity를 Web으로 구현한 사이트입니다.</p>
+        </div>
+
+        <div class="footer_mark">
+            <a href="https://github.com/hosunghyun/Smart_Makeup_Web">
+                <img th:src="@{/sysimg/git_icon.png}" class="gitIcon" >
+            </a>
+        </div>
+
+        <div class="footer_right">
+        </div>
+    </footer>
+
     <!-- 로그인되지 않은 사용자가 게시판 글 수정 삭제 버튼 클릭 -->
     <div sec:authorize="isAnonymous()">
         <script th:src="@{/JS/boarddetail/unsignedboarddetail.js}" defer></script>
@@ -141,7 +170,7 @@
         <script th:src="@{/JS/boarddetail/unsignedUDbtn.js}"></script>
     </div>
 
-    <!-- 로그인된 사용자가 댓글 수정 삭제 버튼 클릭 -->
+    <!-- 로그인된 사용자가 댓글 삭제 버튼 클릭 -->
     <div sec:authorize="isAuthenticated()">
         <script th:inline="javascript">
             (()=>{

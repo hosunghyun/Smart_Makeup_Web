@@ -9,24 +9,34 @@
         const $emailvalue = $email.value;
         const $phonevalue = $phone.value;
 
-        fetch(`/searchId`, {
-            method : 'POST',
-            headers : { "Content-Type" : "application/json" },
-            body : JSON.stringify({"email" : $emailvalue, "phone" : $phonevalue})
-        })
-        .then((message) => { return message.text()})
-        .then((message) => {
-            if(message == "fails") {
-                alert(`${$emailvalue}로 아이디를 찾을 수 없습니다.`);
-            }
-            else {
-                $findid_form.style.display = 'none';
-                $printid_form.style.display = "block";
-                $member_id.value = message;
-            }
-        })
-        .catch((Error) => {
-            console.error('Error:', error); // 에러 처리
-        });
+        if($emailvalue == "") {
+            alert("이메일을 작성해주세요");
+            return;
+        }
+        if($phonevalue == "") {
+            alert("전화번호을 작성해주세요");
+            return;
+        }
+        if($phonevalue != "" && $emailvalue != "") {
+            fetch(`/searchId`, {
+                method : 'POST',
+                headers : { "Content-Type" : "application/json" },
+                body : JSON.stringify({"email" : $emailvalue, "phone" : $phonevalue})
+            })
+            .then((message) => { return message.text()})
+            .then((message) => {
+                if(message == "fails") {
+                    alert(`${$emailvalue}로 아이디를 찾을 수 없습니다.`);
+                }
+                else {
+                    $findid_form.style.display = 'none';
+                    $printid_form.style.display = "block";
+                    $member_id.value = message;
+                }
+            })
+            .catch((Error) => {
+                console.error('Error:', error); // 에러 처리
+            });
+        }
     });
 })();
