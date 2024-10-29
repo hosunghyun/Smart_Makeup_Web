@@ -174,41 +174,35 @@ public class BoardController {
         return "edit";
     }
 
-    // 게시판 이미지 삭제하기
-    @PostMapping("/deleteimage")
-    public ResponseEntity<String> deleteimage(@RequestBody ImageDTO imageDTO) {
-        String result;
-        
-        if (imageDTO.getImage_code() != null || !imageDTO.getImage_link().isEmpty()) {
-            // 1. 디렉터리에 저장된 이미지 삭제하기
-            Image image = imageService.findByImage(imageDTO);
-            String Dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static";
-            File file = new File(Dir + image.getImage_link());
-            file.delete();
-
-            imageService.deleteImage(image);
-            result = "success";
-        }
-        else {
-            result = "fails";
-        }
-
-
-        return ResponseEntity.status(200).body(result);     // 결과를 반한
-    }
-
     // 게시판 수정 완료
     @PostMapping("/editboard")
     public String editboard(@RequestParam(value="id", required = false) String boardid,
                             @RequestParam("title") String title, 
                             @RequestParam("content") String content,
-                            @RequestParam(value = "imageInput", required = false) List<MultipartFile> files) {
+                            @RequestParam(value = "imageInput", required = false) List<MultipartFile> files,
+                            @RequestParam("deleteimg") List<String> deleteArray) {
         // 현재 로그인된 사용자 정보를 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName(); // 사용자 아이디
 
         Board board = new Board();
         Member member = memberService.findById(currentUsername);
+
+        // 이미지 삭제
+        for(String img : deleteArray) {
+            String result = img.replace("\"", "")   // 쌍따옴표 제거
+                           .replace("[", "")  // 여는 대괄호 제거
+                           .replace("]", ""); // 닫는 대괄호 제거
+            if (result != null || !result.isEmpty()) {
+                // 1. 디렉터리에 저장된 이미지 삭제하기
+                Image image = imageService.findByImage(result);
+                String Dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static";
+                File file = new File(Dir + image.getImage_link());
+                file.delete();
+
+                imageService.deleteImage(image);
+            }
+        }
 
         board.setId(Long.parseLong(boardid));
         board.setTitle(title);

@@ -42,8 +42,8 @@ public class ImageService {
     }
 
     // 4. 이미지 찾기
-    public Image findByImage(ImageDTO imageDTO) {
-        Image image = imageRepository.findById(imageDTO.getImage_code()).get();
+    public Image findByImage(String imgid) {
+        Image image = imageRepository.findById(Long.parseLong(imgid)).get();
         return image;
     }
 }

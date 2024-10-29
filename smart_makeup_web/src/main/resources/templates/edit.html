@@ -44,7 +44,7 @@
     <div class="container mt-5">
         <div class="card">
             <h2 class="text-center" style="color: white;">글 수정하기</h2>
-            <form th:action="@{/editboard?id=} + ${board.getId()}" method="POST" enctype="multipart/form-data">
+            <form th:action="@{/editboard?id=} + ${board.getId()}" method="POST" enctype="multipart/form-data" id="myForm">
                 <div class="mb-3">
                     <label for="title" class="form-label" style="color: white;">제목</label>
                     <input type="text" name="title" id="title" th:value="${board.getTitle()}" class="form-control" required>
@@ -56,6 +56,7 @@
                         <img th:src="${image.getImage_link()}" alt="">
                         <button type="button" th:id="'imgbtn_' + ${image.getId()}" class="btn btn-custom">삭제</button>
                     </div>
+                    <input type="hidden" name="deleteimg" id="arrayData">
                 </div>
                 <div class="mb-3">
                     <label for="content" class="form-label" style="color: white;">본문</label>
@@ -64,7 +65,7 @@
                 
                 <div class="d-flex justify-content-between">
                     <button type="submit" id="okbtn" class="btn btn-custom">확인</button>
-                    <button type="button" id="escbtn" class="btn btn-custom" onclick="history.back()">취소</button>
+                    <button type="button" id="escbtn" class="btn btn-custom">취소</button>
                 </div>
             </form>
         </div>
@@ -101,32 +102,30 @@
     <script>
         (()=>{
             const $delbtn = document.querySelectorAll('[id^="imgbtn_"]');
+            const deleteArray = new Array();    // 삭제할 이미지를 저장하는 리스트
+            const $escbtn = document.getElementById("escbtn");  // 변경 사항을 취소
+            const $myForm = document.getElementById("myForm");
+
 
             $delbtn.forEach(button => {
                 button.addEventListener('click', ()=>{
                     const imageId = button.id.split("_")[1];
-
-                    fetch(`/deleteimage`, {
-                        method : 'POST',
-                        headers : { "Content-Type" : "application/json" },
-                        body : JSON.stringify({"image_code" : imageId})
-                    })     // 변경하기 전에 현재 로그인 중인 사용자와 게시판 작성자가 맞는지 확인하기
-                    .then((message) => { return message.text(); })
-                    .then((message) => {
-                        // 서버 응답에 따라 처리
-                        if (message === "success") {  // 삭제 성공
-                            const imgElement = button.previousElementSibling; // 해당 버튼의 이전 형제로 이미지 요소 선택
-                            imgElement.remove(); // 이미지 요소 삭제
-                            button.remove(); // 삭제 버튼도 제거
-                        } else {
-                            alert("삭제에 실패했습니다."); // 삭제 실패 시 알림
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error); // 에러 처리
-                    });
+                    
+                    deleteArray.push(imageId);
+                    const imgElement = button.previousElementSibling; // 해당 버튼의 이전 형제로 이미지 요소 선택
+                    
+                    imgElement.remove(); // 이미지 요소 삭제
+                    button.remove(); // 삭제 버튼도 제거
                 });
             });
+
+            $escbtn.addEventListener('click', ()=>{
+                window.history.back();
+            });
+
+            $myForm.onsubmit = function() {
+                document.getElementById('arrayData').value = JSON.stringify(deleteArray);
+            }
         })();
     </script>
 </body>
