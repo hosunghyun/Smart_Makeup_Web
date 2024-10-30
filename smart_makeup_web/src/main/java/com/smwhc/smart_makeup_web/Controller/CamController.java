@@ -2,7 +2,6 @@ package com.smwhc.smart_makeup_web.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -54,7 +53,8 @@ public class CamController {
         }
         return "makeup";
     }
-// Post 요청
+
+    // Post 요청
     @PostMapping("/FdSlider")
     public String getFdSliderValue(@RequestBody SliderValue sliderValue) {
         DataSendService.sendIntVariable(sliderValue.getOpacity(), "/FdSlider");

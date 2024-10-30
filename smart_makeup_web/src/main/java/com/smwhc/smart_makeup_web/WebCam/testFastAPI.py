@@ -43,7 +43,7 @@ templates = Jinja2Templates(directory="src\\main\\resources\\templates")
 
 params = {}
 params_lock = threading.Lock()
-params_file = "src\\main\\java\\test\\cors\\connection\\connect\\params.txt"
+params_file = "src\\main\\java\\com\\smwhc\\smart_makeup_web\\WebCam\\params.txt"
 
 def load_params():
     """파일에서 파라미터를 읽어와 params 딕셔너리를 초기화합니다."""
@@ -251,6 +251,8 @@ def is_camera_in_use(camera_index=0):
 
 ## 서버 실행 명령어 uvicorn main:app --reload
 if __name__ == "__main__":
+    uvicorn.run(app, port=8080)
+
     if is_camera_in_use():
         print("웹캠이 이미 사용 중입니다.")
     else:
@@ -265,7 +267,7 @@ if __name__ == "__main__":
     set_TxtValue("Lip_bgr_color",hex_to_bgr("#000000"))
 
     ## 뒤에 있어야함. 그래야  txt 초기화 코드가 실행됨, 근데뭔가뭔가하자가있는듯함뭔가뭔가임기분탓같은데뭔가뭔가뭔가임
-    uvicorn.run(app, port=8080)
+    
 
     ## 테스트용)
     # uvicorn.run(app, host="127.0.0.1", port=8080, reload=False) # 디버깅아님

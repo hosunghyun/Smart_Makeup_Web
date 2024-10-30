@@ -21,26 +21,38 @@ public class PythonRunner {
                 System.out.println("Existing FastAPI server has been terminated.");
             }
 
+            // ProcessBuilder에 전달할 명령어와 인자를 출력
+            System.out.println(
+                    "Starting FastAPI server with command: python src\\main\\java\\com\\smwhc\\smart_makeup_web\\WebCam\\testFastAPI.py "
+                            + port);
+
             ProcessBuilder builder = new ProcessBuilder("python",
-                    "src\\main\\java\\test\\cors\\connection\\connect\\testFastAPI.py",
+                    "src\\main\\java\\com\\smwhc\\smart_makeup_web\\WebCam\\testFastAPI.py",
                     String.valueOf(port));
             builder.redirectErrorStream(true);
+
+            // 프로세스 시작
             process = builder.start();
 
-            // // // 프로세스 출력 확인 부분이 필요할까?? 몰루??
-            // // 프로세스 출력 확인
-            // BufferedReader reader = new BufferedReader(new
-            // InputStreamReader(process.getInputStream()));
-            // String line;
-            // while ((line = reader.readLine()) != null) {
-            // System.out.println(line);
+            // 프로세스 출력 확인
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
 
-            // // 특정 로그 메시지를 확인할 수 있습니다.
-            // if (line.contains("Starting FastAPI server")) { // FastAPI 로그 메시지에 맞게 수정
-            // System.out.println("FastAPI server is running successfully!");
-            // }
-            // }
-        } catch (IOException | InterruptedException e) {
+                // 특정 로그 메시지를 확인할 수 있습니다.
+                if (line.contains("Starting FastAPI server")) { // FastAPI 로그 메시지에 맞게 수정
+                    System.out.println("FastAPI server is running successfully!");
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("IOException occurred while starting the process: " + e.getMessage());
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            System.err.println("Process was interrupted: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred: " + e.getMessage());
             e.printStackTrace();
         }
     }
