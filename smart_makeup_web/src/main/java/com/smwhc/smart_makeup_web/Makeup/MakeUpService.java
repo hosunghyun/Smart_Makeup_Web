@@ -1,11 +1,7 @@
 package com.smwhc.smart_makeup_web.Makeup;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.smwhc.smart_makeup_web.Member.Member;
 import com.smwhc.smart_makeup_web.Member.MemberRepository;
 
 @Service

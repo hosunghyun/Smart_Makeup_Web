@@ -24,7 +24,6 @@ import com.smwhc.smart_makeup_web.Board.BoardService;
 import com.smwhc.smart_makeup_web.Comment.Comment;
 import com.smwhc.smart_makeup_web.Comment.CommentService;
 import com.smwhc.smart_makeup_web.Image.Image;
-import com.smwhc.smart_makeup_web.Image.ImageDTO;
 import com.smwhc.smart_makeup_web.Image.ImageService;
 import com.smwhc.smart_makeup_web.Member.Member;
 import com.smwhc.smart_makeup_web.Member.MemberService;
@@ -193,7 +192,7 @@ public class BoardController {
             String result = img.replace("\"", "")   // 쌍따옴표 제거
                            .replace("[", "")  // 여는 대괄호 제거
                            .replace("]", ""); // 닫는 대괄호 제거
-            if (result != null || !result.isEmpty()) {
+            if (result != null) {
                 // 1. 디렉터리에 저장된 이미지 삭제하기
                 Image image = imageService.findByImage(result);
                 String Dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static";

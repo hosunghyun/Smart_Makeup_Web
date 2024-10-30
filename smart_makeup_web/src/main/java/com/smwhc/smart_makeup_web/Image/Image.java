@@ -1,7 +1,5 @@
 package com.smwhc.smart_makeup_web.Image;
 
-import java.util.Optional;
-
 import com.smwhc.smart_makeup_web.Board.Board;
 import com.smwhc.smart_makeup_web.Product.Product;
 
