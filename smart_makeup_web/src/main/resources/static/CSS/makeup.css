@@ -13,7 +13,7 @@
 .webcamStream {
     width: 640px;  /* 원하는 너비 */
     height: 480px; /* 원하는 높이 */
-    background-color: #f0f8ff; /* 기본 배경색 */
+    background-color: #000000; /* 기본 배경색 */
     position: relative; /* 자식 요소의 위치를 위해 설정 */
 }
 .webcamStream div {

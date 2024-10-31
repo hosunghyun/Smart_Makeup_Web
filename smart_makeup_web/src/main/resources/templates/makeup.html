@@ -19,14 +19,14 @@
             <!--캠 연결 버튼-->
             <div style="width: 655px; height: 50px; float: right;">
                 <p style="display: inline-block; margin-top: 10px;">
-                    <button id="connectButton" class="sky-button">캠 연결</button>
-                    <button id="disconnectButton" class="red-button hidden">캠 해제</button>
+                    <button id="connectButton" class="sky-button">카메라 연결</button>
+                    <button id="disconnectButton" class="red-button hidden">카메라 해제</button>
                 </p>
 
-                <p style="display: inline-block; margin-bottom: 10px;">
+                <!-- <p style="display: inline-block; margin-bottom: 10px;">
                     <button id="practiceButton" class="sky-button" onclick="sendConnectPython(); cunnectWebsocket();">서버 실행</button>
                     <button id="DestroyButton" class="red-button hidden" onclick="sendDestroyPython();">서버 종료</button>
-                </p>
+                </p> -->
             </div>
 
 
@@ -49,22 +49,28 @@
                 
                 <!--파운데이션 샐랙트 박스 이동 버튼-->
                 <div>
-                    <button id="showFdMakeupSelectBox" style="margin-left: 25px; margin-top: 0%" onclick="showHideSelect('FdMakeupSelectBox', 'SelectMakeupButton', 'LipMakeupSelectBox');">
-                        <img th:src="@{/buttonImage/skin_button.png}" style="height: 70px; width: 70px;" alt="이미지">
+                    <button id="showFdMakeupSelectBox" style="margin-left: 25px; margin-top: 0%" 
+                            title="파운데이션 바르기" 
+                            onclick="showHideSelect('FdMakeupSelectBox', 'SelectMakeupButton', 'LipMakeupSelectBox');">
+                        <img th:src="@{/buttonImage/skin_button.png}" style="height: 70px; width: 70px;" alt="파운데이션 버튼">
                     </button>
                 </div>
                 <!--립 샐랙트 박스 이동 버튼-->
                 <div>
-                    <button id="showLipMakeupSelectBox" style="margin-left: 25px; margin-top: 40%" onclick="showHideSelect('LipMakeupSelectBox', 'SelectMakeupButton', 'FdMakeupSelectBox');">
-                        <img th:src="@{/buttonImage/lip_button.png}" style="height: 70px; width: 70px;" alt="이미지">
+                    <button id="showLipMakeupSelectBox" style="margin-left: 25px; margin-top: 40%" 
+                            title="립 바르기" 
+                            onclick="showHideSelect('LipMakeupSelectBox', 'SelectMakeupButton', 'FdMakeupSelectBox');">
+                        <img th:src="@{/buttonImage/lip_button.png}" style="height: 70px; width: 70px;" alt="립 버튼">
                     </button>
                 </div>
                 <!--아이라인 샐랙트 박스 이동 버튼 예정-->
                 <div>
-                    <button style="margin-left: 25px; margin-top: 40%">
-                        <img th:src="@{/buttonImage/eyeline_button.png}" style="height: 70px; width: 70px;" alt="이미지">
+                    <button style="margin-left: 25px; margin-top: 40%" 
+                            title="아이라인 그리기">
+                        <img th:src="@{/buttonImage/eyeline_button.png}" style="height: 70px; width: 70px;" alt="아이라인 버튼">
                     </button>
                 </div>
+
             </div>
 
 
