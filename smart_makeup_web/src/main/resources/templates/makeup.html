@@ -11,7 +11,7 @@
 <body>
     <!-- 메뉴바 -->
     <div th:replace="~{menubar.html::global-menubar}"></div>
-
+    <div style="margin-top: 50px;"></div> <!-- 공백 -->
     <div style="display: flex;">
         <!--왼쪽 칸-->
         <div style="width: 60%;">
@@ -45,7 +45,8 @@
         <div style="width: 40%; height: 40%; display: flex; align-items: flex-start;">
 
             <!--메이크업 선택 버튼-->
-            <div id="SelectMakeupButton" class="hidden" style="width: 300px; height: 480px; background-color: #ffffff; border: 2px solid #ffffff; margin-top: 60px; margin-left: 10px;">
+            <div id="SelectMakeupButton" class="hidden" style="width: 300px; height: 480px; background-color: #f0f8ff; border: 2px solid #f0f8ff; margin-top: 60px; margin-left: 10px;">
+                
                 <!--파운데이션 샐랙트 박스 이동 버튼-->
                 <div>
                     <button id="showFdMakeupSelectBox" style="margin-left: 25px; margin-top: 0%" onclick="showHideSelect('FdMakeupSelectBox', 'SelectMakeupButton', 'LipMakeupSelectBox');">
@@ -61,7 +62,7 @@
                 <!--아이라인 샐랙트 박스 이동 버튼 예정-->
                 <div>
                     <button style="margin-left: 25px; margin-top: 40%">
-                        <img th:src="@{/buttonImage/lip_button.png}" style="height: 70px; width: 70px;" alt="이미지">
+                        <img th:src="@{/buttonImage/eyeline_button.png}" style="height: 70px; width: 70px;" alt="이미지">
                     </button>
                 </div>
             </div>
@@ -143,7 +144,7 @@
 
 
             <!-- 립 샐랙트 박스 -->
-            <div id="LipMakeupSelectBox" class="hidden" style="width: 300px; height: auto; background-color: #5154ec; border: 2px solid #5154ec; margin-top: 100px; margin-left: 10px;">
+            <div id="LipMakeupSelectBox" class="hidden" style="width: 300px; height: 350px; background-color: #ec7b7b; border: 2px solid #000; margin-top: 100px; margin-left: 10px;">
 
                 <div>
                     <div class="color-button-container" style="margin-top: 30px;">
@@ -200,9 +201,12 @@
                         </button>
                     </div>
                 </div>
+                <div style="height: 10px;"> </div>
             </div>
         </div>
     </div>
+
+    <div style="height: 150px;"></div> <!--공백-->
 
     <footer>
         <div class="footer_left">
