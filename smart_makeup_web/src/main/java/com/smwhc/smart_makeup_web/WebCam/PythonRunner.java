@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class PythonRunner {
     private Process process;
 
-    public void startPythonServer(int port) {
+    public void startPythonServer(Integer port) {
         try {
             // 서버가 실행 이전에 실행된 PID를 종료함
             deletePID(port);
