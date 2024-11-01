@@ -126,7 +126,7 @@ class LIP(BaseModel):
 
 @app.post("/FdSlider") # Fd_opacity
 async def slider_data(data: Foundation):
-    set_TxtValue("Fd_opacity", data.opacity)
+    set_TxtValue("opacity", data.opacity)
     print("Received:", data.opacity, type(data.opacity))
     return {"message": "Data received", "received": data.opacity}
 
@@ -141,7 +141,7 @@ async def slider_data(data: Foundation):
 
 @app.post("/LipSlider") # Lip_opacity
 async def slider_data(data: LIP):
-    set_TxtValue("Lip_opacity", data.opacity)
+    set_TxtValue("opacity", data.opacity)
     print("Received:", data.opacity, type(data.opacity))
     return {"message": "Data received", "received": data.opacity}
 

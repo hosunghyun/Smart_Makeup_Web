@@ -27,10 +27,6 @@ public class CamController {
         this.dataSendService = dataSendService;
     }
 
-    public void setPythonServerRunning(boolean isPythonServerRunning) {
-        this.pythonServerRunning = isPythonServerRunning;
-    }
-
     @PostMapping("/practice")
     public ResponseEntity<String> practiceServer() {
         Integer port = 8080; // 포트설정
@@ -38,7 +34,7 @@ public class CamController {
 
         // Fast API가 실행중이 아닌경우 서버 실행
         if (!pythonServerRunning) {
-            setPythonServerRunning(true);
+            pythonServerRunning = true;
             pythonRunner.startPythonServer(port);
             result = "success";
             System.out.println("Python 서버가 시작되었습니다!");
@@ -53,7 +49,7 @@ public class CamController {
     public ResponseEntity<String> shutdownServer() {
         String result;
         if (pythonServerRunning) {
-            setPythonServerRunning(false);
+            pythonServerRunning = false;
             dataSendService.sendPostSignal("/shutdown");
             result = "success";
         } 
@@ -66,30 +62,30 @@ public class CamController {
     }
 
     // Post 요청
-    @PostMapping("/ColorSlider")
-    public String getFdSliderValue(@RequestParam("whatBtn") String whatBtn, @RequestBody MakeUpDTO makeUpDTO) {
+    @PostMapping("/Color")
+    public String ColorValue(@RequestParam("whatBtn") String whatBtn, @RequestBody MakeUpDTO makeUpDTO) {
         // 화장 부위가 파운데이션이라면
-        if (whatBtn.equals("Fd")) {
+        if (whatBtn.equals("Fd") && !makeUpDTO.getColor_code().isEmpty()) {
             // 파운데이션에서 색상인 경우
-            if (!makeUpDTO.getColor_code().isEmpty() && makeUpDTO.getOpacity() == null) {
-                dataSendService.sendStringVariable(makeUpDTO.getColor_code(), "/FdBtnColor");
-            }
-            // 파운데이션에서 투명도인 경우
-            else {
-                dataSendService.sendIntVariable(makeUpDTO.getOpacity(), "/FdSlider");
-            }
+            dataSendService.sendStringVariable(makeUpDTO.getColor_code(), "/FdBtnColor");
         }
         // 화장 부위가 립이라면
-        else if (whatBtn.equals("Lip")) {
-            // 립에서 색상인 경우
-            if (!makeUpDTO.getColor_code().isEmpty() && makeUpDTO.getOpacity() == null) {
-                dataSendService.sendStringVariable(makeUpDTO.getColor_code(), "/LipBtnColor");
-            }
-            // 립에서 투명도인 경우
-            else {
-                dataSendService.sendIntVariable(makeUpDTO.getOpacity(), "/LipSlider");
-            }
+        else if (whatBtn.equals("Lip") && !makeUpDTO.getColor_code().isEmpty()) {
+            dataSendService.sendStringVariable(makeUpDTO.getColor_code(), "/LipBtnColor");
         }
+
+        return "makeup";
+    }
+
+    @PostMapping("/Slider")
+    public String SliderValue(@RequestParam("whatBtn") String whatBtn, @RequestBody MakeUpDTO makeUpDTO) {
+        if(whatBtn.equals("Fd") && makeUpDTO.getOpacity() != null) {
+            dataSendService.sendIntVariable(makeUpDTO.getOpacity(), "/FdSlider");
+        }
+        else if(whatBtn.equals("Lip") && makeUpDTO.getOpacity() != null) {
+            dataSendService.sendIntVariable(makeUpDTO.getOpacity(), "/LipSlider");
+        }
+        
         return "makeup";
     }
 }

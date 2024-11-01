@@ -4,3 +4,4 @@ Fd_opacity=45
 Fd_hex=#ff0000
 Fd_bgr_color=(0, 0, 255)
 Lip_opacity=100
+opacity=46

@@ -1,5 +1,8 @@
 package com.smwhc.smart_makeup_web.WebCam;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -26,15 +29,12 @@ public class DataSendService {
 
         try {
             // POST 요청 전송
-            ResponseEntity<Void> response = restTemplate.exchange(fastApiURL, HttpMethod.POST, requestEntity,
-                    Void.class);
+            ResponseEntity<Void> response = restTemplate.exchange(fastApiURL, HttpMethod.POST, requestEntity, Void.class);
             // 응답 상태 로그 출력
             System.out.println("응답 상태: " + response.getStatusCode());
         } catch (RestClientException e) {
             // 예외 로그 출력
             System.err.println("POST 요청 예외 로그 출력: " + e.getMessage());
-            System.err.println(
-                    "I/O error on POST request for \"http://127.0.0.1:8080/shutdown\": Connection reset 인 경우: 문제 없습니다.");
         }
     }
 
@@ -56,20 +56,28 @@ public class DataSendService {
     }
 
     // int 보내기
-    public void sendIntVariable(Integer requestIntValue, String PostURL) {
-        String fastApiURL = fastApiPort + PostURL; // 전송할 URL 정의
+    public void sendIntVariable(Integer opacityValue, String postURL) {
+        String fastApiURL = fastApiPort + postURL;
 
-        RestTemplate restTemplate = new RestTemplate(); // RESTful에 사용할 객체 정의
+        RestTemplate restTemplate = new RestTemplate();
 
-        // 통신을 위해, JSON형태로 변환
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // YourDataObject 형태로 데이터 객체 생성
-        HttpEntity<Integer> requestEntity = new HttpEntity<>(requestIntValue, headers);
+        // JSON 형태로 데이터 객체 생성
+        Map<String, Integer> requestData = new HashMap<>();
+        requestData.put("opacity", opacityValue);
 
-        restTemplate.exchange(fastApiURL, HttpMethod.POST, requestEntity, Void.class);
+        HttpEntity<Map<String, Integer>> requestEntity = new HttpEntity<>(requestData, headers);
+
+        try {
+            ResponseEntity<Void> response = restTemplate.exchange(fastApiURL, HttpMethod.POST, requestEntity, Void.class);
+            System.out.println("응답 상태: " + response.getStatusCode());
+        } catch (RestClientException e) {
+            System.err.println("POST 요청 예외 로그 출력: " + e.getMessage());
+        }
     }
+
 
     // String을 int로 변환하는 메서드
     public int convertStringToInt(String numberString) {
