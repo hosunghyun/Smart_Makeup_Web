@@ -78,6 +78,8 @@ connectButton.addEventListener('click', () => {
     disconnectButton.classList.remove('hidden'); // 해제 버튼 표시
     streamActive = true; // 스트림 상태 업데이트
     showHideSelect('SelectMakeupButton', 'LipMakeupSelectBox', 'FdMakeupSelectBox');
+    sendConnectPython(); 
+    cunnectWebsocket();
 });
 // 캠 해제 버튼 클릭 시
 disconnectButton.addEventListener('click', () => {
@@ -108,6 +110,7 @@ function sendConnectPython() {
             practiceButton.style.display = 'none'; // 버튼 숨기기
             DestroyButton.style.display = 'block'; // 버튼 보이기
             alert('/practice: 보냄이 완료되었습니다.');
+            sendDestroyPython();
         } else {
             alert('/practice: 보내는 데 오류가 발생했습니다.');
         }
