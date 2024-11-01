@@ -35,10 +35,15 @@
 .dropdown-content a {
     font-family: 'MapleStoryBold';
     background-color: #1e80ff;
-    color: #8eecf0;
+    color: #154069;
     padding: 10px 20px; /* 드롭다운 항목의 패딩을 드롭다운 버튼과 일치시킴 */
     display: block; /* 드롭다운 항목이 블록 요소로 표시되도록 */
     text-decoration: none;
+    text-shadow: 
+        -1px -1px 0 #ffffff,  
+        1px -1px 0 #ffffff,
+        -1px 1px 0 #ffffff,
+        1px 1px 0 #ffffff; /* 흰색 테두리 효과 */
 }
 
 .nav-href:hover, .dropbtn:hover, .dropdown-content a:hover {
