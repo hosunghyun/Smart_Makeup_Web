@@ -15,18 +15,6 @@ let connectCam = false;     // 현재 캠이 연결되었는지 확인 false : �
 const $CamBtn = document.getElementById('CamBtn');      // 카메라 연결과 해제를 위한 버튼
 const $video = document.getElementById('video');         // 카메라를 보이게 하는 영역
 
-//////////// 웹 소켓 부분 //////////////
-const websocket = new WebSocket('ws://127.0.0.1:8080/video-feed');
-websocket.onmessage = function(event) {
-    const blob = new Blob([event.data], { type: 'image/jpeg' });
-    const url = URL.createObjectURL(blob);
-    $video.src = url;
-};
-
-websocket.onclose = function(event) {
-    console.log('페이지 초기 : WebSocket closed:', event);
-};
-
 //////////// 웹 소켓 함수 부분 //////////////
 function cunnectWebsocket() {
     const websocket = new WebSocket('ws://127.0.0.1:8080/video-feed');
@@ -160,7 +148,7 @@ $color_button.forEach(button => {
         $colorBox.style.backgroundColor = color;
 
         /////////////////// 버튼 값 POST로 전송 ///////////////////
-        fetch(`/ColorSlider?whatBtn=${whatBtn}`, {
+        fetch(`/Color?whatBtn=${whatBtn}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -171,38 +159,33 @@ $color_button.forEach(button => {
 });
 
 // 투명도 슬라이더를 드래그할 경우 발생하는 동작
-$sliderValue.addEventListener('input', ()=>{
-    const value = $sliderValue.value;
-
+function sliderevent (value) {
     ////////////////// 슬라이더 값 POST로 전송 ///////////////////
-    fetch(`/ColorSlider?whatBtn=${whatBtn}`, {
+    fetch(`/Slider?whatBtn=${whatBtn}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ 'opacity' : value })
     });
-});
+};
 
 $CamBtn.addEventListener('click', ()=>{
     if(connectCam === false) {   // 캠 미연결이므로 연결 동작 실행
-        sendConnectPython(); 
         cunnectWebsocket();
-        video.style.display = 'block';   // 비디오 부분 보이게 설정
+        sendConnectPython(); 
+        $video.style.backgroundImage = 'url(http://localhost:8080/video_feed)'; // 캠 스트림 URL 설정
+        $video.style.display = 'block';   // 비디오 부분 보이게 설정
         $CamBtn.textContent = '카메라 해제';    // 연결되어 있으므로 연결을 해제 위해 카메라 해제로 명칭 변경
         $SelectMakeupButton.style.display = 'block';
         connectCam = true;
     }
     else {  // 캠이 연결되어 있으니 해제 동작 실행
-        cunnectWebsocket();
         sendDestroyPython();
-        video.style.backgroundImage = 'url(http://localhost:8080/video_feed)'; // 캠 스트림 URL 설정
-        video.style.display = 'none';   // 비디오 부분 안보이게 설정
         $CamBtn.textContent = '카메라 연결';    // 연결 해제되므로 다시 연결을 위해 카메라 연결로 명칭 변경
         $SelectMakeupButton.style.display = 'none';
         streamActive = false; // 상태 업데이트
         $video.style.display = 'none';
-        alert('캠이 해제되었습니다.'); // 경고 창 표시
         connectCam = false;
     }
 });

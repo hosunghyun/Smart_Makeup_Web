@@ -22,7 +22,6 @@
             <div style="width: 655px; height: 50px; float: right;">
                 <p style="display: inline-block; margin-top: 10px;">
                     <button id="CamBtn" class="sky-button">카메라 연결</button>
-                    <button id="disconnectButton" class="red-button hidden">카메라 해제</button>
                 </p>
             </div>
 
@@ -119,7 +118,7 @@
                 <!--슬라이더-->
                 <div>
                     <div style= "margin-top: 10px; margin-left: 20px; ">
-                        <input id="sliderValue" type="range" min="0" max="100" value="0" oninput="sendSliderValue(this.value, '/FdSlider')" style="accent-color: rgb(133, 9, 71); width: 90%;" />
+                        <input id="sliderValue" type="range" min="0" max="100" value="0" oninput="sliderevent(this.value)" style="accent-color: rgb(133, 9, 71); width: 90%;" />
                     </div>
                 </div>
 
