@@ -1,5 +1,8 @@
 package com.smwhc.smart_makeup_web.WebCam;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -9,14 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import lombok.Getter;
-import lombok.Setter;
-
 @Service
 public class DataSendService {
     private static String fastApiPort = "http://127.0.0.1:8080";
 
-    public static void sendPostSignal(String postURL) {
+    public void sendPostSignal(String postURL) {
         String fastApiURL = fastApiPort + postURL; // 전송할 URL 정의
         RestTemplate restTemplate = new RestTemplate(); // RESTful에 사용할 객체 정의
         // 통신을 위해, JSON형태로 변환
@@ -29,86 +29,69 @@ public class DataSendService {
 
         try {
             // POST 요청 전송
-            ResponseEntity<Void> response = restTemplate.exchange(fastApiURL, HttpMethod.POST, requestEntity,
-                    Void.class);
+            ResponseEntity<Void> response = restTemplate.exchange(fastApiURL, HttpMethod.POST, requestEntity, Void.class);
             // 응답 상태 로그 출력
             System.out.println("응답 상태: " + response.getStatusCode());
         } catch (RestClientException e) {
             // 예외 로그 출력
             System.err.println("POST 요청 예외 로그 출력: " + e.getMessage());
-            System.err.println(
-                    "I/O error on POST request for \"http://127.0.0.1:8080/shutdown\": Connection reset 인 경우: 문제 없습니다.");
         }
     }
+
     // str 보내기
-    public static void sendStringVariable(String requestValue, String PostURL) {
+    public void sendStringVariable(String requestValue, String PostURL) {
         String fastApiURL = fastApiPort + PostURL; // 전송할 URL 정의
 
         RestTemplate restTemplate = new RestTemplate(); // RESTful에 사용할 객체 정의
-
-        // 통신을 위해, JSON형태로 변환
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        // 통신을 위해, JSON형태로 변환
+        // JSON 형태로 데이터 객체 생성
+        Map<String, String> requestData = new HashMap<>();
+        requestData.put("hex", requestValue);
 
         // YourDataObject 형태로 데이터 객체 생성
-        SendStringDataObject dataObject = new SendStringDataObject();
-        dataObject.setHex(requestValue);
-        HttpEntity<SendStringDataObject> requestEntity = new HttpEntity<>(dataObject,
-                headers);
+        HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(requestData, headers);
 
-        // 요청 로그 출력
-        System.out.println("전송 경로: " + PostURL + ", Sending request: " +
-                dataObject.getHex() + " String 형");
-
-        restTemplate.exchange(fastApiURL, HttpMethod.POST, requestEntity,
-                Void.class);
-
+        try {
+            ResponseEntity<Void> response = restTemplate.exchange(fastApiURL, HttpMethod.POST, requestEntity, Void.class);
+            System.out.println("응답 상태: " + response.getStatusCode());
+        } catch (RestClientException e) {
+            System.err.println("POST 요청 예외 로그 출력: " + e.getMessage());
+        }
     }
 
     // int 보내기
-    public static void sendIntVariable(String requestValue, String PostURL) {
-        String fastApiURL = fastApiPort + PostURL; // 전송할 URL 정의
+    public void sendIntVariable(Integer opacityValue, String postURL) {
+        String fastApiURL = fastApiPort + postURL;
 
-        RestTemplate restTemplate = new RestTemplate(); // RESTful에 사용할 객체 정의
+        RestTemplate restTemplate = new RestTemplate();
 
-        // Int형으로 변환
-        int requestIntValue = convertStringToInt(requestValue);
-
-        // 통신을 위해, JSON형태로 변환
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // YourDataObject 형태로 데이터 객체 생성
-        SendIntDataObject dataObject = new SendIntDataObject();
-        dataObject.setOpacity(requestIntValue);
-        HttpEntity<SendIntDataObject> requestEntity = new HttpEntity<>(dataObject, headers);
+        // JSON 형태로 데이터 객체 생성
+        Map<String, Integer> requestData = new HashMap<>();
+        requestData.put("opacity", opacityValue);
 
-        // 요청 로그 출력
-        System.out.println("전송 경로: " + PostURL + ", Sending request: " + dataObject.getOpacity() + " int 형");
+        HttpEntity<Map<String, Integer>> requestEntity = new HttpEntity<>(requestData, headers);
 
-        restTemplate.exchange(fastApiURL, HttpMethod.POST, requestEntity, Void.class);
+        try {
+            ResponseEntity<Void> response = restTemplate.exchange(fastApiURL, HttpMethod.POST, requestEntity, Void.class);
+            System.out.println("응답 상태: " + response.getStatusCode());
+        } catch (RestClientException e) {
+            System.err.println("POST 요청 예외 로그 출력: " + e.getMessage());
+        }
     }
 
+
     // String을 int로 변환하는 메서드
-    public static int convertStringToInt(String numberString) {
+    public int convertStringToInt(String numberString) {
         try {
             return Integer.parseInt(numberString);
         } catch (NumberFormatException e) {
             System.out.println("유효하지 않은 정수 형식입니다: " + numberString);
             return 0; // 또는 다른 에러 코드나 예외 처리를 할 수 있습니다.
         }
-    }
-
-    // 서버 간 통신을 위해 전송값을 json으로 변할 때만 쓰임..
-    @Getter
-    @Setter
-    public static class SendIntDataObject {
-        private int opacity;
-    }
-
-    @Getter
-    @Setter
-    public static class SendStringDataObject {
-        private String hex;
     }
 }

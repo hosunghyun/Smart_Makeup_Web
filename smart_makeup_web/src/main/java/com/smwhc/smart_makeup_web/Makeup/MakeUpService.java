@@ -17,6 +17,10 @@ public class MakeUpService {
         this.memberRepository = memberRepository;
     }
 
+    public void savemakeup(MakeUp makeUp) {
+        makeUpRepository.save(makeUp);
+    }
+
     // 1. 화장 저장 기능
     // public void save(MakeUpDTO makeUpDTO) {
     //     MakeUp makeUp = new MakeUp();
