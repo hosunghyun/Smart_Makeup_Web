@@ -2,13 +2,19 @@ package com.smwhc.smart_makeup_web.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.smwhc.smart_makeup_web.Makeup.MakeUp;
 import com.smwhc.smart_makeup_web.Makeup.MakeUpDTO;
+import com.smwhc.smart_makeup_web.Makeup.MakeUpService;
+import com.smwhc.smart_makeup_web.Member.Member;
+import com.smwhc.smart_makeup_web.Member.MemberService;
 import com.smwhc.smart_makeup_web.WebCam.DataSendService;
 import com.smwhc.smart_makeup_web.WebCam.PythonRunner;
 
@@ -20,11 +26,15 @@ public class CamController {
 
     @Autowired
     private final DataSendService dataSendService;
+    private final MemberService memberService;
+    private final MakeUpService makeUpService;
 
-    public CamController(PythonRunner pythonRunner, DataSendService dataSendService) {
+    public CamController(PythonRunner pythonRunner, DataSendService dataSendService, MemberService memberService, MakeUpService makeUpService) {
         // Fast API 러너 초기화
         this.pythonRunner = pythonRunner;
         this.dataSendService = dataSendService;
+        this.memberService = memberService;
+        this.makeUpService = makeUpService;
     }
 
     @PostMapping("/practice")
@@ -86,6 +96,24 @@ public class CamController {
             dataSendService.sendIntVariable(makeUpDTO.getOpacity(), "/LipSlider");
         }
         
+        return "makeup";
+    }
+
+    @PostMapping("/savemakeup")
+    public String savemakeup(@RequestBody MakeUpDTO makeUpDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName(); // 사용자 아이디
+
+        System.out.println(makeUpDTO);
+        MakeUp makeUp = new MakeUp();
+
+        Member member = memberService.findById(currentUsername);
+        makeUp.setMember(member);
+        makeUp.setButton_number(makeUpDTO.getButton_number());
+        makeUp.setColor_code(makeUpDTO.getColor_code());
+        makeUp.setOpacity(makeUpDTO.getOpacity());
+
+        makeUpService.savemakeup(makeUp);
         return "makeup";
     }
 }
