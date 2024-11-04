@@ -9,6 +9,11 @@ const $color_button = document.querySelectorAll('.color-button');               
 const $closeBtn = document.getElementById('closeBtn');                                          // 셀렉터 닫기 버튼
 const $sliderValue = document.getElementById('sliderValue');                                    // 투명도를 위한 슬라이더 값
 let whatBtn;                                                                                    // 파운데이션인지 립인지 아이라인인지 구분하기 위한 변수
+const $foundation = document.getElementById('foundation');
+const $lip = document.getElementById('lip');
+
+let Fdslider = 0;
+let Lipslider = 0;
 
 //////////// 카메라 부분 //////////////
 let connectCam = false;     // 현재 캠이 연결되었는지 확인 false : 미연결 true : 연결
@@ -21,7 +26,7 @@ function cunnectWebsocket() {
     websocket.onmessage = function(event) {
         const blob = new Blob([event.data], { type: 'image/jpeg' });
         const url = URL.createObjectURL(blob);
-        videoElement.src = url;
+        $video.src = url;
     };
 }
 
@@ -115,7 +120,10 @@ const colorMap = new Map([
 $showFdMakeupSelectBox.addEventListener('click', ()=>{
     $SelectMakeupButton.style.display = 'none';    // 버튼들 안보이게 하기
     $MakeupSelectBox.style.backgroundColor = '#339adf';
-    $MakeupSelectBox.style.display = "block"; // 셀렉트 박스 보이게 하기
+    $MakeupSelectBox.style.display = "block"; // 셀렉트 박스 보이게 하기 height: 480px
+    $MakeupSelectBox.style.height = '480px';
+    $foundation.style.display = 'block';
+    $sliderValue.value = Fdslider;
     whatBtn = 'Fd';
 });
 
@@ -123,7 +131,10 @@ $showFdMakeupSelectBox.addEventListener('click', ()=>{
 $showLipMakeupSelectBox.addEventListener('click', ()=>{
     $SelectMakeupButton.style.display = 'none';    // 버튼들 안보이게 하기
     $MakeupSelectBox .style.backgroundColor = '#ec7b7b';
+    $MakeupSelectBox.style.height = '350px';
     $MakeupSelectBox.style.display = "block"; // 셀렉트 박스 보이게 하기
+    $lip.style.display = 'block';
+    $sliderValue.value = Lipslider;
     whatBtn = 'Lip';
 });
 
@@ -138,6 +149,8 @@ $showEyeLineMakeupSelectBox.addEventListener('click', ()=>{
 // 셀렉터 박스에서 닫기 버튼을 클릭했을 경우
 $closeBtn.addEventListener('click', ()=>{
     $MakeupSelectBox.style.display = "none";    // 셀렉트 박스 안보이게 하기
+    $foundation.style.display = 'none';
+    $lip.style.display = 'none';
     $SelectMakeupButton.style.display = 'block';   // 버튼들 보이게 하기   
 });
 
@@ -168,8 +181,15 @@ function sliderevent (value) {
         },
         body: JSON.stringify({ 'opacity' : value })
     });
+    if(whatBtn == 'Fd') {
+        Fdslider = value;
+    }
+    else if(whatBtn == 'Lip') {
+        Lipslider = value;
+    }
 };
 
+cunnectWebsocket();
 $CamBtn.addEventListener('click', ()=>{
     if(connectCam === false) {   // 캠 미연결이므로 연결 동작 실행
         cunnectWebsocket();
