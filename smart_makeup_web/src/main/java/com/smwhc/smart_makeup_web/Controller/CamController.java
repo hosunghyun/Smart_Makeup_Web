@@ -109,7 +109,7 @@ public class CamController {
 
         Member member = memberService.findById(currentUsername);
         makeUp.setMember(member);
-        makeUp.setButton_number(makeUpDTO.getButton_number());
+        makeUp.setNumber(makeUpDTO.getNumber());
         makeUp.setColor_code(makeUpDTO.getColor_code());
         makeUp.setOpacity(makeUpDTO.getOpacity());
 

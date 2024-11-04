@@ -24,9 +24,7 @@
     top: 0;
     left: 0;
 }
-.hidden {
-    display: none; /* 숨기기 위한 클래스 */
-}
+
 .color-button {
     width: 30px;
     height: 30px;

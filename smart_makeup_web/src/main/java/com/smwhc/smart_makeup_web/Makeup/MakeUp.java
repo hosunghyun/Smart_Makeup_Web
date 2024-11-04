@@ -28,7 +28,7 @@ public class MakeUp {
     private Member member;
 
     @Column(name = "button_number")
-    private Integer button_number;
+    private Integer number;
 
     // 화장할 때 화장품의 색상코드
     @Column(name = "color_code", length = 20)

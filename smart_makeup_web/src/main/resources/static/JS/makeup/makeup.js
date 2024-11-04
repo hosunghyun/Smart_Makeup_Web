@@ -56,7 +56,7 @@ function sendDataMakeup(slider) {
     fetch(`/savemakeup`, {
         method : 'POST',
         headers : { "Content-Type" : "application/json" },
-        body : JSON.stringify({"button_number" : whatNumber, "opacity" : slider, color_code : whatColor})
+        body : JSON.stringify({"number" : whatNumber, "opacity" : slider, color_code : whatColor})
     })
     .then((message) => { return message.text()})
     .then((message) => {

@@ -1,15 +1,17 @@
 package com.smwhc.smart_makeup_web.Makeup;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.smwhc.smart_makeup_web.Member.Member;
 import com.smwhc.smart_makeup_web.Member.MemberRepository;
 
 @Service
 public class MakeUpService {
     @Autowired
     private final MakeUpRepository makeUpRepository;
-    
-    @Autowired
     private final MemberRepository memberRepository;
 
     public MakeUpService(MakeUpRepository makeUpRepository, MemberRepository memberRepository) {
@@ -18,7 +20,28 @@ public class MakeUpService {
     }
 
     public void savemakeup(MakeUp makeUp) {
-        makeUpRepository.save(makeUp);
+        List<MakeUp> isMakeUp = makeUpRepository.findByMember(makeUp.getMember());
+        MakeUp savemakeup = new MakeUp();
+
+        if(isMakeUp.isEmpty()) {
+            savemakeup.setMember(makeUp.getMember());
+            savemakeup.setOpacity(makeUp.getOpacity());
+            savemakeup.setColor_code(makeUp.getColor_code());
+            savemakeup.setNumber(makeUp.getNumber());
+        }
+        else {
+            for(MakeUp makeup : isMakeUp) {
+                if(makeup.getNumber().equals(makeUp.getNumber())) {
+                    savemakeup.setId(makeup.getId());
+                    savemakeup.setMember(makeUp.getMember());
+                    savemakeup.setOpacity(makeUp.getOpacity());
+                    savemakeup.setColor_code(makeUp.getColor_code());
+                    savemakeup.setNumber(makeUp.getNumber());
+                }
+            }
+        }
+
+        makeUpRepository.save(savemakeup);
     }
 
     // 1. 화장 저장 기능
