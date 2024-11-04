@@ -8,12 +8,90 @@ const $colorBox = document.getElementById('colorBox');                          
 const $color_button = document.querySelectorAll('.color-button');                                // 셀렉터에 존재하는 색상들을 전부 불러오기
 const $closeBtn = document.getElementById('closeBtn');                                          // 셀렉터 닫기 버튼
 const $sliderValue = document.getElementById('sliderValue');                                    // 투명도를 위한 슬라이더 값
-let whatBtn;                                                                                    // 파운데이션인지 립인지 아이라인인지 구분하기 위한 변수
+                                                                                   // 파운데이션인지 립인지 아이라인인지 구분하기 위한 변수
 const $foundation = document.getElementById('foundation');
 const $lip = document.getElementById('lip');
 
+const $save_1 = document.getElementById('save_1');
+const $save_2 = document.getElementById('save_2');
+const $save_3 = document.getElementById('save_3');
+const $save_4 = document.getElementById('save_4');
+const $save_5 = document.getElementById('save_5');
+let isNumberClick = false;
+let whatNumber = 1;
+const $savebtn = document.getElementById('savebtn');
+
+let whatBtn; 
 let Fdslider = 0;
 let Lipslider = 0;
+let whatColor;
+
+$save_1.addEventListener('click', ()=>{
+    console.log("1");
+    isNumberClick = true;
+    whatNumber = 1;
+});
+
+$save_2.addEventListener('click', ()=>{
+    isNumberClick = true;
+    whatNumber = 2;
+});
+
+$save_3.addEventListener('click', ()=>{
+    isNumberClick = true;
+    whatNumber = 3;
+});
+
+$save_4.addEventListener('click', ()=>{
+    isNumberClick = true;
+    whatNumber = 4;
+});
+
+$save_5.addEventListener('click', ()=>{
+    isNumberClick = true;
+    whatNumber = 5;
+});
+
+function sendDataMakeup(slider) {
+    fetch(`/savemakeup`, {
+        method : 'POST',
+        headers : { "Content-Type" : "application/json" },
+        body : JSON.stringify({"button_number" : whatNumber, "opacity" : slider, color_code : whatColor})
+    })
+    .then((message) => { return message.text()})
+    .then((message) => {
+        if(message == "fails") {
+            alert(`${$emailvalue}로 아이디를 찾을 수 없습니다.`);
+        }
+        else {
+            $findid_form.style.display = 'none';
+            $printid_form.style.display = "block";
+            $member_id.value = message;
+        }
+    })
+    .catch((Error) => {
+        console.error('Error:', error); // 에러 처리
+    });
+}
+
+$savebtn.addEventListener('click', ()=>{
+    console.log("2");
+    if(isNumberClick == true) {
+        if(whatBtn == "Fd") {
+            console.log("1");
+            sendDataMakeup(Fdslider);
+        }
+        else if(whatBtn == "Lip") {
+            sendDataMakeup(Lipslider);
+        }
+        
+    }
+    else {
+        alert('저장할 버튼을 클릭해주세요');
+    }
+});
+
+
 
 //////////// 카메라 부분 //////////////
 let connectCam = false;     // 현재 캠이 연결되었는지 확인 false : 미연결 true : 연결
@@ -159,7 +237,7 @@ $color_button.forEach(button => {
     button.addEventListener('click', () => {
         const color = colorMap.get(button.style.backgroundColor); // 색상 추출
         $colorBox.style.backgroundColor = color;
-
+        whatColor = color;
         /////////////////// 버튼 값 POST로 전송 ///////////////////
         fetch(`/Color?whatBtn=${whatBtn}`, {
             method: 'POST',
