@@ -126,7 +126,7 @@ class LIP(BaseModel):
 
 @app.post("/FdSlider") # Fd_opacity
 async def slider_data(data: Foundation):
-    set_TxtValue("opacity", data.opacity)
+    set_TxtValue("Fd_opacity", data.opacity)
     print("Received:", data.opacity, type(data.opacity))
     return {"message": "Data received", "received": data.opacity}
 
@@ -141,7 +141,7 @@ async def slider_data(data: Foundation):
 
 @app.post("/LipSlider") # Lip_opacity
 async def slider_data(data: LIP):
-    set_TxtValue("opacity", data.opacity)
+    set_TxtValue("Lip_opacity", data.opacity)
     print("Received:", data.opacity, type(data.opacity))
     return {"message": "Data received", "received": data.opacity}
 
@@ -251,8 +251,6 @@ def is_camera_in_use(camera_index=0):
 
 ## 서버 실행 명령어 uvicorn main:app --reload
 if __name__ == "__main__":
-    uvicorn.run(app, port=8080)
-
     if is_camera_in_use():
         print("웹캠이 이미 사용 중입니다.")
     else:
@@ -267,7 +265,7 @@ if __name__ == "__main__":
     set_TxtValue("Lip_bgr_color",hex_to_bgr("#000000"))
 
     ## 뒤에 있어야함. 그래야  txt 초기화 코드가 실행됨, 근데뭔가뭔가하자가있는듯함뭔가뭔가임기분탓같은데뭔가뭔가뭔가임
-    
+    uvicorn.run(app, port=8080)
 
     ## 테스트용)
     # uvicorn.run(app, host="127.0.0.1", port=8080, reload=False) # 디버깅아님

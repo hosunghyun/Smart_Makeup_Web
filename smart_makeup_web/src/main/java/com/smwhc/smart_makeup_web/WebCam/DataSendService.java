@@ -43,16 +43,22 @@ public class DataSendService {
         String fastApiURL = fastApiPort + PostURL; // 전송할 URL 정의
 
         RestTemplate restTemplate = new RestTemplate(); // RESTful에 사용할 객체 정의
-
-        // 통신을 위해, JSON형태로 변환
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        // 통신을 위해, JSON형태로 변환
+        // JSON 형태로 데이터 객체 생성
+        Map<String, String> requestData = new HashMap<>();
+        requestData.put("hex", requestValue);
 
         // YourDataObject 형태로 데이터 객체 생성
-        HttpEntity<String> requestEntity = new HttpEntity<>(requestValue, headers);
+        HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(requestData, headers);
 
-        restTemplate.exchange(fastApiURL, HttpMethod.POST, requestEntity, Void.class);
-
+        try {
+            ResponseEntity<Void> response = restTemplate.exchange(fastApiURL, HttpMethod.POST, requestEntity, Void.class);
+            System.out.println("응답 상태: " + response.getStatusCode());
+        } catch (RestClientException e) {
+            System.err.println("POST 요청 예외 로그 출력: " + e.getMessage());
+        }
     }
 
     // int 보내기
