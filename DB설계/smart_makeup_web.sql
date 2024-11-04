@@ -13,6 +13,7 @@ CREATE TABLE makeup (	-- 화장 정보를 저장하기 위한 테이블
 	makeup_id BIGINT AUTO_INCREMENT PRIMARY KEY,
 	member_id VARCHAR(50),
 	color_code VARCHAR(20) NOT NULL,
+	button_number INT,
 	opacity INT NOT NULL,
 	FOREIGN KEY (member_id) REFERENCES member (member_id) ON DELETE CASCADE
 );
