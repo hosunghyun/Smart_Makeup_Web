@@ -18,24 +18,31 @@
         <!--왼쪽 칸-->
         <div style="width: 60%;">
             <!--캠 연결 버튼-->
-            <!--캠 연결 버튼-->
             <div style="width: 655px; height: 50px; float: right;">
                 <p style="display: inline-block; margin-top: 10px;">
                     <button id="CamBtn" class="sky-button">카메라 연결</button>
                 </p>
-                <button class="sky-button" id="save_1">1</button>
-                <button class="sky-button" id="save_2">2</button>
-                <button class="sky-button" id="save_3">3</button>
-                <button class="sky-button" id="save_4">4</button>
-                <button class="sky-button" id="save_5">5</button>
-                <button class="sky-button" id="savebtn">저장하기</button>
-                <button class="sky-button" id="loadbtn">불러오기</button>
             </div>
 
             <!--캠이 출력되는 이미지-->
             <div style="float: right; margin: 10px 15px 10px 10px;"> <!--위, 오른쪽, 아래, 왼쪽 여백 순서-->
                 <div class="webcamStream">
                     <img id="video" style="display: none;" src="" alt="Video Feed"/>
+                </div>
+            </div>
+            <!--세이브, 로드 버튼-->
+            <div style="width: 655px; height: 50px; float: right; display: flex; justify-content: space-between; align-items: center;">
+                <p style="margin: 0;">
+                    <button class="sky-button" id="savebtn">저장하기</button>
+                    <button class="sky-button" id="save_1">1</button>
+                    <button class="sky-button" id="save_2">2</button>
+                    <button class="sky-button" id="save_3">3</button>
+                    <button class="sky-button" id="save_4">4</button>
+                    <button class="sky-button" id="save_5">5</button>
+                </p>
+                <div style="display: flex; margin-right: 10px;">
+
+                    <button class="sky-button" id="loadbtn">불러오기</button>
                 </div>
             </div>
         </div>
@@ -213,7 +220,7 @@
     </footer>
 
     <script th:src="@{/JS/makeup/makeupvariable.js}"></script>
-    
+    <script th:src="@{/JS/makeup/makeup.js}"></script>
     <script th:inline="javascript">
         function loadDataMakeup() {
             fetch(`/loadmakeup`, {
@@ -227,14 +234,26 @@
                     if(`${makeup.category}` == "fundation") {
                         Fdslider = `${makeup.opacity}`;
                         FdwhatColor = `${makeup.color_code}`;
+                        whatBtn = 'Fd';
+                        
+                        sliderevent(parseInt(Fdslider))
+                        sendPostButtonColor("Fd",FdwhatColor);
                     }
                     else if(`${makeup.category}` == "lipstick") {
                         Lipslider = `${makeup.opacity}`;
                         LipwhatColor = `${makeup.color_code}`;
+                        whatBtn = 'Lip';
+
+                        sliderevent(parseInt(Lipslider))
+                        sendPostButtonColor("Lip",LipwhatColor);
                     }
                     else if(`${makeup.category}` == "eyeline") {
                         EyeLineslider = `${makeup.opacity}`;
                         EyeLinewhatColor = `${makeup.color_code}`;
+                        whatBtn = 'EyeLine';
+
+                        sliderevent(parseInt(EyeLinewhatColor));
+                        sendPostButtonColor("EyeLine",EyeLinewhatColor);
                     }
                 });
             })
@@ -252,7 +271,6 @@
             }
         });
     </script>
-    <script th:src="@{/JS/makeup/makeup.js}"></script>
 
     <!-- 부트스트랩 JS (옵션) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

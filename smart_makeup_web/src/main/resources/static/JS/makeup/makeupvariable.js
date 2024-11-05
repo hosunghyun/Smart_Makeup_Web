@@ -35,6 +35,6 @@ let Lipslider = 0;
 let EyeLineslider = 0;
 
 // 화장품 종류별 색상
-let FdwhatColor = "#000000";
-let LipwhatColor = "#000000";
-let EyeLinewhatColor = "#000000";
+let FdwhatColor = "#00000000";
+let LipwhatColor = "#00000000";
+let EyeLinewhatColor = "#00000000";
