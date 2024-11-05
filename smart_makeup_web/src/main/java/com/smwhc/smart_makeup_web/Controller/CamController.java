@@ -1,10 +1,14 @@
 package com.smwhc.smart_makeup_web.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -121,4 +125,27 @@ public class CamController {
         makeUpService.savemakeup(makeUp);
         return "makeup";
     }
+
+    @PostMapping("/loadmakeup")
+    public ResponseEntity<List<MakeUpDTO>> postMethodName(@RequestBody MakeUpDTO makeUpDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName(); // 사용자 아이디
+
+        Member member = memberService.findById(currentUsername);
+        List<MakeUp> makeUp = makeUpService.findByMember(member);
+        List<MakeUpDTO> makeUps = new ArrayList<>();        
+        
+        for(MakeUp makeup : makeUp) {
+            if(makeup.getNumber() == makeUpDTO.getNumber()) {
+                MakeUpDTO makeUpDTOs = new MakeUpDTO();
+                makeUpDTOs.setCategory(makeup.getCategory().getCategory());
+                makeUpDTOs.setColor_code(makeup.getColor_code());
+                makeUpDTOs.setOpacity(makeup.getOpacity());
+                makeUps.add(makeUpDTOs);
+            }
+        }
+
+        return ResponseEntity.status(200).body(makeUps);     // 결과를 반한
+    }
+    
 }

@@ -34,15 +34,7 @@ public class MainController {
     }
 
     @GetMapping("/makeup")
-    public String makeup(Model model) {
-        // 현재 로그인된 사용자 정보를 가져오기
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = authentication.getName(); // 사용자 아이디
-
-        Member member = memberService.findById(currentUsername);
-        List<MakeUp> makeUps = makeUpService.findByMember(member);
-        
-        model.addAttribute("makeups", makeUps);
+    public String makeup() {
         return "makeup";
     }
     
