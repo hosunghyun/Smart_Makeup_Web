@@ -1,43 +1,3 @@
-//////////// 셀렉트 박스 부분 //////////////
-const $SelectMakeupButton = document.getElementById('SelectMakeupButton');                      // 셀렉트 박스 버튼 전체 부분
-const $showFdMakeupSelectBox = document.getElementById('showFdMakeupSelectBox');                // 파운데이션 바르기 버튼
-const $showLipMakeupSelectBox = document.getElementById('showLipMakeupSelectBox');              // 립 바르기 버튼
-const $showEyeLineMakeupSelectBox = document.getElementById('showEyeLineMakeupSelectBox');      // 아이라인 버튼
-const $MakeupSelectBox = document.getElementById('MakeupSelectBox');                            // 셀렉트 박스
-const $colorBox1 = document.getElementById('colorBox1');                                          // 셀렉트 박스에 있는 색상 박스
-const $colorBox2 = document.getElementById('colorBox2');                                          // 셀렉트 박스에 있는 색상 박스
-const $color_button = document.querySelectorAll('.color-button');                                // 셀렉터에 존재하는 색상들을 전부 불러오기
-const $closeBtn = document.getElementById('closeBtn');                                          // 셀렉터 닫기 버튼
-const $sliderValue = document.getElementById('sliderValue');                                    // 투명도를 위한 슬라이더 값
-                                                                                  
-const $foundation = document.getElementById('foundation');                                       // 파운데이션인지 립인지 아이라인인지 구분하기 위한 변수
-const $lip = document.getElementById('lip');
-
-const $savenumber = document.querySelectorAll('[id^="save_"]');
-const $save_1 = document.getElementById('save_1');
-const $save_2 = document.getElementById('save_2');
-const $save_3 = document.getElementById('save_3');
-const $save_4 = document.getElementById('save_4');
-const $save_5 = document.getElementById('save_5');
-const $savebtn = document.getElementById('savebtn');
-
-// 사용자가 어디에 화장 정보를 저장할 건지에 대한 버튼
-let isNumberClick = false;
-let whatNumber = 1;
-
-// 어느 부위를 선택한건지를 나타내는 버튼
-let whatBtn; 
-
-// 부위별 투명도를 조절하기 위한 슬라이더 값
-let Fdslider = 0;
-let Lipslider = 0;
-let EyeLineslider = 0;
-
-// 화장품 종류별 색상
-let FdwhatColor = "#000000";
-let LipwhatColor = "#000000";
-let EyeLinewhatColor = "#000000";
-
 // 버튼을 클릭 시 중복 클릭을 막기위해 클릭한 것을 나타내기 위한 함수
 function check_numberbtn(numbutton) {
     // 일단 모든 버튼을 사용할 수 있게 변경
@@ -74,17 +34,6 @@ function sendDataMakeup(slider, category, whatColor) {
         headers : { "Content-Type" : "application/json" },
         body : JSON.stringify({"number" : whatNumber, "opacity" : slider, "color_code" : whatColor, "category" : category})
     })
-    .then((message) => { return message.text()})
-    .then((message) => {
-        if(message == "fails") {
-            alert(`${$emailvalue}로 아이디를 찾을 수 없습니다.`);
-        }
-        else {
-            $findid_form.style.display = 'none';
-            $printid_form.style.display = "block";
-            $member_id.value = message;
-        }
-    })
     .catch((Error) => {
         console.error('Error:', Error); // 에러 처리
     });
@@ -100,8 +49,6 @@ $savebtn.addEventListener('click', ()=>{
         alert('저장할 버튼을 클릭해주세요');
     }
 });
-
-
 
 //////////// 카메라 부분 //////////////
 let connectCam = false;     // 현재 캠이 연결되었는지 확인 false : 미연결 true : 연결
@@ -212,6 +159,7 @@ $showFdMakeupSelectBox.addEventListener('click', ()=>{
     $MakeupSelectBox.style.height = '480px';
     $foundation.style.display = 'block';
     $sliderValue.value = Fdslider;
+    $colorBox1.style.backgroundColor = FdwhatColor;
     whatBtn = 'Fd';
 });
 
@@ -223,6 +171,7 @@ $showLipMakeupSelectBox.addEventListener('click', ()=>{
     $MakeupSelectBox.style.display = "block"; // 셀렉트 박스 보이게 하기
     $lip.style.display = 'block';
     $sliderValue.value = Lipslider;
+    $colorBox2.style.backgroundColor = LipwhatColor;
     whatBtn = 'Lip';
 });
 

@@ -29,6 +29,7 @@
                 <button class="sky-button" id="save_4">4</button>
                 <button class="sky-button" id="save_5">5</button>
                 <button class="sky-button" id="savebtn">저장하기</button>
+                <button class="sky-button" id="loadbtn">불러오기</button>
             </div>
 
             <!--캠이 출력되는 이미지-->
@@ -211,7 +212,48 @@
         </div>
     </footer>
 
+    <script th:src="@{/JS/makeup/makeupvariable.js}"></script>
+    
+    <script th:inline="javascript">
+        function loadDataMakeup() {
+            fetch(`/loadmakeup`, {
+                method : 'POST',
+                headers : { "Content-Type" : "application/json" },
+                body : JSON.stringify({"number" : whatNumber})
+            })
+            .then((response) => { return response.json()})
+            .then((makeups) => {
+                makeups.forEach(makeup=>{
+                    if(`${makeup.category}` == "fundation") {
+                        Fdslider = `${makeup.opacity}`;
+                        FdwhatColor = `${makeup.color_code}`;
+                    }
+                    else if(`${makeup.category}` == "lipstick") {
+                        Lipslider = `${makeup.opacity}`;
+                        LipwhatColor = `${makeup.color_code}`;
+                    }
+                    else if(`${makeup.category}` == "eyeline") {
+                        EyeLineslider = `${makeup.opacity}`;
+                        EyeLinewhatColor = `${makeup.color_code}`;
+                    }
+                });
+            })
+            .catch((Error) => {
+                console.error('Error:', Error); // 에러 처리
+            });
+        }
+
+        $loadbtn.addEventListener('click', ()=>{
+            if(isNumberClick == true) {
+                loadDataMakeup();
+            }
+            else {
+                alert('저장할 버튼을 클릭해주세요');
+            }
+        });
+    </script>
     <script th:src="@{/JS/makeup/makeup.js}"></script>
+
     <!-- 부트스트랩 JS (옵션) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
