@@ -62,6 +62,7 @@ CREATE TABLE comment (	-- 댓글 저장을 위한 테이블
 -- 화장품 종류 저장
 INSERT INTO product_category (category) VALUES ('lipstick');
 INSERT INTO product_category (category) VALUES ('fundation');
+INSERT INTO product_category (category) VALUES ('eyeline');
 
 -- 화장품 정보를 저장하기 위한 쿼리 
 INSERT INTO product (product_name, category, Price) VALUES ('estee lauder bone', 'fundation', 71930);
