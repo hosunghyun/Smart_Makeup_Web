@@ -4,59 +4,75 @@ const $showFdMakeupSelectBox = document.getElementById('showFdMakeupSelectBox');
 const $showLipMakeupSelectBox = document.getElementById('showLipMakeupSelectBox');              // 립 바르기 버튼
 const $showEyeLineMakeupSelectBox = document.getElementById('showEyeLineMakeupSelectBox');      // 아이라인 버튼
 const $MakeupSelectBox = document.getElementById('MakeupSelectBox');                            // 셀렉트 박스
-const $colorBox = document.getElementById('colorBox');                                          // 셀렉트 박스에 있는 색상 박스
+const $colorBox1 = document.getElementById('colorBox1');                                          // 셀렉트 박스에 있는 색상 박스
+const $colorBox2 = document.getElementById('colorBox2');                                          // 셀렉트 박스에 있는 색상 박스
 const $color_button = document.querySelectorAll('.color-button');                                // 셀렉터에 존재하는 색상들을 전부 불러오기
 const $closeBtn = document.getElementById('closeBtn');                                          // 셀렉터 닫기 버튼
 const $sliderValue = document.getElementById('sliderValue');                                    // 투명도를 위한 슬라이더 값
-                                                                                   // 파운데이션인지 립인지 아이라인인지 구분하기 위한 변수
-const $foundation = document.getElementById('foundation');
+                                                                                  
+const $foundation = document.getElementById('foundation');                                       // 파운데이션인지 립인지 아이라인인지 구분하기 위한 변수
 const $lip = document.getElementById('lip');
 
+const $savenumber = document.querySelectorAll('[id^="save_"]');
 const $save_1 = document.getElementById('save_1');
 const $save_2 = document.getElementById('save_2');
 const $save_3 = document.getElementById('save_3');
 const $save_4 = document.getElementById('save_4');
 const $save_5 = document.getElementById('save_5');
-let isNumberClick = false;
-let whatNumber = 1;
 const $savebtn = document.getElementById('savebtn');
 
+// 사용자가 어디에 화장 정보를 저장할 건지에 대한 버튼
+let isNumberClick = false;
+let whatNumber = 1;
+
+// 어느 부위를 선택한건지를 나타내는 버튼
 let whatBtn; 
+
+// 부위별 투명도를 조절하기 위한 슬라이더 값
 let Fdslider = 0;
 let Lipslider = 0;
-let whatColor;
+let EyeLineslider = 0;
 
-$save_1.addEventListener('click', ()=>{
-    console.log("1");
-    isNumberClick = true;
-    whatNumber = 1;
+// 화장품 종류별 색상
+let FdwhatColor;
+let LipwhatColor;
+let EyeLinewhatColor;
+
+// 버튼을 클릭 시 중복 클릭을 막기위해 클릭한 것을 나타내기 위한 함수
+function check_numberbtn(numbutton) {
+    // 일단 모든 버튼을 사용할 수 있게 변경
+    $save_1.disabled = false;
+    $save_2.disabled = false;
+    $save_3.disabled = false;
+    $save_4.disabled = false;
+    $save_5.disabled = false;
+
+    $save_1.style.opacity = 1;
+    $save_2.style.opacity = 1;
+    $save_3.style.opacity = 1;
+    $save_4.style.opacity = 1;
+    $save_5.style.opacity = 1;
+
+    // 그러고 나서 입력 받은 버튼을 사용할 수 없게 변경
+    numbutton.disabled = true;
+    numbutton.style.opacity = 0.2;
+}
+
+$savenumber.forEach(button => {
+    button.addEventListener('click', ()=>{
+        const btnid = button.id;
+        const btnnum = btnid.split('_')[1];
+        isNumberClick = true;               // 사용자가 저장하기 전에 숫자 버튼을 클릭했는지 확인하기 위한 boolean
+        whatNumber = btnnum;
+        check_numberbtn(button);   // 버튼을 사용할 수 없게 변경
+    });
 });
 
-$save_2.addEventListener('click', ()=>{
-    isNumberClick = true;
-    whatNumber = 2;
-});
-
-$save_3.addEventListener('click', ()=>{
-    isNumberClick = true;
-    whatNumber = 3;
-});
-
-$save_4.addEventListener('click', ()=>{
-    isNumberClick = true;
-    whatNumber = 4;
-});
-
-$save_5.addEventListener('click', ()=>{
-    isNumberClick = true;
-    whatNumber = 5;
-});
-
-function sendDataMakeup(slider) {
+function sendDataMakeup(slider, category, whatColor) {
     fetch(`/savemakeup`, {
         method : 'POST',
         headers : { "Content-Type" : "application/json" },
-        body : JSON.stringify({"number" : whatNumber, "opacity" : slider, color_code : whatColor})
+        body : JSON.stringify({"number" : whatNumber, "opacity" : slider, "color_code" : whatColor, "category" : category})
     })
     .then((message) => { return message.text()})
     .then((message) => {
@@ -70,21 +86,15 @@ function sendDataMakeup(slider) {
         }
     })
     .catch((Error) => {
-        console.error('Error:', error); // 에러 처리
+        console.error('Error:', Error); // 에러 처리
     });
 }
 
 $savebtn.addEventListener('click', ()=>{
-    console.log("2");
     if(isNumberClick == true) {
-        if(whatBtn == "Fd") {
-            console.log("1");
-            sendDataMakeup(Fdslider);
-        }
-        else if(whatBtn == "Lip") {
-            sendDataMakeup(Lipslider);
-        }
-        
+        sendDataMakeup(Fdslider, "fundation", FdwhatColor);
+        sendDataMakeup(Lipslider, "lipstick", LipwhatColor);
+        sendDataMakeup(EyeLineslider, "eyeline", EyeLinewhatColor);
     }
     else {
         alert('저장할 버튼을 클릭해주세요');
@@ -221,6 +231,7 @@ $showEyeLineMakeupSelectBox.addEventListener('click', ()=>{
     $SelectMakeupButton.style.display = 'none';    // 버튼들 안보이게 하기
     $MakeupSelectBox.style.backgroundColor = '#362349';
     $MakeupSelectBox.style.display = "block"; // 셀렉트 박스 보이게 하기
+    $sliderValue.value = EyeLineslider;
     whatBtn = 'EyeLine';
 });
 
@@ -236,8 +247,20 @@ $closeBtn.addEventListener('click', ()=>{
 $color_button.forEach(button => {
     button.addEventListener('click', () => {
         const color = colorMap.get(button.style.backgroundColor); // 색상 추출
-        $colorBox.style.backgroundColor = color;
-        whatColor = color;
+        if(whatBtn == "Fd") {
+            $colorBox1.style.backgroundColor = color;
+            $colorBox1.style.backgroundImage = "none";
+            FdwhatColor = color;
+        }
+        else if(whatBtn == "Lip") {
+            $colorBox2.style.backgroundColor = color;
+            $colorBox2.style.backgroundImage = "none";
+            LipwhatColor = color;
+        }
+        else if(whatBtn == "EyeLine") {
+            EyeLinewhatColor = color;
+        }
+        
         /////////////////// 버튼 값 POST로 전송 ///////////////////
         fetch(`/Color?whatBtn=${whatBtn}`, {
             method: 'POST',
@@ -259,11 +282,14 @@ function sliderevent (value) {
         },
         body: JSON.stringify({ 'opacity' : value })
     });
-    if(whatBtn == 'Fd') {
+    if(whatBtn == "Fd") {
         Fdslider = value;
     }
-    else if(whatBtn == 'Lip') {
+    else if(whatBtn == "Lip") {
         Lipslider = value;
+    }
+    else if(whatBtn == "EyeLine") {
+        EyeLineslider = value;
     }
 };
 
