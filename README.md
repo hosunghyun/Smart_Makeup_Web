@@ -68,3 +68,69 @@ MySQL로 작성하였습니다.
 ### 제품 추천하기
 ![22 (2)](https://github.com/user-attachments/assets/354c8212-2c4f-48d3-bfe2-3826e4663245)
 
+<!--
+
+Table member {
+  member_id varchar(50) [pk, unique]
+  member_password varchar(100)
+  email varchar(50)
+  phone varchar(20)
+}
+
+Table product_category {
+  category varchar(50) [pk, unique]
+}
+
+Table makeup {
+  makeup_id bigint [pk, increment]
+  member_id varchar(50)
+  category varchar(50)
+  button_number int
+  color_code varchar(20)
+  opacity int
+}
+
+Table board {
+  board_id bigint [pk, increment]
+  member_id varchar(50)
+  title varchar(50)
+  content_text text
+}
+
+Table product {
+  product_code bigint [pk, increment]
+  product_name varchar(50)
+  category varchar(50)
+  Price int
+}
+
+Table image {
+  image_code bigint [pk, increment]
+  board_id bigint
+  product_code bigint
+  image_link varchar(100)
+}
+
+Table comment {
+  comment_id bigint [pk, increment]
+  board_id bigint
+  member_id varchar(50)
+  comment_content text
+}
+
+Ref: makeup.member_id > member.member_id
+Ref: makeup.category > product_category.category
+
+Ref: board.member_id > member.member_id
+
+Ref: product.category > product_category.category
+
+Ref: image.board_id > board.board_id
+Ref: image.product_code > product.product_code
+
+Ref: comment.board_id > board.board_id
+Ref: comment.member_id > member.member_id
+
+
+
+-->
