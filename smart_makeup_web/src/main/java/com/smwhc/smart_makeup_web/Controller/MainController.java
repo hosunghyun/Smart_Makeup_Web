@@ -1,10 +1,29 @@
 package com.smwhc.smart_makeup_web.Controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.smwhc.smart_makeup_web.Makeup.MakeUp;
+import com.smwhc.smart_makeup_web.Makeup.MakeUpService;
+import com.smwhc.smart_makeup_web.Member.Member;
+import com.smwhc.smart_makeup_web.Member.MemberService;
 
 @Controller
 public class MainController {
+    @Autowired
+    private final MemberService memberService;
+    private final MakeUpService makeUpService;
+
+    public MainController(MemberService memberService, MakeUpService makeUpService) {
+        this.memberService = memberService;
+        this.makeUpService = makeUpService;
+    }
     // 메뉴바 컨트롤러 부분
 
     // 메인 페이지
@@ -15,7 +34,15 @@ public class MainController {
     }
 
     @GetMapping("/makeup")
-    public String makeup() {
+    public String makeup(Model model) {
+        // 현재 로그인된 사용자 정보를 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName(); // 사용자 아이디
+
+        Member member = memberService.findById(currentUsername);
+        List<MakeUp> makeUps = makeUpService.findByMember(member);
+        
+        model.addAttribute("makeups", makeUps);
         return "makeup";
     }
     

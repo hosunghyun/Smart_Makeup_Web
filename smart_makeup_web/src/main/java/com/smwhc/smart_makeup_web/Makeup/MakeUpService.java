@@ -53,6 +53,13 @@ public class MakeUpService {
         makeUpRepository.save(savemakeup);
     }
 
+    // 멤버에 저장된 화장을 전부 반환
+    public List<MakeUp> findByMember(Member member) {
+        List<MakeUp> makeUps = makeUpRepository.findByMember(member);
+
+        return makeUps;
+    }
+
     // 1. 화장 저장 기능
     // public void save(MakeUpDTO makeUpDTO) {
     //     MakeUp makeUp = new MakeUp();
