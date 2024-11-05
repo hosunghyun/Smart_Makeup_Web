@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +35,8 @@ public class CamController {
     private final MakeUpService makeUpService;
     private final ProductCategoryService productCategoryService;
 
-    public CamController(PythonRunner pythonRunner, DataSendService dataSendService, MemberService memberService, MakeUpService makeUpService, ProductCategoryService productCategoryService) {
+    public CamController(PythonRunner pythonRunner, DataSendService dataSendService, MemberService memberService,
+            MakeUpService makeUpService, ProductCategoryService productCategoryService) {
         // Fast API 러너 초기화
         this.pythonRunner = pythonRunner;
         this.dataSendService = dataSendService;
@@ -60,7 +60,7 @@ public class CamController {
             result = "already";
             System.out.println("Python 서버는 이미 실행 중입니다!");
         }
-        return ResponseEntity.status(200).body(result);     // 결과를 반한
+        return ResponseEntity.status(200).body(result); // 결과를 반한
     }
 
     @PostMapping("/shutdown") // 서버 종료를 위한 경로
@@ -70,13 +70,12 @@ public class CamController {
             pythonServerRunning = false;
             dataSendService.sendPostSignal("/shutdown");
             result = "success";
-        } 
-        else {
+        } else {
             result = "already";
             System.out.println("Python 서버는 실행되고 있지 않습니다.");
         }
 
-        return ResponseEntity.status(200).body(result);     // 결과를 반한
+        return ResponseEntity.status(200).body(result); // 결과를 반한
     }
 
     // Post 요청
@@ -97,13 +96,12 @@ public class CamController {
 
     @PostMapping("/Slider")
     public String SliderValue(@RequestParam("whatBtn") String whatBtn, @RequestBody MakeUpDTO makeUpDTO) {
-        if(whatBtn.equals("Fd") && makeUpDTO.getOpacity() != null) {
+        if (whatBtn.equals("Fd") && makeUpDTO.getOpacity() != null) {
             dataSendService.sendIntVariable(makeUpDTO.getOpacity(), "/FdSlider");
-        }
-        else if(whatBtn.equals("Lip") && makeUpDTO.getOpacity() != null) {
+        } else if (whatBtn.equals("Lip") && makeUpDTO.getOpacity() != null) {
             dataSendService.sendIntVariable(makeUpDTO.getOpacity(), "/LipSlider");
         }
-        
+
         return "makeup";
     }
 
@@ -133,10 +131,10 @@ public class CamController {
 
         Member member = memberService.findById(currentUsername);
         List<MakeUp> makeUp = makeUpService.findByMember(member);
-        List<MakeUpDTO> makeUps = new ArrayList<>();        
-        
-        for(MakeUp makeup : makeUp) {
-            if(makeup.getNumber() == makeUpDTO.getNumber()) {
+        List<MakeUpDTO> makeUps = new ArrayList<>();
+
+        for (MakeUp makeup : makeUp) {
+            if (makeup.getNumber() == makeUpDTO.getNumber()) {
                 MakeUpDTO makeUpDTOs = new MakeUpDTO();
                 makeUpDTOs.setCategory(makeup.getCategory().getCategory());
                 makeUpDTOs.setColor_code(makeup.getColor_code());
@@ -145,7 +143,7 @@ public class CamController {
             }
         }
 
-        return ResponseEntity.status(200).body(makeUps);     // 결과를 반한
+        return ResponseEntity.status(200).body(makeUps); // 결과를 반한
     }
-    
+
 }
