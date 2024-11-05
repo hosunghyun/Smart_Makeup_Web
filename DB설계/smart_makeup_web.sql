@@ -9,13 +9,20 @@ CREATE TABLE member (	-- 사용자 테이블
     PRIMARY KEY(member_id)
 );
 
+CREATE TABLE product_category (
+	category VARCHAR(50) NOT NULL UNIQUE,
+    PRIMARY KEY(category)
+);
+
 CREATE TABLE makeup (	-- 화장 정보를 저장하기 위한 테이블 
 	makeup_id BIGINT AUTO_INCREMENT PRIMARY KEY,
 	member_id VARCHAR(50),
+    category VARCHAR(50),
+    button_number INT,
 	color_code VARCHAR(20) NOT NULL,
-	button_number INT,
 	opacity INT NOT NULL,
-	FOREIGN KEY (member_id) REFERENCES member (member_id) ON DELETE CASCADE
+	FOREIGN KEY (member_id) REFERENCES member (member_id) ON DELETE CASCADE,
+    FOREIGN KEY (category) REFERENCES product_category (category) ON DELETE CASCADE
 );
 
 CREATE TABLE board (	-- 게시판을 저장하기 위한 테이블 
@@ -30,7 +37,8 @@ CREATE TABLE product (	-- 광고를 위한 화장품 정보 테이블
 	product_code BIGINT AUTO_INCREMENT PRIMARY KEY,
 	product_name VARCHAR(50) NOT NULL,
     category VARCHAR(50) NOT NULL,
-	Price INT NOT NULL
+	Price INT NOT NULL,
+    FOREIGN KEY (category) REFERENCES product_category (category) ON DELETE CASCADE
 );
 
 CREATE TABLE image (	-- 이미지 링크를 위한 테이블 
@@ -42,14 +50,6 @@ CREATE TABLE image (	-- 이미지 링크를 위한 테이블
     FOREIGN KEY (product_code) REFERENCES product (product_code) ON DELETE CASCADE
 );
 
-CREATE TABLE product_makeup (	-- 화장 정보와 제품 정보를 위한 테이블 
-	product_makeup_id INT AUTO_INCREMENT PRIMARY KEY,
-	makeup_id BIGINT NOT NULL,
-	product_code BIGINT NOT NULL,
-	FOREIGN KEY (makeup_id) REFERENCES makeup (makeup_id) ON DELETE CASCADE,
-	FOREIGN KEY (product_code) REFERENCES product (product_code) ON DELETE CASCADE
-);
-
 CREATE TABLE comment (	-- 댓글 저장을 위한 테이블 
 	comment_id BIGINT AUTO_INCREMENT PRIMARY KEY,
 	board_id BIGINT NOT NULL,
@@ -58,6 +58,10 @@ CREATE TABLE comment (	-- 댓글 저장을 위한 테이블
 	FOREIGN KEY (board_id) REFERENCES board (board_id) ON DELETE CASCADE,
 	FOREIGN KEY (member_id) REFERENCES member (member_id) ON DELETE CASCADE
 );
+
+-- 화장품 종류 저장
+INSERT INTO product_category (category) VALUES ('lipstick');
+INSERT INTO product_category (category) VALUES ('fundation');
 
 -- 화장품 정보를 저장하기 위한 쿼리 
 INSERT INTO product (product_name, category, Price) VALUES ('estee lauder bone', 'fundation', 71930);
@@ -82,3 +86,5 @@ INSERT INTO image (product_code, image_link) VALUES (7, '/productimg/loceanredmo
 INSERT INTO image (product_code, image_link) VALUES (8, '/productimg/loceanroseblossom.jpg');
 INSERT INTO image (product_code, image_link) VALUES (9, '/productimg/loceandorothyred.jpg');
 INSERT INTO image (product_code, image_link) VALUES (10, '/productimg/loceandeeppinkcurten.jpg');
+
+
