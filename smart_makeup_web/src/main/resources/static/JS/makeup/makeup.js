@@ -34,9 +34,9 @@ let Lipslider = 0;
 let EyeLineslider = 0;
 
 // 화장품 종류별 색상
-let FdwhatColor;
-let LipwhatColor;
-let EyeLinewhatColor;
+let FdwhatColor = "#000000";
+let LipwhatColor = "#000000";
+let EyeLinewhatColor = "#000000";
 
 // 버튼을 클릭 시 중복 클릭을 막기위해 클릭한 것을 나타내기 위한 함수
 function check_numberbtn(numbutton) {
