@@ -2,6 +2,8 @@ package com.smwhc.smart_makeup_web.Makeup;
 
 
 import com.smwhc.smart_makeup_web.Member.Member;
+import com.smwhc.smart_makeup_web.Product_Category.ProductCategory;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,9 +25,13 @@ public class MakeUp {
     @Column(name = "makeup_id")
     private Long id;     // 화장의 PK 
 
-    @ManyToOne // 일대다 관계 표현 User 한명이 makeup 여러개를 가질 수 있다.
+    @ManyToOne // 일대다 관계 표현 member 한명이 makeup 여러개를 가질 수 있다.
     @JoinColumn(name = "member_id", nullable = false) // 외래키 제약조건
     private Member member;
+
+    @ManyToOne // 일대다 관계 표현 productcategory 한개가 makeup 한개를 가질 수 있다.
+    @JoinColumn(name = "category", nullable = false) // 외래키 제약조건
+    private ProductCategory category;
 
     @Column(name = "button_number")
     private Integer number;

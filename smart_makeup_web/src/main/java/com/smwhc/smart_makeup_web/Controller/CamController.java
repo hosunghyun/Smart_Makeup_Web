@@ -15,6 +15,8 @@ import com.smwhc.smart_makeup_web.Makeup.MakeUpDTO;
 import com.smwhc.smart_makeup_web.Makeup.MakeUpService;
 import com.smwhc.smart_makeup_web.Member.Member;
 import com.smwhc.smart_makeup_web.Member.MemberService;
+import com.smwhc.smart_makeup_web.Product_Category.ProductCategory;
+import com.smwhc.smart_makeup_web.Product_Category.ProductCategoryService;
 import com.smwhc.smart_makeup_web.WebCam.DataSendService;
 import com.smwhc.smart_makeup_web.WebCam.PythonRunner;
 
@@ -28,13 +30,15 @@ public class CamController {
     private final DataSendService dataSendService;
     private final MemberService memberService;
     private final MakeUpService makeUpService;
+    private final ProductCategoryService productCategoryService;
 
-    public CamController(PythonRunner pythonRunner, DataSendService dataSendService, MemberService memberService, MakeUpService makeUpService) {
+    public CamController(PythonRunner pythonRunner, DataSendService dataSendService, MemberService memberService, MakeUpService makeUpService, ProductCategoryService productCategoryService) {
         // Fast API 러너 초기화
         this.pythonRunner = pythonRunner;
         this.dataSendService = dataSendService;
         this.memberService = memberService;
         this.makeUpService = makeUpService;
+        this.productCategoryService = productCategoryService;
     }
 
     @PostMapping("/practice")
@@ -104,12 +108,13 @@ public class CamController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName(); // 사용자 아이디
 
-        System.out.println(makeUpDTO);
         MakeUp makeUp = new MakeUp();
+        ProductCategory category = productCategoryService.findById(makeUpDTO.getCategory());
 
         Member member = memberService.findById(currentUsername);
         makeUp.setMember(member);
         makeUp.setNumber(makeUpDTO.getNumber());
+        makeUp.setCategory(category);
         makeUp.setColor_code(makeUpDTO.getColor_code());
         makeUp.setOpacity(makeUpDTO.getOpacity());
 

@@ -3,7 +3,7 @@ package com.smwhc.smart_makeup_web.Product;
 import java.util.Set;
 
 import com.smwhc.smart_makeup_web.Image.Image;
-import com.smwhc.smart_makeup_web.Product_Makeup.ProductMakeup;
+import com.smwhc.smart_makeup_web.Product_Category.ProductCategory;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -11,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -30,17 +32,13 @@ public class Product {
     @Column(name = "product_name", length = 50, nullable = false)
     private String product_name;
 
+    @ManyToOne // 일대다 관계 표현 productcategory 한개가 makeup 한개를 가질 수 있다.
+    @JoinColumn(name = "category", nullable = false) // 외래키 제약조건
+    private ProductCategory category;
+
     // 가격
     @Column(name = "price", nullable = false)
     private Integer price;
-
-    // 제품의 종류
-    @Column(name = "category", nullable = false, length = 50)
-    private String category;
-
-    // 제품종류와의 관계를 나타냄
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private Set<ProductMakeup> product_types;
     
     // 이미지와의 관계를 나타냄
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
@@ -48,9 +46,8 @@ public class Product {
 
     // 생성자
     public Product() {}
-    public Product(String product_name, Integer price, String category) {
+    public Product(String product_name, Integer price) {
         this.product_name = product_name;
         this.price = price;
-        this.category = category;
     }
 }

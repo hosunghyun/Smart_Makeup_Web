@@ -28,15 +28,24 @@ public class MakeUpService {
             savemakeup.setOpacity(makeUp.getOpacity());
             savemakeup.setColor_code(makeUp.getColor_code());
             savemakeup.setNumber(makeUp.getNumber());
+            savemakeup.setCategory(makeUp.getCategory());
         }
         else {
             for(MakeUp makeup : isMakeUp) {
-                if(makeup.getNumber().equals(makeUp.getNumber())) {
+                if(makeup.getCategory().equals(makeUp.getCategory())) {
                     savemakeup.setId(makeup.getId());
                     savemakeup.setMember(makeUp.getMember());
                     savemakeup.setOpacity(makeUp.getOpacity());
                     savemakeup.setColor_code(makeUp.getColor_code());
                     savemakeup.setNumber(makeUp.getNumber());
+                    savemakeup.setCategory(makeUp.getCategory());
+                }
+                else {
+                    savemakeup.setMember(makeUp.getMember());
+                    savemakeup.setOpacity(makeUp.getOpacity());
+                    savemakeup.setColor_code(makeUp.getColor_code());
+                    savemakeup.setNumber(makeUp.getNumber());
+                    savemakeup.setCategory(makeUp.getCategory());
                 }
             }
         }
