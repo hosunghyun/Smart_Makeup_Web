@@ -213,7 +213,7 @@
     </footer>
 
     <script th:src="@{/JS/makeup/makeupvariable.js}"></script>
-    
+    <script th:src="@{/JS/makeup/makeup.js}"></script>
     <script th:inline="javascript">
         function loadDataMakeup() {
             fetch(`/loadmakeup`, {
@@ -227,14 +227,23 @@
                     if(`${makeup.category}` == "fundation") {
                         Fdslider = `${makeup.opacity}`;
                         FdwhatColor = `${makeup.color_code}`;
+                        whatBtn = "Fd";
+                        sliderevent(Fdslider);
+                        colorevent(FdwhatColor);
                     }
                     else if(`${makeup.category}` == "lipstick") {
                         Lipslider = `${makeup.opacity}`;
                         LipwhatColor = `${makeup.color_code}`;
+                        whatBtn = "Lip";
+                        sliderevent(Lipslider);
+                        colorevent(LipwhatColor);
                     }
                     else if(`${makeup.category}` == "eyeline") {
                         EyeLineslider = `${makeup.opacity}`;
                         EyeLinewhatColor = `${makeup.color_code}`;
+                        whatBtn = "EyeLine";
+                        sliderevent(EyeLineslider);
+                        colorevent(EyeLinewhatColor);
                     }
                 });
             })
@@ -252,7 +261,7 @@
             }
         });
     </script>
-    <script th:src="@{/JS/makeup/makeup.js}"></script>
+    
 
     <!-- 부트스트랩 JS (옵션) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

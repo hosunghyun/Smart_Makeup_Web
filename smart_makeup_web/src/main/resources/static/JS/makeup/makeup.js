@@ -192,6 +192,16 @@ $closeBtn.addEventListener('click', ()=>{
     $SelectMakeupButton.style.display = 'block';   // 버튼들 보이게 하기   
 });
 
+function colorevent(color) {
+    /////////////////// 버튼 값 POST로 전송 ///////////////////
+    fetch(`/Color?whatBtn=${whatBtn}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 'color_code' : color })
+    });
+}
 // 셀렉터의 색상 중 하나를 클릭했을 경우 실행되는 동작
 $color_button.forEach(button => {
     button.addEventListener('click', () => {
@@ -209,15 +219,7 @@ $color_button.forEach(button => {
         else if(whatBtn == "EyeLine") {
             EyeLinewhatColor = color;
         }
-        
-        /////////////////// 버튼 값 POST로 전송 ///////////////////
-        fetch(`/Color?whatBtn=${whatBtn}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ 'color_code' : color })
-        });
+        colorevent(color);
     });
 });
 
