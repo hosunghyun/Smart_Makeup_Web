@@ -192,7 +192,7 @@ $closeBtn.addEventListener('click', ()=>{
     $SelectMakeupButton.style.display = 'block';   // 버튼들 보이게 하기   
 });
 
-function sendPostButtonColor(whatBtn, color) {
+function colorevent(color) {
     /////////////////// 버튼 값 POST로 전송 ///////////////////
     fetch(`/Color?whatBtn=${whatBtn}`, {
         method: 'POST',
@@ -201,8 +201,7 @@ function sendPostButtonColor(whatBtn, color) {
         },
         body: JSON.stringify({ 'color_code' : color })
     });
-};
-
+}
 // 셀렉터의 색상 중 하나를 클릭했을 경우 실행되는 동작
 $color_button.forEach(button => {
     button.addEventListener('click', () => {
@@ -220,15 +219,7 @@ $color_button.forEach(button => {
         else if(whatBtn == "EyeLine") {
             EyeLinewhatColor = color;
         }
-        // /////////////////// 버튼 값 POST로 전송 ///////////////////
-        sendPostButtonColor(whatBtn, color);
-        // fetch(`/Color?whatBtn=${whatBtn}`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({ 'color_code' : color })
-        // });
+        colorevent(color);
     });
 });
 
@@ -253,10 +244,13 @@ function sliderevent (value) {
     }
 };
 
-cunnectWebsocket();
+
+
 $CamBtn.addEventListener('click', ()=>{
     if(connectCam === false) {   // 캠 미연결이므로 연결 동작 실행
         cunnectWebsocket();
+        cunnectWebsocket();
+
         sendConnectPython(); 
         $video.style.backgroundImage = 'url(http://localhost:8080/video_feed)'; // 캠 스트림 URL 설정
         $video.style.display = 'block';   // 비디오 부분 보이게 설정

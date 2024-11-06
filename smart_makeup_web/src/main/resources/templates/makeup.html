@@ -30,8 +30,7 @@
                     <img id="video" style="display: none;" src="" alt="Video Feed"/>
                 </div>
             </div>
-            <!--세이브, 로드 버튼-->
-            <div style="width: 655px; height: 50px; float: right; display: flex; justify-content: space-between; align-items: center;">
+            <div sec:authorize="isAuthenticated()" style="width: 655px; height: 50px; float: right; display: flex; justify-content: space-between; align-items: center;">
                 <p style="margin: 0;">
                     <button class="sky-button" id="savebtn">저장하기</button>
                     <button class="sky-button" id="save_1">1</button>
@@ -41,11 +40,12 @@
                     <button class="sky-button" id="save_5">5</button>
                 </p>
                 <div style="display: flex; margin-right: 10px;">
-
                     <button class="sky-button" id="loadbtn">불러오기</button>
                 </div>
             </div>
         </div>
+
+
 
         <!--오른쪽 칸-->
         <!--캠 화면을 제어하는 구문, 캠이 연결된 경우에 show, 아니면 hidden-->
@@ -234,27 +234,41 @@
                     if(`${makeup.category}` == "fundation") {
                         Fdslider = `${makeup.opacity}`;
                         FdwhatColor = `${makeup.color_code}`;
-                        whatBtn = 'Fd';
-                        
-                        sliderevent(parseInt(Fdslider))
-                        sendPostButtonColor("Fd",FdwhatColor);
+                        whatBtn = "Fd";
+                        sliderevent(Fdslider);
+                        colorevent(FdwhatColor);
+                        if (FdwhatColor == "#00000000") {
+                            $colorBox1.style.backgroundImage = 'linear-gradient(135deg, transparent 25%, rgba(0,0,0,0.1) 25%, rgba(0,0,0,0.1) 50%, transparent 50%, transparent 75%, rgba(0,0,0,0.1) 75%, rgba(0,0,0,0.1))';
+                            $colorBox1.style.backgroundSize = '10px 10px';
+                        }
+                        else {
+                            $colorBox1.style.backgroundImage = "none";
+                        }
+
                     }
                     else if(`${makeup.category}` == "lipstick") {
                         Lipslider = `${makeup.opacity}`;
                         LipwhatColor = `${makeup.color_code}`;
-                        whatBtn = 'Lip';
-
-                        sliderevent(parseInt(Lipslider))
-                        sendPostButtonColor("Lip",LipwhatColor);
+                        whatBtn = "Lip";
+                        sliderevent(Lipslider);
+                        colorevent(LipwhatColor);
+                        if (LipwhatColor == "#00000000") {
+                            $colorBox2.style.backgroundImage = 'linear-gradient(135deg, transparent 25%, rgba(0,0,0,0.1) 25%, rgba(0,0,0,0.1) 50%, transparent 50%, transparent 75%, rgba(0,0,0,0.1) 75%, rgba(0,0,0,0.1))';
+                            $colorBox2.style.backgroundSize = '10px 10px';
+                        }
+                        else {
+                            $colorBox2.style.backgroundImage = "none";
+                        }
                     }
                     else if(`${makeup.category}` == "eyeline") {
                         EyeLineslider = `${makeup.opacity}`;
                         EyeLinewhatColor = `${makeup.color_code}`;
-                        whatBtn = 'EyeLine';
 
-                        sliderevent(parseInt(EyeLinewhatColor));
-                        sendPostButtonColor("EyeLine",EyeLinewhatColor);
+                        whatBtn = "EyeLine";
+                        sliderevent(EyeLineslider);
+                        colorevent(EyeLinewhatColor);
                     }
+
                 });
             })
             .catch((Error) => {
@@ -263,6 +277,10 @@
         }
 
         $loadbtn.addEventListener('click', ()=>{
+            $SelectMakeupButton.style.display = "block";
+            $MakeupSelectBox.style.display = "none";
+            $foundation.style.display = "none";
+            $lip.style.display = "none";
             if(isNumberClick == true) {
                 loadDataMakeup();
             }
@@ -271,6 +289,7 @@
             }
         });
     </script>
+    
 
     <!-- 부트스트랩 JS (옵션) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

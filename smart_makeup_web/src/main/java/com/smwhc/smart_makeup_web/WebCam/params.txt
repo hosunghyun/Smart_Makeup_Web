@@ -1,6 +1,6 @@
-Lip_bgr_color=(0, 128, 128)
-Lip_Hex=#808000
-Fd_opacity=88
-Fd_hex=#ee82ee
-Fd_bgr_color=(238, 130, 238)
-Lip_opacity=87
+Lip_bgr_color=(255, 0, 0)
+Lip_Hex=#0000ff
+Fd_opacity=22
+Fd_hex=#00ff00
+Fd_bgr_color=(0, 255, 0)
+Lip_opacity=82
