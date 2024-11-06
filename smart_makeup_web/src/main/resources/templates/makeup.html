@@ -18,7 +18,6 @@
         <!--왼쪽 칸-->
         <div style="width: 60%;">
             <!--캠 연결 버튼-->
-            <!--캠 연결 버튼-->
             <div style="width: 655px; height: 50px; float: right;">
                 <p style="display: inline-block; margin-top: 10px;">
                     <button id="CamBtn" class="sky-button">카메라 연결</button>
@@ -31,7 +30,7 @@
                     <img id="video" style="display: none;" src="" alt="Video Feed"/>
                 </div>
             </div>
-            <div style="width: 655px; height: 50px; float: right; display: flex; justify-content: space-between; align-items: center;">
+            <div sec:authorize="isAuthenticated()" style="width: 655px; height: 50px; float: right; display: flex; justify-content: space-between; align-items: center;">
                 <p style="margin: 0;">
                     <button class="sky-button" id="savebtn">저장하기</button>
                     <button class="sky-button" id="save_1">1</button>
@@ -238,6 +237,14 @@
                         whatBtn = "Fd";
                         sliderevent(Fdslider);
                         colorevent(FdwhatColor);
+                        if (FdwhatColor == "#00000000") {
+                            $colorBox1.style.backgroundImage = 'linear-gradient(135deg, transparent 25%, rgba(0,0,0,0.1) 25%, rgba(0,0,0,0.1) 50%, transparent 50%, transparent 75%, rgba(0,0,0,0.1) 75%, rgba(0,0,0,0.1))';
+                            $colorBox1.style.backgroundSize = '10px 10px';
+                        }
+                        else {
+                            $colorBox1.style.backgroundImage = "none";
+                        }
+
                     }
                     else if(`${makeup.category}` == "lipstick") {
                         Lipslider = `${makeup.opacity}`;
@@ -245,14 +252,23 @@
                         whatBtn = "Lip";
                         sliderevent(Lipslider);
                         colorevent(LipwhatColor);
+                        if (LipwhatColor == "#00000000") {
+                            $colorBox2.style.backgroundImage = 'linear-gradient(135deg, transparent 25%, rgba(0,0,0,0.1) 25%, rgba(0,0,0,0.1) 50%, transparent 50%, transparent 75%, rgba(0,0,0,0.1) 75%, rgba(0,0,0,0.1))';
+                            $colorBox2.style.backgroundSize = '10px 10px';
+                        }
+                        else {
+                            $colorBox2.style.backgroundImage = "none";
+                        }
                     }
                     else if(`${makeup.category}` == "eyeline") {
                         EyeLineslider = `${makeup.opacity}`;
                         EyeLinewhatColor = `${makeup.color_code}`;
+
                         whatBtn = "EyeLine";
                         sliderevent(EyeLineslider);
                         colorevent(EyeLinewhatColor);
                     }
+
                 });
             })
             .catch((Error) => {
@@ -261,6 +277,10 @@
         }
 
         $loadbtn.addEventListener('click', ()=>{
+            $SelectMakeupButton.style.display = "block";
+            $MakeupSelectBox.style.display = "none";
+            $foundation.style.display = "none";
+            $lip.style.display = "none";
             if(isNumberClick == true) {
                 loadDataMakeup();
             }
