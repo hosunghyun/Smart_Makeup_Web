@@ -18,6 +18,7 @@
         <!--왼쪽 칸-->
         <div style="width: 60%;">
             <!--캠 연결 버튼-->
+            <!--캠 연결 버튼-->
             <div style="width: 655px; height: 50px; float: right;">
                 <p style="display: inline-block; margin-top: 10px;">
                     <button id="CamBtn" class="sky-button">카메라 연결</button>
@@ -30,7 +31,6 @@
                     <img id="video" style="display: none;" src="" alt="Video Feed"/>
                 </div>
             </div>
-            <!--세이브, 로드 버튼-->
             <div style="width: 655px; height: 50px; float: right; display: flex; justify-content: space-between; align-items: center;">
                 <p style="margin: 0;">
                     <button class="sky-button" id="savebtn">저장하기</button>
@@ -41,11 +41,12 @@
                     <button class="sky-button" id="save_5">5</button>
                 </p>
                 <div style="display: flex; margin-right: 10px;">
-
                     <button class="sky-button" id="loadbtn">불러오기</button>
                 </div>
             </div>
         </div>
+
+
 
         <!--오른쪽 칸-->
         <!--캠 화면을 제어하는 구문, 캠이 연결된 경우에 show, 아니면 hidden-->
@@ -234,26 +235,23 @@
                     if(`${makeup.category}` == "fundation") {
                         Fdslider = `${makeup.opacity}`;
                         FdwhatColor = `${makeup.color_code}`;
-                        whatBtn = 'Fd';
-                        
-                        sliderevent(parseInt(Fdslider))
-                        sendPostButtonColor("Fd",FdwhatColor);
+                        whatBtn = "Fd";
+                        sliderevent(Fdslider);
+                        colorevent(FdwhatColor);
                     }
                     else if(`${makeup.category}` == "lipstick") {
                         Lipslider = `${makeup.opacity}`;
                         LipwhatColor = `${makeup.color_code}`;
-                        whatBtn = 'Lip';
-
-                        sliderevent(parseInt(Lipslider))
-                        sendPostButtonColor("Lip",LipwhatColor);
+                        whatBtn = "Lip";
+                        sliderevent(Lipslider);
+                        colorevent(LipwhatColor);
                     }
                     else if(`${makeup.category}` == "eyeline") {
                         EyeLineslider = `${makeup.opacity}`;
                         EyeLinewhatColor = `${makeup.color_code}`;
-                        whatBtn = 'EyeLine';
-
-                        sliderevent(parseInt(EyeLinewhatColor));
-                        sendPostButtonColor("EyeLine",EyeLinewhatColor);
+                        whatBtn = "EyeLine";
+                        sliderevent(EyeLineslider);
+                        colorevent(EyeLinewhatColor);
                     }
                 });
             })
@@ -271,6 +269,7 @@
             }
         });
     </script>
+    
 
     <!-- 부트스트랩 JS (옵션) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
