@@ -32,6 +32,9 @@ public class Product {
     @Column(name = "product_name", length = 50, nullable = false)
     private String product_name;
 
+    @Column(name = "product_link", length = 50)
+    private String product_link;
+
     @ManyToOne // 일대다 관계 표현 productcategory 한개가 makeup 한개를 가질 수 있다.
     @JoinColumn(name = "category", nullable = false) // 외래키 제약조건
     private ProductCategory category;
@@ -46,8 +49,9 @@ public class Product {
 
     // 생성자
     public Product() {}
-    public Product(String product_name, Integer price) {
+    public Product(String product_name, String product_link, Integer price) {
         this.product_name = product_name;
+        this.product_link = product_link;
         this.price = price;
     }
 }

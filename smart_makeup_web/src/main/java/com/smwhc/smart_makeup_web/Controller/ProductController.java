@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import com.smwhc.smart_makeup_web.Image.Image;
 import com.smwhc.smart_makeup_web.Product.Product;
 import com.smwhc.smart_makeup_web.Product.ProductService;
@@ -25,15 +24,25 @@ public class ProductController {
     public String recommendation(Model model) {
         List<Product> products = productService.findByAllProduct();
 
-        List<String> imagelinks = new ArrayList<>();
+        List<String> images = new ArrayList<>();
+        List<String> productname = new ArrayList<>();
+        List<Integer> price = new ArrayList<>();
+        List<String> productlink = new ArrayList<>();
 
         for(Product product : products) {
+            productname.add(product.getProduct_name());
+            price.add(product.getPrice());
+            productlink.add(product.getProduct_link());
             for(Image image : product.getImages()) {
-                imagelinks.add(image.getImage_link());
+                images.add(image.getImage_link());
+                
             }
         }
         
-        model.addAttribute("images", imagelinks);
+        model.addAttribute("images", images);
+        model.addAttribute("productname", productname);
+        model.addAttribute("price", price);
+        model.addAttribute("productlink", productlink);
         return "recommendation";
     }
 }
