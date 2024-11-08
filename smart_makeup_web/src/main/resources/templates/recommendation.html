@@ -126,32 +126,31 @@
 
             let index = 0;
 
-            function updateImages() {
+            function updateCards() {
                 let cnt = 0;
+
+                // 이미지 변경
                 imgs.forEach(img => {
-                    img.src = images[(index + 0) % images.length];
+                    img.src = images[(index + cnt) % images.length];
                     cnt += 1;
                 });
-            }
+                cnt = 0;
 
-            function updateProductname() {
-                let cnt = 0;
+                // 제품명 변경
                 productsname.forEach(name => {
                     name.textContent = productname[(index + cnt) % productname.length];
                     cnt += 1;
                 });
-            }
+                cnt = 0;
 
-            function updatePrice() {
-                let cnt = 0;
+                // 제품 가격 변경
                 prices.forEach(printprice => {
                     printprice.textContent = price[(index + cnt) % price.length].toLocaleString() + " 원"; 
                     cnt += 1;
                 });
-            }
+                cnt = 0;
 
-            function updateLink() {
-                let cnt = 0;
+                // 제품 구매 링크 변경
                 shoplinks.forEach(shoplink => {
                     shoplink.href = productlink[(index + cnt) % productlink.length]; 
                     cnt += 1;
@@ -159,26 +158,17 @@
             }
 
             document.addEventListener('DOMContentLoaded', () => {
-                updateImages(); // 페이지 로드 시 이미지 설정
-                updateProductname();
-                updatePrice();
-                updateLink();
+                updateCards()
             });
 
             prebtn.addEventListener('click', () => {
                 index = (index - 1 + images.length) % images.length; // 인덱스를 감소하고, 순환
-                updateImages(); // 이미지 업데이트
-                updateProductname();
-                updatePrice();
-                updateLink();
+                updateCards()
             });
 
             nextbtn.addEventListener('click', () => {
                 index = (index + 1) % images.length; // 인덱스를 증가하고, 순환
-                updateImages(); // 이미지 업데이트
-                updateProductname();
-                updatePrice();
-                updateLink();
+                updateCards()
             });
             /*]]>*/
         })();

@@ -248,10 +248,11 @@ function sliderevent (value) {
 
 $CamBtn.addEventListener('click', ()=>{
     if(connectCam === false) {   // 캠 미연결이므로 연결 동작 실행
+        sendConnectPython();
         cunnectWebsocket();
-        cunnectWebsocket();
+        
 
-        sendConnectPython(); 
+         
         $video.style.backgroundImage = 'url(http://localhost:8080/video_feed)'; // 캠 스트림 URL 설정
         $video.style.display = 'block';   // 비디오 부분 보이게 설정
         $CamBtn.textContent = '카메라 해제';    // 연결되어 있으므로 연결을 해제 위해 카메라 해제로 명칭 변경
