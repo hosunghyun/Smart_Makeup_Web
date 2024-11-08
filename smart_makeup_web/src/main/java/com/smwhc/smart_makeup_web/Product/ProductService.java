@@ -14,13 +14,7 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    // 1. 제품 등록
-
-    // 2. 제품 수정
-
-    // 3. 제품 삭제
-
-    // 4. 제품 찾기
+    // 제품 찾기
     public List<Product> findByAllProduct() {
         List<Product> products = productRepository.findAll();
         return products;

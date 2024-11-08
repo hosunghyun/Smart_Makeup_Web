@@ -61,9 +61,11 @@ public class CommentController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName(); // 사용자 아이디
 
+        // 삭제하려는 댓글을 데이터베이스에서 찾아서 객체로 생성
         Comment comment = commentService.findById(commentDTO.getComment_id());
         
-        if(currentUsername.equals(comment.getMember().getMember_id())) {
+        // 삭제하려는 댓글 작성자하고 현재 삭제하려는 사용자하고 같은지 비교
+        if(currentUsername.equals(comment.getMember().getMember_id())) {        
             commentService.deletecomment(commentDTO.getComment_id());
             result = "success";
         }

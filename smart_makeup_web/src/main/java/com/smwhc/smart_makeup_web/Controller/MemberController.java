@@ -133,7 +133,8 @@ public class MemberController {
     @PostMapping("/searchId")
     public ResponseEntity<String> searchid(@RequestBody MemberDTO memberDTO) {
         String result;
-        
+
+        // 아이디를 찾을 때 input 박스에 데이터를 작성했는지 확인
         if(memberDTO.getEmail() != null || !memberDTO.getEmail().isEmpty() ||
             memberDTO.getPhone() != null || !memberDTO.getPhone().isEmpty()) {
                 Member member = memberService.findByMemberId(memberDTO);
@@ -151,6 +152,7 @@ public class MemberController {
     public ResponseEntity<String> searchpwd(@RequestBody MemberDTO memberDTO) {
         String result;
 
+        // 비밀번호를 찾을 때 input 박스에 데이터를 작성했는지 확인
         if (memberDTO.getMember_id() != null || !memberDTO.getMember_id().isEmpty() ||
             memberDTO.getEmail() != null || !memberDTO.getEmail().isEmpty()) {
             Member member = memberService.findByMemberpwd(memberDTO);
@@ -168,9 +170,9 @@ public class MemberController {
     public ResponseEntity<String> newpwd(@RequestBody MemberDTO memberDTO) {
         String result;
 
+        // 비밀번호를 변경할 때 input 박스에 데이터를 작성했는지 확인
         if(memberDTO.getMember_id() != null || !memberDTO.getMember_id().isEmpty() ||
             memberDTO.getMember_password() != null || !memberDTO.getMember_password().isEmpty()) {
-            //Member member = 
             memberService.changePWD(memberDTO);
             result = "success";
         }

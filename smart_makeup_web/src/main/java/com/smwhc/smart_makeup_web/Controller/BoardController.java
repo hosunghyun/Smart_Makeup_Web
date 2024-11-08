@@ -239,7 +239,6 @@ public class BoardController {
         return "redirect:/board";
     }
 
-    
     // 게시판 글 삭제하는 기능
     @PostMapping("/delete/board={id}")
     public ResponseEntity<String> deleteboard(@RequestBody BoardDTO boardDTO) {
