@@ -37,7 +37,7 @@
                 }
             })
             .catch((Error) => {
-                console.error('Error:', error); // 에러 처리
+                console.error('Error:', Error); // 에러 처리
             });
         }
     });  
@@ -72,7 +72,7 @@
                 }
             })
             .catch((Error) => {
-                console.error('Error:', error); // 에러 처리
+                console.error('Error:', Error); // 에러 처리
             });
         }
         else {

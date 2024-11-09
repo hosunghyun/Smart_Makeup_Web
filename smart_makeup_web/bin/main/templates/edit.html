@@ -56,7 +56,7 @@
                         <img th:src="${image.getImage_link()}" alt="">
                         <button type="button" th:id="'imgbtn_' + ${image.getId()}" class="btn btn-custom">삭제</button>
                     </div>
-                    <input type="hidden" name="deleteimg" id="arrayData">
+                    <input type="hidden" name="deleteimg" id="arrayData"> <!-- 자바스크립트 데이터를 함께 전송 -->
                 </div>
                 <div class="mb-3">
                     <label for="content" class="form-label" style="color: white;">본문</label>

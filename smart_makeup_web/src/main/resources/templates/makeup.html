@@ -30,7 +30,7 @@
                     <img id="video" style="display: none;" src="" alt="Video Feed"/>
                 </div>
             </div>
-            <div sec:authorize="isAuthenticated()" style="width: 655px; height: 50px; float: right; display: flex; justify-content: space-between; align-items: center;">
+            <div style="width: 655px; height: 50px; float: right; display: flex; justify-content: space-between; align-items: center;">
                 <p style="margin: 0;">
                     <button class="sky-button" id="savebtn">저장하기</button>
                     <button class="sky-button" id="save_1">1</button>
@@ -219,9 +219,9 @@
         </div>
     </footer>
 
-    <script th:src="@{/JS/makeup/makeupvariable.js}" defer></script>
-    <script th:src="@{/JS/makeup/makeup.js}" defer></script>
-    <script th:inline="javascript" defer>
+    <script th:src="@{/JS/makeup/makeupvariable.js}"></script>
+    <script th:src="@{/JS/makeup/makeup.js}"></script>
+    <script th:inline="javascript">
         function loadDataMakeup() {
             fetch(`/loadmakeup`, {
                 method : 'POST',
