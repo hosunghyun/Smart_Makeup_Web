@@ -250,8 +250,6 @@ $CamBtn.addEventListener('click', ()=>{
     if(connectCam === false) {   // 캠 미연결이므로 연결 동작 실행
         sendConnectPython();
         cunnectWebsocket();
-        
-
          
         $video.style.backgroundImage = 'url(http://localhost:8080/video_feed)'; // 캠 스트림 URL 설정
         $video.style.display = 'block';   // 비디오 부분 보이게 설정
