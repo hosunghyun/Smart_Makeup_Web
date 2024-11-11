@@ -83,7 +83,7 @@ class makeup_face():
         # returning the list of tuples for each landmarks 
         return mesh_coord
     
-    def draw_FACE_OVAL(self, frame, mask, colors, ref_img, results):      #피부만 눌렸을때
+    def draw_FACE_OVAL(self, frame, mask, colors, ref_img, results, s_mix):      #피부만 눌렸을때
         # Inialize hair segmentation model / 머리카락 세분화 모델을 초기화합니다.
         hair_segmentation = HairSegmentation()
         copy = frame.copy()
@@ -121,20 +121,20 @@ class makeup_face():
             # ref_img = makeup_ref_img.draw_FACE_OVAL(ref_img,utils.WHITE)
             matched = match_histograms(masked,ref_img, channel_axis= -1)
 
-            # s_weighted_img = cv2.addWeighted(matched, s_mix/100, masked, 1-(s_mix/100), 0) # 두개의 이미지를 가중치에 따라서 다르게 보여줍니다.
+            s_weighted_img = cv2.addWeighted(matched, s_mix/100, masked, 1-(s_mix/100), 0) # 두개의 이미지를 가중치에 따라서 다르게 보여줍니다.
             
-            return matched, mask
+            return s_weighted_img, mask
         else:
             return None, None
                     
-    def run(self, frame, ref_img):
+    def run(self, frame, ref_img, s_mix):
         map_face_mesh = mp.solutions.face_mesh
         face_mesh = map_face_mesh.FaceMesh(min_detection_confidence =0.5, min_tracking_confidence=0.5)   
         mask = np.zeros_like(frame)
         results = face_mesh.process(frame)
         skin_mask = mask.copy()
 
-        skin_result, skin_mask = self.draw_FACE_OVAL(frame, skin_mask, utils.WHITE, ref_img, results)
+        skin_result, skin_mask = self.draw_FACE_OVAL(frame, skin_mask, utils.WHITE, ref_img, results, s_mix)
 
 
         return skin_result, skin_mask

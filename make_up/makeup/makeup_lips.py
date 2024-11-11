@@ -52,7 +52,7 @@ class makeup_lips():
         # returning the list of tuples for each landmarks 
         return mesh_coord
     
-    def draw_LIPS(self, frame, mask, colors, ref_img, results):
+    def draw_LIPS(self, frame, mask, colors, ref_img, results, l_mix):
         copy = frame.copy()
         if results.multi_face_landmarks:
             print(1)
@@ -65,18 +65,18 @@ class makeup_lips():
             # cv2.imshow('lip_result', masked)  
             # ref_img = makeup_ref_img.draw_LIPS(ref_img,utils.WHITE)
             matched = match_histograms(masked, ref_img, channel_axis=-1)
-            # m_weighted_img = cv2.addWeighted(matched,m_mix/100, masked, 1-(m_mix/100), 0) # 두개의 이미지를 가중치에 따라서 다르게 보여줍니다.
-            return matched, mask
+            m_weighted_img = cv2.addWeighted(matched,l_mix/100, masked, 1-(l_mix/100), 0) # 두개의 이미지를 가중치에 따라서 다르게 보여줍니다.
+            return m_weighted_img, mask
         else:
             return None, None
                     
-    def run(self, frame, ref_img):
+    def run(self, frame, ref_img, l_mix):
         map_face_mesh = mp.solutions.face_mesh
         face_mesh = map_face_mesh.FaceMesh(min_detection_confidence =0.5, min_tracking_confidence=0.5)   
         mask = np.zeros_like(frame)
         results = face_mesh.process(frame)
         lip_mask = mask.copy()
 
-        lip_result, lip_mask = self.draw_LIPS(frame, lip_mask, utils.WHITE, ref_img, results)
+        lip_result, lip_mask = self.draw_LIPS(frame, lip_mask, utils.WHITE, ref_img, results, l_mix)
 
         return lip_result, lip_mask
