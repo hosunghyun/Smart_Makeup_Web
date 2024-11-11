@@ -110,13 +110,7 @@ class makeup_face():
 
             # 입술 뺄 시 아래 코드 사용
             mask =utils.fillPolyTrans(mask, [mesh_coords[p] for p in self.CLOSE_LIP], (0,0,0), opacity=1 )   # (입술+입술 내부) 포함해서 뺌
-            cv2.imshow('mask', mask)
-            '''# 눈 뺄 시
-            mask =utils.fillPolyTrans(mask, [mesh_coords[p] for p in LEFT_EYE], (0,0,0), opacity=1 )
-            mask =utils.fillPolyTrans(mask, [mesh_coords[p] for p in RIGHT_EYE], (0,0,0), opacity=1 )
-            # # 눈썹 뺄 시
-            mask =utils.fillPolyTrans(mask, [mesh_coords[p] for p in LEFT_EYEBROW], (0,0,0), opacity=1 )
-            mask =utils.fillPolyTrans(mask, [mesh_coords[p] for p in RIGHT_EYEBROW], (0,0,0), opacity=1 )'''
+
             # # 머리
             mask = cv2.bitwise_and(mask, dyed_hair)
 
