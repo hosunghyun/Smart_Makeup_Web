@@ -245,7 +245,7 @@ function sliderevent (value) {
 };
 
 
-
+cunnectWebsocket();
 $CamBtn.addEventListener('click', ()=>{
     if(connectCam === false) {   // 캠 미연결이므로 연결 동작 실행
         sendConnectPython();
