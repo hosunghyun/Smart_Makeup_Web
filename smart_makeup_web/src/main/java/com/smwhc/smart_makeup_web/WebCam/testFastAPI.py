@@ -19,6 +19,24 @@ import os
 
 import threading
 
+import sys
+# 현재 파일의 절대 경로
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# 8단계 상위 디렉터리로 이동
+for _ in range(8):
+    current_dir = os.path.dirname(current_dir)
+
+# start_Makeup.py가 있는 경로를 sys.path에 추가
+relative_path = os.path.join(current_dir, "make_up", "makeup")
+
+sys.path.append(relative_path)
+
+# start_Makeup 클래스를 import
+from start_Makeup import start_Makeup
+
+
+
 app = FastAPI()
 
 # CORS 미들웨어 추가
@@ -202,6 +220,8 @@ async def video_feed(websocket: WebSocket):
         while True:
             # 프레임 읽기
             ret, frame = cap.read()
+            # start_Makeup 클래스를 인스턴스화
+            makeup_instance = start_Makeup()
             if not ret: # 프레임을 못읽었다면, break
                 break
 
@@ -222,10 +242,14 @@ async def video_feed(websocket: WebSocket):
             #     f"fd_bgr: {fd_bgr}, 타입: {type(fd_bgr)} | "
             #     f"fd_hex: {fd_hex}, 타입: {type(fd_hex)}"
             # )
+            
+            
+            frame = makeup_instance.run(frame, skin_val=True, lip_val=True, skin_num=1, lip_num=2, s_mix=80, l_mix=80)
 
             # fd_opacity 처리
             if fd_opacity == "100":
-                putText_frames(frame, "MAX", (0, 255, 255), 30)
+                # putText_frames(frame, "MAX", (0, 255, 255), 30)
+                frame = makeup_instance.run(frame, skin_val=True, lip_val=True, skin_num=1, lip_num=2, s_mix=80, l_mix=80)
             else:
                 putText_frames(frame, f"FDopacity: {fd_opacity}", fd_bgr, 30)
             # lip_opacity 처리
