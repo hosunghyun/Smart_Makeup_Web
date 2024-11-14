@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>메인 페이지</title>
+    <title>Smart Makeup</title>
     <style>
         body {
             background-color: #f0f8ff;
@@ -33,6 +33,15 @@
             position: absolute;
             transition: transform 1s ease;
         }
+
+        .mainpage-container {
+            width: 80%; /* 80% 너비 할당 */
+            margin-left: 10%;
+
+            display: flex;
+            justify-content: center; /* 수평 중앙 정렬 */
+            align-items: center; /* 수직 중앙 정렬 */
+        }
     </style>
 </head>
 <body>
@@ -48,13 +57,15 @@
         </div>
     </aside>
 
-    <video width="720" height="480" autoplay loop muted>
-        <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
-    </video>
 
-    <div>
-        
+    <!-- 메인 페이지 출력 페이지-->
+    <div class="mainpage-container" style="background-color: burlywood;">
+        <video width="720" height="480" autoplay loop muted>
+            <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
+        </video>
     </div>
+
+
 
     <footer>
         <div class="footer_left">
