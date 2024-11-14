@@ -188,11 +188,12 @@ public class BoardController {
         Member member = memberService.findById(currentUsername);
 
         // 이미지 삭제
+        
         for(String img : deleteArray) {
             String result = img.replace("\"", "")   // 쌍따옴표 제거
                            .replace("[", "")  // 여는 대괄호 제거
                            .replace("]", ""); // 닫는 대괄호 제거
-            if (result != null) {
+            if (result != null && !result.isEmpty()) {
                 // 1. 디렉터리에 저장된 이미지 삭제하기
                 Image image = imageService.findByImage(result);
                 String Dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static";
