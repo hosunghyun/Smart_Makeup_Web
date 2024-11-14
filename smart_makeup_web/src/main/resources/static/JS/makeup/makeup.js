@@ -302,21 +302,21 @@ function sliderevent (value) {
 };
 
 
-cunnectWebsocket();
+// cunnectWebsocket();
+// cunnectWebsocket();
+// sendConnectPython();
 $CamBtn.addEventListener('click', ()=>{
     if(connectCam === false) {   // 캠 미연결이므로 연결 동작 실행
         cunnectWebsocket();
-        sendConnectPython();
-        cunnectWebsocket();
          
-        $video.style.backgroundImage = 'url(http://localhost:8080/video_feed)'; // 캠 스트림 URL 설정
+        $video.style.backgroundImage = 'url(http://127.0.0.1:8080/video_feed)'; // 캠 스트림 URL 설정
         $video.style.display = 'block';   // 비디오 부분 보이게 설정
         $CamBtn.textContent = '카메라 해제';    // 연결되어 있으므로 연결을 해제 위해 카메라 해제로 명칭 변경
         $SelectMakeupButton.style.display = 'block';
         connectCam = true;
     }
     else {  // 캠이 연결되어 있으니 해제 동작 실행
-        sendDestroyPython();
+        // sendDestroyPython();
         $CamBtn.textContent = '카메라 연결';    // 연결 해제되므로 다시 연결을 위해 카메라 연결로 명칭 변경
         $SelectMakeupButton.style.display = 'none';
         streamActive = false; // 상태 업데이트

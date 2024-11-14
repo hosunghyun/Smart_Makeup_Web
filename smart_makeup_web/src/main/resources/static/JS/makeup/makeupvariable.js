@@ -26,6 +26,13 @@ const $save_4 = document.getElementById('save_4');
 const $save_5 = document.getElementById('save_5');
 const $savebtn = document.getElementById('savebtn');
 
+// 각 샐랙트박스 배경색
+const FdBackGroundColor = "#339adf";
+const LipBackGroundColor = "#ec7b7b";
+
+// 슬라이더 박스 배경 (디자인이 샐랙트박스 배경색과 똑같이 해야함)
+const $sliderValueText = document.getElementById('sliderValueText');
+
 // 사용자가 어디에 화장 정보를 저장할 건지에 대한 버튼
 let isNumberClick = false;
 let whatNumber = 1;
@@ -78,13 +85,6 @@ const colorMap = new Map([
     ['rgb(200, 141, 79)', '#c88d4f'],
     ['rgb(201, 162, 103)', '#c9a267']
 ]);
-
-// 각 샐랙트박스 배경색
-const FdBackGroundColor = "#339adf";
-const LipBackGroundColor = "#ec7b7b";
-
-// 슬라이더 박스 배경 (디자인이 샐랙트박스 배경색과 똑같이 해야함)
-const $sliderValueText = document.getElementById('sliderValueText');
 
 // 색상 중, 이전에 선택한 색상을 지정
 let previousFdButton = null;
