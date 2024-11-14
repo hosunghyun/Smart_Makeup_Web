@@ -6,7 +6,7 @@ import onnxruntime
 
 
 # model_url = "https://github.com/Kazuhito00/Skin-Clothes-Hair-Segmentation-using-SMP/blob/main/02.model/DeepLabV3Plus(timm-mobilenetv3_small_100)_452_2.16M_0.8385/best_model_simplifier.onnx?raw=true"
-MODEL_PATH = 'make_up\\makeup\\models\\hair_segmentation.onnx'
+MODEL_PATH = 'smart_makeup_web\\src\\main\\python\\make_up\\makeup\\models\\hair_segmentation.onnx'
 
 
 class HairSegmentation():
