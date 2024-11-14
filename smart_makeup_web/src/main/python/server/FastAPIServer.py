@@ -21,7 +21,6 @@ import threading
 
 import sys
 # 현재 파일의 절대 경로
-# 현재 파일의 절대 경로
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 new_dir = os.path.dirname(current_dir)
@@ -33,8 +32,6 @@ sys.path.append(relative_path)
 
 # start_Makeup 클래스를 import
 from start_Makeup import start_Makeup
-
-
 
 app = FastAPI()
 
@@ -64,56 +61,76 @@ params_file = "src\\main\\java\\com\\smwhc\\smart_makeup_web\\WebCam\\params.txt
 
 # 초기 값 설정
 data_store = {
-    "lip_bgr": (0, 0, 0),
-    "lip_hex": "#000000",
-    "fd_bgr": (0, 0, 0),
-    "fd_hex": "#000000",
+    "lip_bgr": None,
+    "lip_hex": None,
+    "fd_bgr": None,
+    "fd_hex": None,
     "lip_opacity": 0,
-    "fd_opacity": 0
+    "fd_opacity": 0,
+    "isFDmakeup":False,
+    "isLIPmakeup":False
 }
-
 
 
 def hex_to_bgr(hex_code):
     # 헥사 코드 형식 확인
-    if not isinstance(hex_code, str) or not (len(hex_code) == 7 and hex_code.startswith('#')):
-        raise ValueError("유효한 헥사 코드 형식이 아닙니다. 예: '#RRGGBB'")
+    if not isinstance(hex_code, str) or len(hex_code) != 7 or not hex_code.startswith('#'):
+        print("유효한 헥사 코드 형식이 아닙니다. 예: '#RRGGBB'")
+        return None
     
     hex_code = hex_code.lstrip('#')
-    # 헥사 코드가 6자리인지 확인
-    if len(hex_code) != 6:
-        raise ValueError("유효한 헥사 코드 형식이 아닙니다. 예: '#RRGGBB'")
     try:
         r = int(hex_code[0:2], 16)
         g = int(hex_code[2:4], 16)
         b = int(hex_code[4:6], 16)
     except ValueError:
-        raise ValueError("헥사 코드에 잘못된 문자가 포함되어 있습니다.")
+        print("헥사 코드에 잘못된 문자가 포함되어 있습니다.")
+        return None
+    
+    # 각 색상의 범위 체크 (0 ~ 255)
+    for color_value in (r, g, b):
+        if not (0 <= color_value <= 255):
+            print(f"색상 값은 0에서 255 사이여야 합니다. 잘못된 값: {color_value}")
+            return None
+    
     # BGR 형식으로 반환
     return (b, g, r)
+
+
 
 
 # 값을 설정하는 함수
 def set_value(key, value):
     if key not in data_store:
         raise ValueError(f"Invalid key: {key}")
-    
+
     if key == "lip_hex":
         if not value.startswith("#") or len(value) != 7:
-            raise ValueError(f"Invalid HEX value for {key}: {value}")
+            print(f"Error: Invalid HEX value for {key}: {value}")
+            # return True  # 오류 발생 시 0을 반환하고 함수 종료
         data_store[key] = value
         # HEX 값을 BGR로 변환
         bgr = hex_to_bgr(value)
+        if bgr is None:
+            data_store["isLIPmakeup"] = False
+        else:
+            data_store["isLIPmakeup"] = True
         data_store["lip_bgr"] = bgr
         print(f"Updated {key}: {data_store[key]}")
         print(f"Updated lip_bgr: {data_store['lip_bgr']}")
-    
+
+    # "fd_hex" 처리
     elif key == "fd_hex":
         if not value.startswith("#") or len(value) != 7:
-            raise ValueError(f"Invalid HEX value for {key}: {value}")
+            print(f"Error: Invalid HEX value for {key}: {value}")
+            # return True  # 오류 발생 시 0을 반환하고 함수 종료
         data_store[key] = value
         # HEX 값을 BGR로 변환
         bgr = hex_to_bgr(value)
+        if bgr is None:
+            data_store["isFDmakeup"] = False
+        else:
+            data_store["isFDmakeup"] = True
         data_store["fd_bgr"] = bgr
         print(f"Updated {key}: {data_store[key]}")
         print(f"Updated fd_bgr: {data_store['fd_bgr']}")
@@ -123,7 +140,7 @@ def set_value(key, value):
         #     raise ValueError(f"Invalid opacity value for {key}: {value}")
         data_store[key] = value
         print(f"Updated {key}: {data_store[key]}")
-    
+
     elif key == "fd_opacity":
         # if not (0 <= value <= 100):
         #     raise ValueError(f"Invalid opacity value for {key}: {value}")
@@ -137,8 +154,6 @@ def get_value(key):
     
     return data_store[key]
 
-
-
 class Foundation(BaseModel):
     opacity: int = 0
     hex: str = "0"
@@ -150,6 +165,28 @@ class LIP(BaseModel):
 # # 전역 변수로 foundation 인스턴스 생성, 비동기가 변하는 전역변수를 못읽음
 # foundation = Foundation()
 
+@app.post("/LipBtnColor") # Lip_Hex Lip_bgr_color
+async def slider_data(data: LIP):
+    print(data.hex, type(data.hex))
+    bgr_color = hex_to_bgr(data.hex)
+
+    # 큐 생성
+    set_value("lip_hex", data.hex)  # Tomato color for lip_hex
+
+    print(f"bgr = {bgr_color}")
+    return {"message": "Data received", "received": data.hex}
+
+@app.post("/FdBtnColor") # Fd_hex Fd_bgr_color
+async def slider_data(data: Foundation):
+    print(data.hex, type(data.hex))
+    bgr_color = hex_to_bgr(data.hex)
+
+    # 큐 생성
+    set_value("fd_hex", data.hex)   # SteelBlue color for fd_hex
+
+    print(f"bgr = {bgr_color}")
+    return {"message": "Data received", "received": data.hex}
+
 @app.post("/FdSlider") # Fd_opacity
 async def slider_data(data: Foundation):
     # 큐 생성
@@ -158,16 +195,7 @@ async def slider_data(data: Foundation):
     print("Received:", data.opacity, type(data.opacity))
     return {"message": "Data received", "received": data.opacity}
 
-@app.post("/FdBtnColor") # Fd_hex Fd_bgr_color
-async def slider_data(data: Foundation):
-    print(params_file, data.hex, type(data.hex))
-    bgr_color = hex_to_bgr(data.hex)
 
-    # 큐 생성
-    set_value("fd_hex", data.hex)   # SteelBlue color for fd_hex
-
-    print(f"bgr = {bgr_color}")
-    return {"message": "Data received", "received": data.hex}
 
 @app.post("/LipSlider") # Lip_opacity
 async def slider_data(data: LIP):
@@ -178,16 +206,7 @@ async def slider_data(data: LIP):
     print("Received:", data.opacity, type(data.opacity))
     return {"message": "Data received", "received": data.opacity}
 
-@app.post("/LipBtnColor") # Lip_Hex Lip_bgr_color
-async def slider_data(data: LIP):
-    print(params_file, data.hex, type(data.hex))
-    bgr_color = hex_to_bgr(data.hex)
 
-    # 큐 생성
-    set_value("lip_hex", data.hex)  # Tomato color for lip_hex
-
-    print(f"bgr = {bgr_color}")
-    return {"message": "Data received", "received": data.hex}
 
 
 ## 서버 종료
@@ -215,51 +234,35 @@ async def video_feed(websocket: WebSocket):
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     print(f"카메라 해상도: {width} x {height}")
 
-    ## java로 post 신호
-
     try:
         while True:
             # 프레임 읽기
             ret, frame = cap.read()
-            # start_Makeup 클래스를 인스턴스화
             makeup_instance = start_Makeup()
             if not ret: # 프레임을 못읽었다면, break
                 break
 
             # 값 가져오기 (opacity->INT, bgr->TUPLE, hex->STR)
             lip_bgr = get_value("lip_bgr")
-            # lip_hex = get_value("lip_hex")
+            lip_hex = get_value("lip_hex")
             fd_bgr = get_value("fd_bgr")
-            # fd_hex = get_value("fd_hex")
+            fd_hex = get_value("fd_hex")
             lip_opacity = get_value("lip_opacity")
             fd_opacity = get_value("fd_opacity")
+            isFDmakeup = get_value("isFDmakeup")
+            isLIPmakeup = get_value("isLIPmakeup")
 
-            # # 한 번에 모든 값과 타입 출력 (확인용)
-            # print(
-            #     f"lip_bgr: {lip_bgr}, 타입: {type(lip_bgr)} | "
-            #     f"lip_hex: {lip_hex}, 타입: {type(lip_hex)} | "
-            #     f"fd_opacity: {fd_opacity}, 타입: {type(fd_opacity)} | "
-            #     f"lip_opacity: {lip_opacity}, 타입: {type(lip_opacity)} | "
-            #     f"fd_bgr: {fd_bgr}, 타입: {type(fd_bgr)} | "
-            #     f"fd_hex: {fd_hex}, 타입: {type(fd_hex)}"
-            # )
-            
-            
-            frame = makeup_instance.run(frame, skin_val=True, lip_val=True, skin_num=1, lip_num=2, s_mix=80, l_mix=80)
-
-            # fd_opacity 처리
-            if fd_opacity == "100":
-                # putText_frames(frame, "MAX", (0, 255, 255), 30)
-                frame = makeup_instance.run(frame, skin_val=True, lip_val=True, skin_num=1, lip_num=2, s_mix=80, l_mix=80)
-            else:
-                putText_frames(frame, f"FDopacity: {fd_opacity}", fd_bgr, 30)
-            # lip_opacity 처리
-            if lip_opacity == "100":
-                putText_frames(frame, "MAX", (0, 255, 255), 60)
-            else:
-                putText_frames(frame, f"LIPopacity: {lip_opacity}", lip_bgr, 60)
-
-
+            # 한 번에 모든 값과 타입 출력 (확인용)
+            print(
+                f"fd_bgr: {isFDmakeup}, 타입: {type(isFDmakeup)} | "
+                f"fd_opacity: {fd_opacity}, 타입: {type(fd_opacity)} | "
+                f"fd_bgr: {fd_bgr}, 타입: {type(fd_bgr)} | "
+                f"fd_hex: {fd_hex}, 타입: {type(fd_hex)} | "
+                f"lip_bgr: {isLIPmakeup}, 타입: {type(isLIPmakeup)} | "
+                f"lip_bgr: {lip_bgr}, 타입: {type(lip_bgr)} | "
+                f"lip_hex: {lip_hex}, 타입: {type(lip_hex)}"
+            )
+            frame = makeup_instance.run(frame, isFDmakeup, isLIPmakeup, fd_bgr, lip_bgr, fd_opacity, lip_opacity)
 
             # 프레임을 JPEG 형식으로 인코딩
             _, buffer = cv2.imencode('.jpg', frame)
@@ -303,7 +306,7 @@ def is_camera_in_use(camera_index=0):
 
 ## 서버 실행 명령어 uvicorn main:app --reload
 if __name__ == "__main__":
-    print("시작됨")
+
     ## 뒤에 있어야함. 그래야  txt 초기화 코드가 실행됨, 근데뭔가뭔가하자가있는듯함뭔가뭔가임기분탓같은데뭔가뭔가뭔가임
     uvicorn.run(app, port=8080)
 
