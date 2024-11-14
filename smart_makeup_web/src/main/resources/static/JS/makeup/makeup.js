@@ -43,7 +43,7 @@ $savebtn.addEventListener('click', ()=>{
     if(isNumberClick == true) {
         sendDataMakeup(Fdslider, "fundation", FdwhatColor);
         sendDataMakeup(Lipslider, "lipstick", LipwhatColor);
-        sendDataMakeup(EyeLineslider, "eyeline", EyeLinewhatColor);
+        // sendDataMakeup(EyeLineslider, "eyeline", EyeLinewhatColor);
     }
     else {
         alert('저장할 버튼을 클릭해주세요');
@@ -108,81 +108,40 @@ function sendDestroyPython() {
     });
 }
 
-// 색상 이름과 HEX 값을 매핑하는 Map 객체 생성
-const colorMap = new Map([
-    ['red', '#ff0000'],
-    ['green', '#00ff00'],
-    ['blue', '#0000ff'],
-    ['yellow', '#ffff00'],
-
-    ['orange', '#ff7f00'],
-    ['purple', '#800080'],
-    ['pink', '#ffc0cb'],
-    ['cyan', '#00ffff'],
-    
-    ['brown', '#a52a2a'],
-    ['gray', '#808080'],
-    ['lightcoral', '#f08080'],
-    ['lightgreen', '#90ee90'],
-
-    ['lightblue', '#add8e6'],
-    ['lavender', '#e6e6fa'],
-    ['gold', '#ffd700'],
-    ['salmon', '#fa8072'],
-
-    ['teal', '#008080'],
-    ['navy', '#000080'],
-    ['maroon', '#800000'],
-    ['olive', '#808000'],
-
-    ['coral', '#ff7f50'],
-    ['plum', '#dda0dd'],
-    ['khaki', '#f0e68c'],
-    ['chocolate', '#d2691e'],
-
-    ['sienna', '#a0522d'],
-    ['slateblue', '#6a5acd'],
-    ['mediumseagreen', '#3cb371'],
-    ['lightsalmon', '#ffa07a'],
-    
-    ['lightgray', '#d3d3d3'],
-    ['darkorange', '#ff8c00'],
-    ['springgreen', '#00ff7f'],
-    ['violet', '#ee82ee'],
-]);
-
 // 파운데이션 바르기 버튼을 클릭했을 경우
 $showFdMakeupSelectBox.addEventListener('click', ()=>{
     $SelectMakeupButton.style.display = 'none';    // 버튼들 안보이게 하기
-    $MakeupSelectBox.style.backgroundColor = '#339adf';
+    $MakeupSelectBox.style.backgroundColor = FdBackGroundColor;
+    $sliderValueText.style.backgroundColor = FdBackGroundColor;
     $MakeupSelectBox.style.display = "block"; // 셀렉트 박스 보이게 하기 height: 480px
-    $MakeupSelectBox.style.height = '480px';
+    $MakeupSelectBox.style.height = '390px';
     $foundation.style.display = 'block';
     $sliderValue.value = Fdslider;
-    $colorBox1.style.backgroundColor = FdwhatColor;
+    // $colorBox1.style.backgroundColor = FdwhatColor;
     whatBtn = 'Fd';
 });
 
 // 립 바르기 버튼을 클릭했을 경우
 $showLipMakeupSelectBox.addEventListener('click', ()=>{
     $SelectMakeupButton.style.display = 'none';    // 버튼들 안보이게 하기
-    $MakeupSelectBox .style.backgroundColor = '#ec7b7b';
+    $MakeupSelectBox.style.backgroundColor = LipBackGroundColor;
+    $sliderValueText.style.backgroundColor = LipBackGroundColor;
     $MakeupSelectBox.style.height = '350px';
     $MakeupSelectBox.style.display = "block"; // 셀렉트 박스 보이게 하기
     $lip.style.display = 'block';
     $sliderValue.value = Lipslider;
-    $colorBox2.style.backgroundColor = LipwhatColor;
+    // $colorBox2.style.backgroundColor = LipwhatColor;
     whatBtn = 'Lip';
 });
 
-// 아이라인 바르기 버튼을 클릭했을 경우
-$showEyeLineMakeupSelectBox.addEventListener('click', ()=>{
-    $SelectMakeupButton.style.display = 'none';    // 버튼들 안보이게 하기
-    $MakeupSelectBox.style.backgroundColor = '#362349';
-    $MakeupSelectBox.style.display = "block"; // 셀렉트 박스 보이게 하기
-    $sliderValue.value = EyeLineslider;
-    whatBtn = 'EyeLine';
-});
+// // 아이라인 바르기 버튼을 클릭했을 경우
+// $showEyeLineMakeupSelectBox.addEventListener('click', ()=>{
+//     $SelectMakeupButton.style.display = 'none';    // 버튼들 안보이게 하기
+//     $MakeupSelectBox.style.backgroundColor = '#362349';
+//     $MakeupSelectBox.style.display = "block"; // 셀렉트 박스 보이게 하기
+//     $sliderValue.value = EyeLineslider;
+//     whatBtn = 'EyeLine';
+// });
 
 // 셀렉터 박스에서 닫기 버튼을 클릭했을 경우
 $closeBtn.addEventListener('click', ()=>{
@@ -192,6 +151,7 @@ $closeBtn.addEventListener('click', ()=>{
     $SelectMakeupButton.style.display = 'block';   // 버튼들 보이게 하기   
 });
 
+// 색상 코드를 post로 전송하는 함수
 function colorevent(color) {
     /////////////////// 버튼 값 POST로 전송 ///////////////////
     fetch(`/Color?whatBtn=${whatBtn}`, {
@@ -202,26 +162,123 @@ function colorevent(color) {
         body: JSON.stringify({ 'color_code' : color })
     });
 }
+
+// 버튼이 선택되면, css로 선택된 버튼을 표시
+function changeSelectColor(button) {
+    // 이전에 선택한 버튼이 있다면
+    if(whatBtn == 'Fd') {
+        if(previousFdButton != null) {
+            // 이전버튼을 원상태로
+            previousFdButton.style.border="";
+        }
+        // 클릭한 버튼 선택
+        button.style.border = '1.5px solid black';
+        previousFdButton = button;
+    }
+    else if(whatBtn == 'Lip') {
+        if(previousLipButton != null) {
+            // 이전버튼을 원상태로
+            previousLipButton.style.border="";
+        }
+        // 클릭한 버튼 선택
+        button.style.border = '1.5px solid black';
+        previousLipButton = button;
+    }
+}
+
+// 색을 찾아서 CSS를 수정하는 함수
+function detectionColorButton(detectColor) {
+    console.log(whatBtn + " detectColor: " + detectColor);
+    let boolean = true;
+
+    // 색상 버튼들을 순회
+    for (let i = 0; i < $color_button.length; i++) {
+        const button = $color_button[i];
+
+        // 버튼의 실제 배경색을 가져옴 (getComputedStyle을 사용)
+        const buttonColor = getComputedStyle(button).backgroundColor;
+
+        // colorMap에서 해당 RGB 값을 찾음
+        const colorHex = colorMap.get(buttonColor);
+
+        // 색상이 일치하면 작업을 수행
+        if (boolean && (colorHex === detectColor)) {
+            console.log("일치하는 색상을 찾음: " + detectColor);
+
+            // 버튼의 css를 수정
+            changeSelectColor(button);
+
+            // boolean을 false로 설정 (한 번만 동작하도록)
+            boolean = false;
+        }
+    }
+    // 버튼에 없는 색상인 경우,(색상 미선택으로)
+    if (boolean) {
+        console.log("없는 색상임");
+        if(whatBtn == 'Fd') {
+            if(previousFdButton != null) {
+                // 이전버튼을 색상 미선택으로
+                previousFdButton.style.border="";
+            }
+            previousFdButton = null;
+        }
+        else if(whatBtn == 'Lip') {
+            if(previousLipButton != null) {
+                // 이전버튼을 색상 미선택으로
+                previousLipButton.style.border="";
+            }
+            previousLipButton = null;
+        }
+    }
+    console.log("previousFdButton : " + previousFdButton + " previousLipButton : " + previousLipButton);
+}
+
 // 셀렉터의 색상 중 하나를 클릭했을 경우 실행되는 동작
 $color_button.forEach(button => {
     button.addEventListener('click', () => {
-        const color = colorMap.get(button.style.backgroundColor); // 색상 추출
+        // 파운데이션 버튼 구역일 때
         if(whatBtn == "Fd") {
-            $colorBox1.style.backgroundColor = color;
-            $colorBox1.style.backgroundImage = "none";
-            FdwhatColor = color;
+            // 이전버튼과 동일한버튼 클릭시 선택안됨(아무것도 선택안한상태)으로 설정 
+            if ((previousFdButton != null || previousFdButton != "") && previousFdButton == button) {
+                const color = "0";  // "0"을 전송, 버튼 표시는 선택안됨으로
+                FdwhatColor = color;
+
+                previousFdButton.style.border=""; // 버튼의 css는 선택안됨으로
+                button.style.border="";
+                previousFdButton = null;
+                colorevent(color); // 색상 post로 서버 전송
+            }
+            // 색상을 선택했을 때(클릭한 버튼 적용)
+            else {
+                const color = colorMap.get(button.style.backgroundColor); // 색상 추출
+                FdwhatColor = color;
+
+                changeSelectColor(button);  // 선택된 버튼 표시 (css 적용)
+                colorevent(color); // 색상 post로 서버 전송
+            }
         }
+        // 립 버튼 구역일 때
         else if(whatBtn == "Lip") {
-            $colorBox2.style.backgroundColor = color;
-            $colorBox2.style.backgroundImage = "none";
-            LipwhatColor = color;
+            if ((previousLipButton != null || previousLipButton != "") && previousLipButton == button) {
+                const color = "0";  // "0"을 전송, 버튼 표시는 선택안됨으로
+                LipwhatColor = color;
+
+                previousLipButton.style.border=""; // 버튼의 css는 선택안됨으로
+                button.style.border="";
+                previousLipButton = null;
+                colorevent(color); // 색상 post로 서버 전송
+            }
+            else {
+                const color = colorMap.get(button.style.backgroundColor); // 색상 추출
+                LipwhatColor = color;
+                changeSelectColor(button);  // 선택된 버튼 표시 (css 적용)
+                colorevent(color); // 색상 post로 서버 전송
+            }
+            
         }
-        else if(whatBtn == "EyeLine") {
-            EyeLinewhatColor = color;
-        }
-        colorevent(color);
     });
 });
+
 
 // 투명도 슬라이더를 드래그할 경우 발생하는 동작
 function sliderevent (value) {
@@ -239,15 +296,16 @@ function sliderevent (value) {
     else if(whatBtn == "Lip") {
         Lipslider = value;
     }
-    else if(whatBtn == "EyeLine") {
-        EyeLineslider = value;
-    }
+    // else if(whatBtn == "EyeLine") {
+    //     EyeLineslider = value;
+    // }
 };
 
 
 cunnectWebsocket();
 $CamBtn.addEventListener('click', ()=>{
     if(connectCam === false) {   // 캠 미연결이므로 연결 동작 실행
+        cunnectWebsocket();
         sendConnectPython();
         cunnectWebsocket();
          
