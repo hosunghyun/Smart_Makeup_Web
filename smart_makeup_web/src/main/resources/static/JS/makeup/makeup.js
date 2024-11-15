@@ -41,7 +41,7 @@ function sendDataMakeup(slider, category, whatColor) {
 
 $savebtn.addEventListener('click', ()=>{
     if(isNumberClick == true) {
-        sendDataMakeup(Fdslider, "fundation", FdwhatColor);
+        sendDataMakeup(Fdslider, "foundation", FdwhatColor);
         sendDataMakeup(Lipslider, "lipstick", LipwhatColor);
         // sendDataMakeup(EyeLineslider, "eyeline", EyeLinewhatColor);
     }
