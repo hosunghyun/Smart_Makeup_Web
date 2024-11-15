@@ -52,7 +52,7 @@ public class BoardController {
     // 게시판 페이지
     @GetMapping("/board")
     public String board(@RequestParam(value="page", required = false) String page, Model model) {
-        Integer pageSize = 10;  // 한 페이지에 보이는 글의 수
+        Integer pageSize = 6;  // 한 페이지에 보이는 글의 수
         if (page == null) {
             return "redirect:/board?page=1";
         }
