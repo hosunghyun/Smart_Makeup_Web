@@ -62,20 +62,21 @@ CREATE TABLE comment (	-- 댓글 저장을 위한 테이블
 
 -- 화장품 종류 저장
 INSERT INTO product_category (category) VALUES ('lipstick');
-INSERT INTO product_category (category) VALUES ('fundation');
+INSERT INTO product_category (category) VALUES ('foundation');
 INSERT INTO product_category (category) VALUES ('eyeline');
 
 -- 화장품 정보를 저장하기 위한 쿼리 
-INSERT INTO product (product_name, category, product_link, Price) VALUES ('estee lauder bone', 'fundation', 'https://link.coupang.com/a/bZqekr',71930);
-INSERT INTO product (product_name, category, product_link, Price) VALUES ('estee lauder natural swade', 'fundation', 'https://link.coupang.com/a/bZqeCM',71930);
-INSERT INTO product (product_name, category, product_link, Price) VALUES ('estee lauder dun', 'fundation', 'https://link.coupang.com/a/bZqe2h', 71930);
-INSERT INTO product (product_name, category, product_link, Price) VALUES ('estee lauder ecuru', 'fundation', 'https://link.coupang.com/a/bZqgrh', 71930);
-INSERT INTO product (product_name, category, product_link, Price) VALUES ('estee lauder warm cream', 'fundation', 'https://link.coupang.com/a/bZqgI8', 71930);
-INSERT INTO product (product_name, category, product_link, Price) VALUES ('locean vampire red', 'lipstick', 'https://link.coupang.com/a/bZqh1x', 5090);
-INSERT INTO product (product_name, category, product_link, Price) VALUES ('locean red moon', 'lipstick', 'https://link.coupang.com/a/bZqit6', 5330);
-INSERT INTO product (product_name, category, product_link, Price) VALUES ('locean rose blossom', 'lipstick', 'https://link.coupang.com/a/bZqkta', 5330);
-INSERT INTO product (product_name, category, product_link, Price) VALUES ('locean dorothy red', 'lipstick', 'https://link.coupang.com/a/bZqjP3', 15810);
-INSERT INTO product (product_name, category, product_link, Price) VALUES ('locean deep pink curten', 'lipstick', 'https://link.coupang.com/a/bZqkX3', 5900);
+INSERT INTO product (product_name, category, product_link, Price) VALUES ('에스티로더 1W1 본', 'foundation', 'https://link.coupang.com/a/bZqekr', 71930);
+INSERT INTO product (product_name, category, product_link, Price) VALUES ('에스티로더 2W.15 내추럴 스웨이드', 'foundation', 'https://link.coupang.com/a/bZqeCM', 71930);
+INSERT INTO product (product_name, category, product_link, Price) VALUES ('에스티로더 2W1 던', 'foundation', 'https://link.coupang.com/a/bZqe2h', 71930);
+INSERT INTO product (product_name, category, product_link, Price) VALUES ('에스티로더 1N2 에크루', 'foundation', 'https://link.coupang.com/a/bZqgrh', 71930);
+INSERT INTO product (product_name, category, product_link, Price) VALUES ('에스티로더 3W0 웜 크림', 'foundation', 'https://link.coupang.com/a/bZqgI8', 71930);
+INSERT INTO product (product_name, category, product_link, Price) VALUES ('로쎄앙 뱀파이어 레드', 'lipstick', 'https://link.coupang.com/a/bZqh1x', 5090);
+INSERT INTO product (product_name, category, product_link, Price) VALUES ('로쎄앙 레드 문', 'lipstick', 'https://link.coupang.com/a/bZqit6', 5330);
+INSERT INTO product (product_name, category, product_link, Price) VALUES ('로쎄앙 로즈 블로섬', 'lipstick', 'https://link.coupang.com/a/bZqkta', 5330);
+INSERT INTO product (product_name, category, product_link, Price) VALUES ('로쎄앙 도로시 레드', 'lipstick', 'https://link.coupang.com/a/bZqjP3', 15810);
+INSERT INTO product (product_name, category, product_link, Price) VALUES ('로쎄앙 딥 핑크 커튼', 'lipstick', 'https://link.coupang.com/a/bZqkX3', 5900);
+
 
 -- 이미지 테이블에 제품 이미지 링크 저장
 INSERT INTO image (product_code, image_link) VALUES (1, '/productimg/esteelauderbone.jpg');
