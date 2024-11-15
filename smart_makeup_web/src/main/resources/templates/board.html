@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>화장품 톡톡 | Smart Makeup</title>
+    <title>게시판</title>
     <link rel="stylesheet" th:href="@{/CSS/menubar.css}">
     <link rel="stylesheet" th:href="@{/CSS/footer.css}">
 
@@ -130,13 +130,13 @@
 
             const boards = /*[[${size}]]*/'';
 
-            const pageSize = parseInt(boards / 10) + 1;
+            const pageSize = parseInt(boards / 6) + 1;
 
             $pageNum.textContent = pageSize;
             $movepage.value = URL[1];
 
             $movebtn.addEventListener('click', ()=>{
-                if($movepage.value >= 0 && $movepage.value <= 9 && $movepage.value <= pageSize) {
+                if(!isNaN($movepage.value) && $movepage.value >= 0 && $movepage.value <= pageSize) {
                     window.location.href = '/board?page=' + $movepage.value;
                 }
             });
