@@ -45,7 +45,7 @@
             document.getElementById('joinform').submit();
         }
         else {
-            alert("아이디가 변경되었습니다.");
+            alert("아이디 중복확인이 필요합니다.");
         }
     });
 })();
