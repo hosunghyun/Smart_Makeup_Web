@@ -70,21 +70,6 @@ MySQL로 작성하였습니다.
 
 <!--
 
-        .mainpage-container {
-            width: 80%; /* 80% 너비 할당 */
-            margin-left: 10%;
-
-            display: flex;
-            justify-content: center; /* 수평 중앙 정렬 */
-            align-items: center; /* 수직 중앙 정렬 */
-        }
-    <!-- 메인 페이지 출력 페이지-->
-    <div class="mainpage-container" style="background-color: burlywood;">
-        <video width="720" height="480" autoplay loop muted>
-            <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
-        </video>
-    </div>
-
 
 
 Table member {
