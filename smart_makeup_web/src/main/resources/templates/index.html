@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Makeup</title>
+    <title>메인 페이지</title>
     <style>
         body {
             background-color: #f0f8ff;
@@ -33,7 +33,6 @@
             position: absolute;
             transition: transform 1s ease;
         }
-
         .mainpage-container {
             width: 80%; /* 80% 너비 할당 */
             margin-left: 10%;
@@ -57,15 +56,66 @@
         </div>
     </aside>
 
-
     <!-- 메인 페이지 출력 페이지-->
     <div class="mainpage-container" style="background-color: burlywood;">
+        <h1>
+            최종 화장 영상
+        </h1>
         <video width="720" height="480" autoplay loop muted>
             <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
         </video>
+        <p>
+            
+        </p>
     </div>
 
+    <div class="mainpage-container" style="background-color: rgb(52, 136, 94);">
+        <h1>
+            카메라 연결하는 방법
+        </h1>
+        <video width="720" height="480" autoplay loop muted>
+            <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
+        </video>
+        <p>
+            2
+        </p>
+    </div>
 
+    <div class="mainpage-container" style="background-color: rgb(95, 44, 136);">
+        <h1>
+            화장하는 방법
+        </h1>
+        <video width="720" height="480" autoplay loop muted>
+            <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
+        </video>
+        <p>
+            3
+        </p>
+    </div>
+
+    <div class="mainpage-container" style="background-color: rgb(114, 111, 167);">
+        <h1>
+            저장 하는 방법
+        </h1>
+        <video width="720" height="480" autoplay loop muted>
+            <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
+        </video>
+        <p>
+            4
+        </p>
+    </div>
+
+    <div class="mainpage-container" style="background-color: rgb(114, 111, 167);">
+        <h1>
+            불러오기 하는 방법
+        </h1>
+        <video width="720" height="480" autoplay loop muted>
+            <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
+        </video>
+        <p>
+            5
+        </p>
+    </div>
 
     <footer>
         <div class="footer_left">

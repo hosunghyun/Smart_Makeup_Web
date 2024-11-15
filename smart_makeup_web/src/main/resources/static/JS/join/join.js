@@ -45,7 +45,12 @@
             document.getElementById('joinform').submit();
         }
         else {
-            alert("아이디 중복확인이 필요합니다.");
+            alert("아이디가 ");
         }
     });
 })();
+
+방가방가
+
+하이롱
+
