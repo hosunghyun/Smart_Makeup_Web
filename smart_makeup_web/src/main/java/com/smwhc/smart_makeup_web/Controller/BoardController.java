@@ -97,9 +97,9 @@ public class BoardController {
             if (file != null && !file.isEmpty()) {  // 이미지가 있는 경우에만 실행
                 try {
                     // 절대 경로 지정
-                    String uploadDir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\";
+                    String uploadDir = System.getProperty("user.dir") + "\\smart_makeup_web\\src\\main\\resources\\static\\img\\";
                     File dir = new File(uploadDir);
-                    
+
                     // 파일명 생성 (현재 시간 + 원래 파일명)
                     String newFileName = currentUsername + "_" + System.currentTimeMillis() + "_" + file.getOriginalFilename();
                     File uploadFile = new File(dir, newFileName);
@@ -196,7 +196,7 @@ public class BoardController {
             if (result != null && !result.isEmpty()) {
                 // 1. 디렉터리에 저장된 이미지 삭제하기
                 Image image = imageService.findByImage(result);
-                String Dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static";
+                String Dir = System.getProperty("user.dir") + "\\smart_makeup_web\\src\\main\\resources\\static";
                 File file = new File(Dir + image.getImage_link());
                 file.delete();
 
@@ -216,7 +216,7 @@ public class BoardController {
             if (file != null && !file.isEmpty()) {  // 이미지가 있는 경우에만 실행
                 try {
                     // 절대 경로 지정
-                    String uploadDir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\";
+                    String uploadDir = System.getProperty("user.dir") + "\\smart_makeup_web\\src\\main\\resources\\static\\img\\";
                     File dir = new File(uploadDir);
                     
                     // 파일명 생성 (현재 시간 + 원래 파일명)
@@ -250,7 +250,7 @@ public class BoardController {
         String currentUsername = authentication.getName(); // 사용자 아이디
 
         Board board = boardService.getBoardByDetailPage(boardDTO.getBoard_id());
-        String Dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static";
+        String Dir = System.getProperty("user.dir") + "\\smart_makeup_web\\src\\main\\resources\\static";
 
         if(currentUsername.equals(board.getMember().getMember_id())) {
             for(Image image : board.getImages()) {  // 게시판에 이미지 링크를 전부 가져와서 해당 경로의 이미지를 전부 삭제
