@@ -18,17 +18,10 @@
         <!--왼쪽 칸-->
         <div style="width: 60%;">
             <!--캠 연결 버튼-->
-            <!--캠 연결 버튼-->
             <div style="width: 655px; height: 50px; float: right;">
                 <p style="display: inline-block; margin-top: 10px;">
                     <button id="CamBtn" class="sky-button">카메라 연결</button>
                 </p>
-                <button class="sky-button" id="save_1">1</button>
-                <button class="sky-button" id="save_2">2</button>
-                <button class="sky-button" id="save_3">3</button>
-                <button class="sky-button" id="save_4">4</button>
-                <button class="sky-button" id="save_5">5</button>
-                <button class="sky-button" id="savebtn">저장하기</button>
             </div>
 
             <!--캠이 출력되는 이미지-->
@@ -37,134 +30,137 @@
                     <img id="video" style="display: none;" src="" alt="Video Feed"/>
                 </div>
             </div>
+            <div style="width: 655px; height: 50px; float: right; display: flex; justify-content: space-between; align-items: center;">
+                <p style="margin: 0;">
+                    <button class="sky-button" id="savebtn">저장하기</button>
+                    <button class="sky-button" id="save_1">1</button>
+                    <button class="sky-button" id="save_2">2</button>
+                    <button class="sky-button" id="save_3">3</button>
+                    <button class="sky-button" id="save_4">4</button>
+                    <button class="sky-button" id="save_5">5</button>
+                </p>
+                <div style="display: flex; margin-right: 10px;">
+                    <button class="sky-button" id="loadbtn">불러오기</button>
+                </div>
+            </div>
         </div>
+
+
 
         <!--오른쪽 칸-->
         <!--캠 화면을 제어하는 구문, 캠이 연결된 경우에 show, 아니면 hidden-->
-        <div style="width: 40%; height: 40%; display: flex; align-items: flex-start;">
+        <div style="width: 40%; height: 650px; display: flex; align-items: flex-start;">
             <!--메이크업 선택 버튼-->
-            <div id="SelectMakeupButton" style="width: 300px; height: 480px; background-color: #f0f8ff; border: 2px solid #f0f8ff; margin-top: 60px; margin-left: 10px; display:none;">
+            <div id="SelectMakeupButton" style="width: 300px; height: 480px; background-color: #f0f8ff; border: 2px solid #f0f8ff; margin-top: 25%; margin-left: 10px; display:none;">
                 <!--파운데이션 샐랙트 박스 이동 버튼-->
                 <div>
-                    <button id="showFdMakeupSelectBox" style="margin-left: 25px; margin-top: 0%" 
+                    <button id="showFdMakeupSelectBox" style="margin-left: 25px; margin-top:-10%" 
                             title="파운데이션 바르기" >
                         <img th:src="@{/buttonImage/skin_button.png}" style="height: 70px; width: 70px;" alt="파운데이션 버튼">
                     </button>
                 </div>
                 <!--립 샐랙트 박스 이동 버튼-->
                 <div>
-                    <button id="showLipMakeupSelectBox" style="margin-left: 25px; margin-top: 40%" 
+                    <button id="showLipMakeupSelectBox" style="margin-left: 25px; margin-top: 50%" 
                             title="립 바르기">
                         <img th:src="@{/buttonImage/lip_button.png}" style="height: 70px; width: 70px;" alt="립 버튼">
                     </button>
                 </div>
                 <!--아이라인 샐랙트 박스 이동 버튼 예정-->
-                <div>
+                <!-- <div>
                     <button id="showEyeLineMakeupSelectBox" style="margin-left: 25px; margin-top: 40%" 
                             title="아이라인 그리기">
                         <img th:src="@{/buttonImage/eyeline_button.png}" style="height: 70px; width: 70px;" alt="아이라인 버튼">
                     </button>
-                </div>
+                </div> -->
             </div>
 
             <!-- 샐랙트 박스 -->
-            <div id="MakeupSelectBox" style="display: none; width: 300px; height: 480px; background-color: #362349; border: 2px solid #000; margin-top: 60px; margin-left: 10px;">
+            <div id="MakeupSelectBox" style="display: none; width: 322px; height: 480px; background-color: #362349; border: 2px solid #000; margin-top: 60px; margin-left: 10px;">
                 <!-- 파운데이션 영역 -->
                 <div style="height: auto; display:none;" id="foundation">
-                    <div class="color-button-container" style="margin-top: 40px;">
-                        <button class="color-button" style="background-color: red;"></button>
-                        <button class="color-button" style="background-color: green;"></button>
-                        <button class="color-button" style="background-color: blue;"></button>
-                        <button class="color-button" style="background-color: yellow;"></button>
+                    <!-- 파운데이션 베스트 쉐이드 -->
+                    <div class="rectangular-box">
+                        <div class="rectangular-box-label" style="background-color: #339adf;">Best</div>
+                        <div class="color-button-container">
+                            <button class="color-button" style="background-color: #e2b06f; margin-left: 25px;" title="1W1 본"></button>
+                            <button class="color-button" style="background-color: #c9924d;" title="1W2 샌드"></button>
+                            <button class="color-button" style="background-color: #d6a46b;" title="2W0 웜바닐라"></button>
+                            <button class="color-button" style="background-color: #dfc09f;" title="1C1 쿨본"></button>
+                            <button class="color-button" style="background-color: #dea567; margin-right: 25px;" title="2C0 쿨 바닐라"></button>
+                        </div>
                     </div>
-                    <div class="color-button-container">
-                        <button class="color-button" style="background-color: orange;"></button>
-                        <button class="color-button" style="background-color: purple;"></button>
-                        <button class="color-button" style="background-color: pink;"></button>
-                        <button class="color-button" style="background-color: cyan;"></button>
-                    </div>
-                    <div class="color-button-container">
-                        <button class="color-button" style="background-color: brown;"></button>
-                        <button class="color-button" style="background-color: gray;"></button>
-                        <button class="color-button" style="background-color: lightcoral;"></button>
-                        <button class="color-button" style="background-color: lightgreen;"></button>
-                    </div>
-                    <div class="color-button-container">
-                        <button class="color-button" style="background-color: lightblue;"></button>
-                        <button class="color-button" style="background-color: lavender;"></button>
-                        <button class="color-button" style="background-color: gold;"></button>
-                        <button class="color-button" style="background-color: salmon;"></button>
-                    </div>
-                    <div class="color-button-container">
-                        <button class="color-button" style="background-color: teal;"></button>
-                        <button class="color-button" style="background-color: navy;"></button>
-                        <button class="color-button" style="background-color: maroon;"></button>
-                        <button class="color-button" style="background-color: olive;"></button>
-                    </div>
-                    <div class="color-button-container">
-                        <button class="color-button" style="background-color: coral;"></button>
-                        <button class="color-button" style="background-color: plum;"></button>
-                        <button class="color-button" style="background-color: khaki;"></button>
-                        <button class="color-button" style="background-color: chocolate;"></button>
-                    </div>
-                    <div class="color-button-container">
-                        <button class="color-button" style="background-color: sienna;"></button>
-                        <button class="color-button" style="background-color: slateblue;"></button>
-                        <button class="color-button" style="background-color: mediumseagreen;"></button>
-                        <button class="color-button" style="background-color: lightsalmon;"></button>
-                    </div>
-                    <div class="color-button-container">
-                        <button class="color-button" style="background-color: lightgray;"></button>
-                        <button class="color-button" style="background-color: darkorange;"></button>
-                        <button class="color-button" style="background-color: springgreen;"></button>
-                        <button class="color-button" style="background-color: violet;"></button>
-                        <div id="colorBox" class="color-button, colorBox"></div>
+                    <div class="rectangular-box">
+                        <div class="rectangular-box-label" style="background-color: #339adf;">Color</div>
+                        <!--여백 추가시 margin-left: 50px; -->
+                        <div class="color-button-container" style="margin-bottom: 10px;">
+                            <button class="color-button" style="background-color: #d5b495; margin-left: 25px;" title="1C0 쉘"></button>
+                            <button class="color-button" style="background-color: #e6bb98;" title="1NO 포슬린"></button>
+                            <button class="color-button" style="background-color: #efc99a;" title="1W0 웜 포슬린"></button>
+                            <button class="color-button" style="background-color: #dfc09f;" title="1C1 쿨 본"></button>
+                            <button class="color-button" style="background-color: #d4b180; margin-right: 25px;" title="1N1 아이보리 누드"></button>
+                        </div>
+                        <div class="color-button-container" style="margin-bottom: 10px;">
+                            <button class="color-button" style="background-color: #e2b06f; margin-left: 25px;" title="1W1 본"></button>
+                            <button class="color-button" style="background-color: #d19872;" title="1C2 페탈"></button>
+                            <button class="color-button" style="background-color: #fac7a7;" title="1N2 에크루"></button>
+                            <button class="color-button" style="background-color: #c9924d;" title="1W2 샌드"></button>
+                            <button class="color-button" style="background-color: #dea567; margin-right: 25px;" title="2C0 쿨 바닐라"></button>
+                        </div>
+                        <div class="color-button-container" style="margin-bottom: 10px;">
+                            <button class="color-button" style="background-color: #d6a46b; margin-left: 25px;" title="2W0 웜 바닐라"></button>
+                            <button class="color-button" style="background-color: #d8a46d;" title="2C1 퓨어 베이지"></button>
+                            <button class="color-button" style="background-color: #c59c63;" title="2W1 던"></button>
+                            <button class="color-button" style="background-color: #d8a665;" title="2W1.5 내추럴 스웨이드"></button>
+                            <button class="color-button" style="background-color: #d0a26e; margin-right: 25px;" title="2N2 버프"></button>
+                        </div>
+                        <div class="color-button-container" style="margin-bottom: 10px;">
+                            <button class="color-button" style="background-color: #c7a265; margin-left: 25px;" title="W2W 라탄"></button>
+                            <button class="color-button" style="background-color: #ca9d6f;" title="3C0 쿨 크림"></button>
+                            <button class="color-button" style="background-color: #c88d4f;" title="3W0 웜 크림"></button>
+                            <button class="color-button" style="background-color: #c9a267; margin-right: 75px;" title="3W1 토니"></button>
+                        </div>
+                        
                     </div>
                 </div>
+
+
                 <!-- 립 영역 -->
                 <div  style="height: auto; display:none;" id="lip">
-                    <div class="color-button-container" style="margin-top: 30px;">
-                        <button class="color-button" style="background-color: red;"></button>
-                        <button class="color-button" style="background-color: green;"></button>
-                        <button class="color-button" style="background-color: blue;"></button>
-                        <button class="color-button" style="background-color: yellow;"></button>
+                    <!-- 립 배스트 컬러 -->
+                    <div class="rectangular-box">
+                        <div class="rectangular-box-label" style="background-color: #ec7b7b;">Best</div>
+                        <div class="color-button-container">
+                            <button class="color-button" style="background-color: #942a19; margin-left: 75px;" title="120 템퍼러취 라이징"></button>
+                            <button class="color-button" style="background-color: #be464e;" title="212 일렉트릭 나이트"></button>
+                            <button class="color-button" style="background-color: #b85d6b; margin-right: 75px;" title="112 하이 프리퀸시"></button>
+                        </div>
                     </div>
-                    <div class="color-button-container">
-                        <button class="color-button" style="background-color: orange;"></button>
-                        <button class="color-button" style="background-color: purple;"></button>
-                        <button class="color-button" style="background-color: pink;"></button>
-                        <button class="color-button" style="background-color: cyan;"></button>
-                    </div>
-                    <div class="color-button-container">
-                        <button class="color-button" style="background-color: brown;"></button>
-                        <button class="color-button" style="background-color: gray;"></button>
-                        <button class="color-button" style="background-color: lightcoral;"></button>
-                        <button class="color-button" style="background-color: lightgreen;"></button>
-                    </div>
-                    <div class="color-button-container">
-                        <button class="color-button" style="background-color: lightblue;"></button>
-                        <button class="color-button" style="background-color: lavender;"></button>
-                        <button class="color-button" style="background-color: gold;"></button>
-                        <button class="color-button" style="background-color: salmon;"></button>
-                    </div>
-                    <div class="color-button-container">
-                        <button class="color-button" style="background-color: teal;"></button>
-                        <button class="color-button" style="background-color: navy;"></button>
-                        <button class="color-button" style="background-color: maroon;"></button>
-                        <button class="color-button" style="background-color: olive;"></button>
-                    </div>
-                    <div class="color-button-container">
-                        <button class="color-button" style="background-color: coral;"></button>
-                        <button class="color-button" style="background-color: plum;"></button>
-                        <button class="color-button" style="background-color: khaki;"></button>
-                        <button class="color-button" style="background-color: chocolate;"></button>
-                        <div id="colorBox" class="color-button, colorBox"></div>
+                    <div class="rectangular-box">
+                        <div class="rectangular-box-label" style="background-color: #ec7b7b;">Color</div>
+                        <!--여백 추가시 margin-left: 50px; -->
+                        <div class="color-button-container" style="margin-bottom: 10px;">
+                            <button class="color-button" style="background-color: #b06359; margin-left: 75px;" title="101 스테틱"></button>
+                            <button class="color-button" style="background-color: #984d48;" title="106 더블 오얼 낫띵"></button>
+                            <button class="color-button" style="background-color: #944348; margin-right: 75px;" title="110 롱 플레이스 라이트 타임"></button>
+                        </div>
+                        <div class="color-button-container" style="margin-bottom: 10px;">
+                            <button class="color-button" style="background-color: #b85d6b; margin-left: 75px;" title="112 하이 프리퀸시"></button>
+                            <button class="color-button" style="background-color: #942a19;" title="120 템퍼러취 라이징"></button>
+                            <button class="color-button" style="background-color: #b15b51; margin-right: 75px;" title="201 얼티리어 모티브"></button>
+                        </div>
+                        <div class="color-button-container" style="margin-bottom: 10px;">
+                            <button class="color-button" style="background-color: #be464e; margin-left: 75px;" title="212 일렉트릭 나이트"></button>
+                            <button class="color-button" style="background-color: #af1551;" title="302 라스트 임프레션"></button>
+                            <button class="color-button" style="background-color: #a90f13; margin-right: 75px;" title="303 하트비트"></button>
+                        </div>
                     </div>
                 </div>
 
                 <!--슬라이더-->
-                <div>
-                    <div style= "margin-top: 10px; margin-left: 20px; ">
+                <div class="rectangular-box">
+                    <div id="sliderValueText" class="rectangular-box-label">Opacity</div>
+                    <div class="color-button-container">
                         <input id="sliderValue" type="range" min="0" max="100" value="0" oninput="sliderevent(this.value)" style="accent-color: rgb(133, 9, 71); width: 90%;" />
                     </div>
                 </div>
@@ -181,7 +177,7 @@
         </div>
     </div>
 
-    <div style="height: 150px;"></div> <!--공백-->
+    <div style="height: 50px;"></div> <!--공백-->
 
     <footer>
         <div class="footer_left">
@@ -211,7 +207,61 @@
         </div>
     </footer>
 
+    <script th:src="@{/JS/makeup/makeupvariable.js}"></script>
     <script th:src="@{/JS/makeup/makeup.js}"></script>
+    <script th:inline="javascript">
+        function loadDataMakeup() {
+            fetch(`/loadmakeup`, {
+                method : 'POST',
+                headers : { "Content-Type" : "application/json" },
+                body : JSON.stringify({"number" : whatNumber})
+            })
+            .then((response) => { return response.json()})
+            .then((makeups) => {
+                makeups.forEach(makeup=>{
+                    // fd를 로드한 경우
+                    if(`${makeup.category}` == "fundation") {
+                        Fdslider = `${makeup.opacity}`;
+                        FdwhatColor = `${makeup.color_code}`;
+                        whatBtn = "Fd";
+                        sliderevent(Fdslider);      // 불러온 슬라이더값 전송
+                        colorevent(FdwhatColor);    // 불러온 색상값 전송
+
+                        detectionColorButton(FdwhatColor);   // ui에 색상값과 같은 버튼 css변경
+                    }
+                    // lip을 로드한 경우
+                    else if(`${makeup.category}` == "lipstick") {
+                        Lipslider = `${makeup.opacity}`;
+                        LipwhatColor = `${makeup.color_code}`;
+                        whatBtn = "Lip";
+                        sliderevent(Lipslider);     // 불러온 슬라이더값 전송
+                        colorevent(LipwhatColor);   // 불러온 색상값 전송
+
+                        detectionColorButton(LipwhatColor);   // ui에 색상값과 같은 버튼 css변경
+                    }
+                });
+            })
+            .catch((Error) => {
+                console.error('Error:', Error); // 에러 처리
+            });
+        }
+
+        // 저장버튼 누른 경우, 실행
+        $loadbtn.addEventListener('click', ()=>{
+            $SelectMakeupButton.style.display = "block";
+            $MakeupSelectBox.style.display = "none";
+            $foundation.style.display = "none";
+            $lip.style.display = "none";
+            if(isNumberClick == true) {
+                loadDataMakeup();
+            }
+            else {
+                alert('저장할 버튼을 클릭해주세요');
+            }
+        });
+    </script>
+    
+
     <!-- 부트스트랩 JS (옵션) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

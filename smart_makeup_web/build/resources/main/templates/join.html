@@ -44,7 +44,7 @@
     <div class="container mt-5">
         <div class="card">
             <h2 class="text-center" style="color: white;">회원 가입</h2>
-            <form action="/join_in" method="POST">
+            <form action="/join_in" method="POST" id="joinform">
                 <div class="mb-3">
                     <label for="member_id" class="form-label" style="color: white;">아이디</label>
                     <input type="text" name="member_id" id="member_id" class="form-control" required>
@@ -62,7 +62,7 @@
                     <label for="phone" class="form-label" style="color: white;">전화번호</label>
                     <input type="tel" name="phone" id="phone" class="form-control" required placeholder="010-1111-1111">
                 </div>
-                <button type="submit" class="btn btn-custom">회원가입</button>
+                <button type="button" class="btn btn-custom" id="submitbtbn">회원가입</button>
             </form>
         </div>
     </div>

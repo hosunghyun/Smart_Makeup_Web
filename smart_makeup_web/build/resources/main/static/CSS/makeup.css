@@ -25,18 +25,10 @@
     left: 0;
 }
 
-.color-button {
-    width: 30px;
-    height: 30px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-    margin-right: 20px;
-}
 
 .color-button-container {
-    display: flex; /* 버튼들을 가로로 배치 */
-    margin-left: 50px;
+    display: flex; /* 한 줄에 배치 */
+    justify-content: flex-start; /* 왼쪽 정렬 */
 }
 
 .sky-button {
@@ -74,3 +66,65 @@
 .red-button:hover {
     background-color: #FF4C4C; /* 호버 시 더 진한 빨간색 */
 }
+
+
+/* 추가한것 241113 메이크업 샐랙트박스 수정 */
+
+    /* 네모칸 스타일 300px 사용중 (좌우 여백 각 10px씩, 중간 280px) */
+    .rectangular-box {
+        width: 280px; /* 네모칸 너비 */
+        /* 네모칸 밖 여백 */
+        margin-top: 15px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 20px;
+        /* 네모칸 내부 여백 */
+        padding: 10px;
+        /* 하단은 고정 */
+        border-radius: 8px; /* 모서리를 둥글게 */
+        position: relative; /* 네모칸을 기준으로 자식 요소의 위치를 설정 */
+        border: 1px solid black;  /* 검정색 테두리 */
+    }
+
+    /* 슬라이더 이름을 포함하는 div 스타일 */
+    .rectangular-box-label {
+        padding: 0 3px; /* 글자와 테두리 간 간격 */
+
+        position: absolute; /* 네모칸 테두리와 겹치도록 위치 설정 */
+        top: -10px; /* 네모칸의 위쪽으로 10px 이동 */
+        left: 10px; /* 네모칸의 왼쪽 여백 */
+
+        font-family: 'FlightSansOTF'; /* 폰트 설정 */
+        font-size: 13px; /* 글자 크기 */
+        font-weight: bold; /* 굵은 글씨 */
+        color: #ffe600; /* 글자 색상 */
+        user-select: none; /* 선택 불가 */
+    }
+
+
+
+    /* 큰 원 */
+    .color-button {
+        width: 30px; 
+        height: 30px;
+        border-radius: 50%; /* 원 형태 */
+        /* 버튼 5개-> 150px 사용(여백130px)*/
+        /* 버튼 4개-> 120px 사용(여백140px) */
+        /* 버튼 3개->  90px 사용(여백) */
+        margin-right: 20px;
+        /* 버튼 5개->  50px남음 (30px*5+20px*4 = 230px 사용중)*/
+        /* 버튼 4개-> 100px남음 (30px*4+20px*3 = 180px 사용중)*/
+        /* 버튼 3개-> 150px남음 (30px*3+20px*2 = 130px 사용중)*/
+        border: 2px solid black;  /* 검정색 테두리 */
+        border: none;        /* 테두리 제거 */
+    }
+
+    /* 슬라이더 컨테이너 */
+    .slider-container {
+        margin-top: 10px;
+        margin-left: 5%;
+    }
+    input[type="range"] {
+      width: 85%; /* 슬라이더 너비 */
+      accent-color: rgb(133, 9, 71); /* 슬라이더 색상 */
+    }
