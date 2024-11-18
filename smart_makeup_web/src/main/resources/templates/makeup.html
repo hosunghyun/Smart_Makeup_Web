@@ -50,29 +50,23 @@
         <!--오른쪽 칸-->
         <!--캠 화면을 제어하는 구문, 캠이 연결된 경우에 show, 아니면 hidden-->
         <div style="width: 40%; height: 650px; display: flex; align-items: flex-start;">
-            <!--메이크업 선택 버튼-->
-            <div id="SelectMakeupButton" style="width: 300px; height: 480px; background-color: #f0f8ff; border: 2px solid #f0f8ff; margin-top: 25%; margin-left: 10px; display:none;">
-                <!--파운데이션 샐랙트 박스 이동 버튼-->
+            <!-- 메이크업 선택 버튼 -->
+            <div id="SelectMakeupButton" style="width: 300px; height: 480px; background-color: #f0f8ff; border: 2px solid #f0f8ff; margin-top: 25%; margin-left: 10px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-around; display: none;">
+                <!-- 파운데이션 샐랙트 박스 이동 버튼 -->
                 <div>
-                    <button id="showFdMakeupSelectBox" style="margin-left: 25px; margin-top:-10%" 
-                            title="파운데이션 바르기" >
+                    <button id="showFdMakeupSelectBox" style="margin-left: 25px; margin-top: -20%; display: flex; flex-direction: column; align-items: center;" title="파운데이션 바르기">
                         <img th:src="@{/buttonImage/skin_button.png}" style="height: 70px; width: 70px;" alt="파운데이션 버튼">
+                        <span style="font-size: 14px; font-weight: bold; color: #333; text-align: center;">Skin</span>
                     </button>
                 </div>
-                <!--립 샐랙트 박스 이동 버튼-->
+                
+                <!-- 립 샐랙트 박스 이동 버튼 -->
                 <div>
-                    <button id="showLipMakeupSelectBox" style="margin-left: 25px; margin-top: 50%" 
-                            title="립 바르기">
+                    <button id="showLipMakeupSelectBox" style="margin-left: 25px; margin-top: 50%; display: flex; flex-direction: column; align-items: center;" title="립 바르기">
                         <img th:src="@{/buttonImage/lip_button.png}" style="height: 70px; width: 70px;" alt="립 버튼">
+                        <span style="font-size: 14px; font-weight: bold; color: #333; text-align: center;">Lip</span>
                     </button>
                 </div>
-                <!--아이라인 샐랙트 박스 이동 버튼 예정-->
-                <!-- <div>
-                    <button id="showEyeLineMakeupSelectBox" style="margin-left: 25px; margin-top: 40%" 
-                            title="아이라인 그리기">
-                        <img th:src="@{/buttonImage/eyeline_button.png}" style="height: 70px; width: 70px;" alt="아이라인 버튼">
-                    </button>
-                </div> -->
             </div>
 
             <!-- 샐랙트 박스 -->
