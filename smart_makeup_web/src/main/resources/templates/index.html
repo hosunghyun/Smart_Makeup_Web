@@ -59,8 +59,9 @@
             justify-content: center; /* 수평 중앙 정렬 */
             align-items: center; /* 수직 중앙 정렬 */
         }
-        video {
-            width: 565px; height: 480px; object-fit: cover;
+        .card-img-top {
+            width: 100%;
+            height: auto;
         }
         .line-title {
             font-family: HakgyoansimPuzzleTTF-Outline;
@@ -110,11 +111,11 @@
             <div class="col-md-4">
                 <!-- 카드 시작 -->
                 <div class="card">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="이미지">
+                    <img th:src="@{/sysimg/board.PNG}" class="card-img-top" alt="이미지">
                     <div class="card-body">
                         <h4 class="card-title">함께 소통해요</h4>
                         <p class="card-text">여러 사람과 의견을 나누고 서로의 화장을 평가해 봐요!</p>
-                        <a href="#" class="btn btn-primary">의견 나누러 가기</a>
+                        <a href="/board" class="btn btn-primary">의견 나누러 가기</a>
                     </div>
                 </div>
                 <!-- 카드 끝 -->
@@ -122,11 +123,13 @@
             <div class="col-md-4">
                 <!-- 카드 시작 -->
                 <div class="card">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="이미지">
+                    <video class="card-video-top" autoplay loop muted  style="width: 100%; height: 360px; object-fit: cover;">
+                        <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
+                    </video>
                     <div class="card-body">
                         <h4 class="card-title">가상 화장</h4>
                         <p class="card-text">당신의 얼굴에 화장할 필요 없어요. 카메라를 통해 화장된 모습을 미리 확인해 봐요.</p>
-                        <a href="#" class="btn btn-primary">화장하러 가기</a>
+                        <a href="/makeup" class="btn btn-primary">화장하러 가기</a>
                     </div>
                 </div>
                 <!-- 카드 끝 -->
@@ -134,11 +137,11 @@
             <div class="col-md-4">
                 <!-- 카드 시작 -->
                 <div class="card">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="이미지">
+                    <img th:src="@{/sysimg/product.PNG}" class="card-img-top" alt="이미지">
                     <div class="card-body">
                         <h4 class="card-title">마음에 드는 제품을 빠르게</h4>
                         <p class="card-text">화장이 마음에 들으셨나요? 빠르게 원하는 화장품을 구매하러 가요.</p>
-                        <a href="#" class="btn btn-primary">구매하러 가기</a>
+                        <a href="/recommendation" class="btn btn-primary">구매하러 가기</a>
                     </div>
                 </div>
                 <!-- 카드 끝 -->
@@ -162,7 +165,9 @@
             <div class="col-md-4">
                 <!-- 카드 시작 -->
                 <div class="card">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="이미지">
+                    <video class="card-video-top" autoplay loop muted style="width: 100%; height: 360px; object-fit: cover;">
+                        <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
+                    </video>
                     <div class="card-body">
                         <h4 class="card-title">당신도 할 수 있다. 카메라 연결!</h4>
                         <p class="card-text">"카메라 연결" 버튼을 클릭하면 웹 카메라가 활성화되어, 화면에 당신의 얼굴이 실시간으로 출력됩니다.</p>
@@ -173,7 +178,9 @@
             <div class="col-md-4">
                 <!-- 카드 시작 -->
                 <div class="card">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="이미지">
+                    <video class="card-video-top" autoplay loop muted style="width: 100%; height: 360px; object-fit: cover;">
+                        <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
+                    </video>
                     <div class="card-body">
                         <h4 class="card-title">누구나 할 수 있다. 얼굴에 화장하기!</h4>
                         <p class="card-text">
@@ -187,7 +194,9 @@
             <div class="col-md-4">
                 <!-- 카드 시작 -->
                 <div class="card">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="이미지">
+                    <video class="card-video-top" autoplay loop muted style="width: 100%; height: 360px; object-fit: cover;">
+                        <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
+                    </video>
                     <div class="card-body">
                         <h4 class="card-title">화장이 마음에 드셨나요? <br>저장해보세요!</h4>
                         <p class="card-text">
@@ -200,7 +209,9 @@
             <div class="col-md-4">
                 <!-- 카드 시작 -->
                 <div class="card">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="이미지">
+                    <video class="card-video-top" autoplay loop muted style="width: 100%; height: 360px; object-fit: cover;">
+                        <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
+                    </video>
                     <div class="card-body">
                         <h4 class="card-title">이전 화장이 기억이 안 난다면? <br> 저장된 화장을 불러옵시다!</h4>
                         <p class="card-text">
