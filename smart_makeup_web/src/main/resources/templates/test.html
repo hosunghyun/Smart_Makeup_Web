@@ -1,93 +1,159 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>메인 페이지</title>
-    <style>
-        body {
-            background-color: #f0f8ff;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
-    <link rel="stylesheet" th:href="@{/CSS/menubar.css}">
-    <link rel="stylesheet" th:href="@{/CSS/footer.css}">
-    <link rel="stylesheet" th:href="@{/CSS/aside.css}">
-    
-
-    <!-- 부트스트랩 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <style>
-        #image-container {
-            width: 500px; /* 원하는 너비 */
-            height: 300px; /* 원하는 높이 */
-            overflow: hidden;
-            position: relative;
-        }
-        #slide-image {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            transition: transform 1s ease;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>부트스트랩 카드 디자인</title>
+  <!-- 부트스트랩 CSS 링크 -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- 메뉴바 -->
-    <nav th:replace="~{menubar.html::global-menubar}"></nav>
 
-    <aside>
-        <div class="image-container">
-            <img th:src="@{/sysimg/image1.png}" alt="기본 이미지" id="mainimg"> <!-- 여기에 기본 이미지 파일 경로를 입력 -->
-            <div class="overlay-text">
-                <h1>Smart Makeup</h1>
-            </div> <!-- 이미지 중간에 표시할 글자 -->
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-4">
+        <!-- 카드 시작 -->
+        <div class="card">
+          <!-- 카드 이미지 -->
+          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="이미지 설명">
+          
+          <!-- 카드 본문 -->
+          <div class="card-body">
+            <h5 class="card-title">카드 제목</h5>
+            <p class="card-text">이것은 카드의 본문 내용입니다. 부트스트랩을 사용하여 쉽게 스타일을 적용할 수 있습니다.</p>
+            <!-- 버튼 -->
+            <a href="#" class="btn btn-primary">자세히 보기</a>
+          </div>
         </div>
-    </aside>
-
-    <div style="background-color: antiquewhite;">
-        <video width="720" height="480" autoplay loop muted>
-            <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
-        </video>
+        <!-- 카드 끝 -->
+      </div>
     </div>
+  </div>
 
-    <div style="background-color: aqua;">
-        <video width="720" height="480" autoplay loop muted>
-            <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
-        </video>
-    </div>
+<!-- 부트스트랩 JS, Popper.js 포함 (옵션) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <footer>
-        <div class="footer_left">
-        </div>
-
-        <div class="footer_middle_left">
-            <a href="/index" style="text-decoration: none;">
-                <h1 class="overlay-text-small_one">Smart</h1>
-                <h1 class="overlay-text-small_two">Makeup</h1>
-            </a>
-        </div>
-        
-
-        <div class="footer_middle">
-            <p style="line-height: 1.0;">© 2024 모든 권리 보유</p>
-            <p style="line-height: 0.5;">스마트 메이크업</p>
-            <p style="line-height: 0.5;"> 제작: 최준원, 한기윤, 현호성</p>
-            <p style="line-height: 1.0;">본 사이트는 GUI로 구현한 Smart_IoT_Vanity를 Web으로 구현한 사이트입니다.</p>
-        </div>
-
-        <div class="footer_mark">
-            <a href="https://github.com/hosunghyun/Smart_Makeup_Web">
-                <img th:src="@{/sysimg/git_icon.png}" class="gitIcon" >
-            </a>
-        </div>
-
-        <div class="footer_right">
-        </div>
-    </footer>
-    <script th:src="@{/JS/index/index.js}"></script>
 </body>
 </html>
+<div id="main_2">
+  <h1 style="text-align: center;">
+      카메라 연결
+  </h1>
+  <div class="mainpage-container">
+      <video width="720" height="480" autoplay loop muted>
+          <source th:src="@{/video/connect.mp4}" type="video/mp4">
+      </video>
+  </div>
+  <p style="text-align: center;">
+      "카메라 연결" 버튼을 클릭하면 웹 카메라가 활성화되어, 화면에 당신의 얼굴이 실시간으로 출력됩니다.
+  </p>
+</div>
+
+<div id="main_3">
+  <h1 style="text-align: center;">
+      화장 시작
+  </h1>
+  <div class="mainpage-container">
+
+      <video width="720" height="480" autoplay loop muted>
+          <source th:src="@{/video/makeup.mp4}" type="video/mp4">
+      </video>
+  </div>
+  <p style="text-align: center;">
+      카메라가 연결되면, 화면에 파운데이션과 립 화장 기능을 조절할 수 있는 버튼이 나타납니다. 각 버튼을 클릭하여 원하는 부위를 화장할 수 있습니다. <br>
+      각 화장 부위를 선택하면, 슬라이더가 나타나 색상과 진하기를 자유롭게 조절할 수 있습니다. 원하는 색과 진하기를 선택해 보세요!
+  </p>
+</div>
+
+<div id="main_4">
+  <h1 style="text-align: center;">
+      화장 저장 (로그인 사용자만 가능)
+  </h1>
+  <div class="mainpage-container">
+
+      <video width="720" height="480" autoplay loop muted>
+          <source th:src="@{/video/save.mp4}" type="video/mp4">
+      </video>
+  </div>
+  <p style="text-align: center;">
+      로그인한 사용자만 화장 상태를 저장할 수 있습니다. 먼저 저장할 번호(1~5)를 선택하고, 그 후 저장하기 버튼을 클릭하면 선택한 색상과 진하기가 저장됩니다.
+  </p>
+</div>
+
+<div id="main_5">
+  <h1 style="text-align: center;">
+      저장된 화장 불러오기 (로그인 사용자만 가능)
+  </h1>
+  <div class="mainpage-container">
+      <video width="720" height="480" autoplay loop muted>
+          <source th:src="@{/video/load.mp4}" type="video/mp4">
+      </video>
+  </div>
+  <p style="text-align: center;">
+      저장한 화장 스타일을 다시 불러오려면 불러오기 버튼을 클릭하세요. 먼저 불러올 번호(1~5)를 선택하고, 해당 번호의 저장된 화장 색상과 진하기를 불러와서 바로 적용할 수 있습니다.
+  </p>
+</div>
+
+<div class="card nav-card">
+  <div class="card-body">
+      <h5 class="card-title">사용 설명서</h5>
+      <ul class="list-group">
+          <li class="list-group-item"><a href="#main_1">화장 체험 서비스</a></li>
+          <li class="list-group-item"><a href="#main_2">카메라 연결</a></li>
+          <li class="list-group-item"><a href="#main_3">화장 시작</a></li>
+          <li class="list-group-item"><a href="#main_4">화장 저장</a></li>
+          <li class="list-group-item"><a href="#main_5">화장 불러오기</a></li>
+      </ul>
+  </div>
+</div>
+
+<!-- 메인 페이지 출력 페이지-->
+<div class="container mt-5" style="height: 100vh;"> <!-- 컨테이너에 화면 높이를 100vh로 설정 -->
+  <div class="row h-100 justify-content-center align-items-center"> <!-- row를 수직, 수평 중앙 정렬 -->
+      <div class="col-md-4">
+          <!-- 카드 시작 -->
+          <div class="card">
+              <!-- 제목 -->
+              <div class="card-head" id="main_1" style="background-color: #1e80ff;">
+                  <h1 style="text-align: center; font-family:NEXONFootballGothicBA1;">화장 체험 서비스</h1>
+              </div>
+              <!-- 카드 이미지 -->
+              <video class="card-video-top" autoplay loop muted>
+                  <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
+              </video>
+          
+              <!-- 카드 본문 -->
+              <div class="card-body">
+                  <p class="card-text">
+                      당신의 얼굴에 실시간으로 화장을 적용해보세요! 웹 카메라와 연동하여 간단한 버튼 클릭으로 파운데이션과 립을 선택하고, 색상과 진하기를 조절하여 맞춤형 화장을 실시간으로 경험할 수 있습니다.
+                  </p>
+                  <!-- 버튼 -->
+                  <button type="button" class="btn btn-primary">자세히 알아보기</button>
+              </div>
+          </div>
+          <!-- 카드 끝 -->
+      </div>
+  </div>
+</div>  
+
+.nav-card {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 230px;
+  transform: translateY(30%);
+}
+.section {
+  padding: 100px 20px;
+  height: 200vh; /* 각 섹션의 높이를 화면 크기에 맞게 */
+  border-bottom: 2px solid #ccc;
+}
+a {
+  text-decoration: none;
+}
+.card-video-top {
+  max-width: 100%; /* 비디오가 카드 너비를 넘지 않도록 설정 */
+  height: auto;    /* 비디오 높이를 자동으로 조정 */
+}

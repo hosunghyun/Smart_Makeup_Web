@@ -36,10 +36,11 @@
             <h1 class="mb-4">화장품 톡톡</h1>
             
             <!-- 게시판 불러오기 -->
-            <div class="row">
-                <div th:each="board : ${boards}">
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- 게시판 항목들 -->
+                    <div th:each="board : ${boards}" class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="card h-100 shadow-sm">
                             <a th:href="@{|/boarddetail/id=${board.getId()}|}" class="text-decoration-none text-dark">
                                 <!-- 이미지 출력 부분 -->
                                 <div th:each="image, iterStat : ${board.getImages()}" th:if="${iterStat.index == 0}">
@@ -47,7 +48,7 @@
                                         <img th:src="${image.getImage_link()}" class="card-img-top board-img" alt="이미지">
                                     </div>
                                 </div>
-                                
+            
                                 <!-- 게시판 네모칸 -->
                                 <div class="card-body">
                                     <!-- 게시판 제목 -->

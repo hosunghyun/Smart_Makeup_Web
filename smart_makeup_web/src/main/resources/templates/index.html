@@ -21,6 +21,24 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
+        @font-face {
+            font-family: 'NEXONFootballGothicBA1';
+            src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXONFootballGothicBA1.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'HakgyoansimPuzzleTTF-Outline';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimPuzzleTTF-Outline.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'YangjuByeolsanA1';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405@1.0/YangjuByeolsanA1.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
         #image-container {
             width: 500px; /* 원하는 너비 */
             height: 300px; /* 원하는 높이 */
@@ -34,12 +52,28 @@
             transition: transform 1s ease;
         }
         .mainpage-container {
-            width: 80%; /* 80% 너비 할당 */
+            width: 100%; /* 80% 너비 할당 */
             margin-left: 10%;
 
             display: flex;
             justify-content: center; /* 수평 중앙 정렬 */
             align-items: center; /* 수직 중앙 정렬 */
+        }
+        video {
+            width: 565px; height: 480px; object-fit: cover;
+        }
+        .line-title {
+            font-family: HakgyoansimPuzzleTTF-Outline;
+            color: #d6ab6b;
+        }
+        .card-title {
+            text-align: center;
+            font-family: YangjuByeolsanA1;
+            color: #8ebef5;
+            text-shadow: 2px 2px 4px rgb(192, 232, 255);
+        }
+        .card-text {
+            text-align: center;
         }
     </style>
 </head>
@@ -51,70 +85,132 @@
         <div class="image-container">
             <img th:src="@{/sysimg/image1.png}" alt="기본 이미지" id="mainimg"> <!-- 여기에 기본 이미지 파일 경로를 입력 -->
             <div class="overlay-text">
+                <h3>국내 유일 화장 미리보기 서비스</h3>
                 <h1>Smart Makeup</h1>
+                <a class="btn btn-outline-secondary" href="/makeup">Go MakeUp</a>
             </div> <!-- 이미지 중간에 표시할 글자 -->
         </div>
     </aside>
 
-    <!-- 메인 페이지 출력 페이지-->
-    <div class="mainpage-container" style="background-color: burlywood;">
-        <h1>
-            최종 화장 영상
-        </h1>
-        <video width="720" height="480" autoplay loop muted>
-            <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
-        </video>
-        <p>
-            
-        </p>
+    <div style="display: flex; align-items: center; justify-content: center; text-align: center;">
+        <!-- 왼쪽 선 -->
+        <hr style="border: 2px solid #8a5507; margin: 0 10px; width: 25%;">
+        
+        <!-- 텍스트 -->
+        <h2 style="margin: 0;" class="line-title">당신의 모든 메이크업 니즈를 충족하세요</h2>
+        
+        <!-- 오른쪽 선 -->
+        <hr style="border: 2px solid #8a5507; margin: 0 10px; width: 25%;">
     </div>
+    
+    <br>
 
-    <div class="mainpage-container" style="background-color: rgb(52, 136, 94);">
-        <h1>
-            카메라 연결하는 방법
-        </h1>
-        <video width="720" height="480" autoplay loop muted>
-            <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
-        </video>
-        <p>
-            2
-        </p>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-4">
+                <!-- 카드 시작 -->
+                <div class="card">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="이미지">
+                    <div class="card-body">
+                        <h4 class="card-title">함께 소통해요</h4>
+                        <p class="card-text">여러 사람과 의견을 나누고 서로의 화장을 평가해 봐요!</p>
+                        <a href="#" class="btn btn-primary">의견 나누러 가기</a>
+                    </div>
+                </div>
+                <!-- 카드 끝 -->
+            </div>
+            <div class="col-md-4">
+                <!-- 카드 시작 -->
+                <div class="card">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="이미지">
+                    <div class="card-body">
+                        <h4 class="card-title">가상 화장</h4>
+                        <p class="card-text">당신의 얼굴에 화장할 필요 없어요. 카메라를 통해 화장된 모습을 미리 확인해 봐요.</p>
+                        <a href="#" class="btn btn-primary">화장하러 가기</a>
+                    </div>
+                </div>
+                <!-- 카드 끝 -->
+            </div>
+            <div class="col-md-4">
+                <!-- 카드 시작 -->
+                <div class="card">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="이미지">
+                    <div class="card-body">
+                        <h4 class="card-title">마음에 드는 제품을 빠르게</h4>
+                        <p class="card-text">화장이 마음에 들으셨나요? 빠르게 원하는 화장품을 구매하러 가요.</p>
+                        <a href="#" class="btn btn-primary">구매하러 가기</a>
+                    </div>
+                </div>
+                <!-- 카드 끝 -->
+            </div>
+        </div>
     </div>
-
-    <div class="mainpage-container" style="background-color: rgb(95, 44, 136);">
-        <h1>
-            화장하는 방법
-        </h1>
-        <video width="720" height="480" autoplay loop muted>
-            <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
-        </video>
-        <p>
-            3
-        </p>
+    
+    <div style="display: flex; align-items: center; justify-content: center; text-align: center;">
+        <!-- 왼쪽 선 -->
+        <hr style="border: 2px solid #8a5507; margin: 0 10px; width: 25%;">
+        
+        <!-- 텍스트 -->
+        <h2 style="margin: 0;" class="line-title">누구나 이해하는 사이트 가이드라인</h2>
+        
+        <!-- 오른쪽 선 -->
+        <hr style="border: 2px solid #8a5507; margin: 0 10px; width: 25%;">
     </div>
-
-    <div class="mainpage-container" style="background-color: rgb(114, 111, 167);">
-        <h1>
-            저장 하는 방법
-        </h1>
-        <video width="720" height="480" autoplay loop muted>
-            <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
-        </video>
-        <p>
-            4
-        </p>
-    </div>
-
-    <div class="mainpage-container" style="background-color: rgb(114, 111, 167);">
-        <h1>
-            불러오기 하는 방법
-        </h1>
-        <video width="720" height="480" autoplay loop muted>
-            <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
-        </video>
-        <p>
-            5
-        </p>
+    
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-4">
+                <!-- 카드 시작 -->
+                <div class="card">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="이미지">
+                    <div class="card-body">
+                        <h4 class="card-title">당신도 할 수 있다. 카메라 연결!</h4>
+                        <p class="card-text">"카메라 연결" 버튼을 클릭하면 웹 카메라가 활성화되어, 화면에 당신의 얼굴이 실시간으로 출력됩니다.</p>
+                    </div>
+                </div>
+                <!-- 카드 끝 -->
+            </div>
+            <div class="col-md-4">
+                <!-- 카드 시작 -->
+                <div class="card">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="이미지">
+                    <div class="card-body">
+                        <h4 class="card-title">누구나 할 수 있다. 얼굴에 화장하기!</h4>
+                        <p class="card-text">
+                            카메라가 연결되면, 화면에 파운데이션과 립 화장 기능을 조절할 수 있는 버튼이 나타납니다. 각 버튼을 클릭하여 원하는 부위를 화장할 수 있습니다. <br>
+                            각 화장 부위를 선택하면, 슬라이더가 나타나 색상과 진하기를 자유롭게 조절할 수 있습니다. 원하는 색과 진하기를 선택해 보세요!
+                        </p>
+                    </div>
+                </div>
+                <!-- 카드 끝 -->
+            </div>
+            <div class="col-md-4">
+                <!-- 카드 시작 -->
+                <div class="card">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="이미지">
+                    <div class="card-body">
+                        <h4 class="card-title">화장이 마음에 드셨나요? <br>저장해보세요!</h4>
+                        <p class="card-text">
+                            로그인한 사용자만 화장 상태를 저장할 수 있습니다. 먼저 저장할 번호(1~5)를 선택하고, 그 후 저장하기 버튼을 클릭하면 선택한 색상과 진하기가 저장됩니다.
+                        </p>
+                    </div>
+                </div>
+                <!-- 카드 끝 -->
+            </div>
+            <div class="col-md-4">
+                <!-- 카드 시작 -->
+                <div class="card">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="이미지">
+                    <div class="card-body">
+                        <h4 class="card-title">이전 화장이 기억이 안 난다면? <br> 저장된 화장을 불러옵시다!</h4>
+                        <p class="card-text">
+                            저장한 화장 스타일을 다시 불러오려면 불러오기 버튼을 클릭하세요. 먼저 불러올 번호(1~5)를 선택하고, 해당 번호의 저장된 화장 색상과 진하기를 불러와서 바로 적용할 수 있습니다.
+                        </p>
+                    </div>
+                </div>
+                <!-- 카드 끝 -->
+            </div>
+        </div>
     </div>
 
     <footer>
