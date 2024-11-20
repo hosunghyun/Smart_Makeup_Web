@@ -11,6 +11,7 @@
     $pwdokbtn.addEventListener('click', ()=>{
         pwdid = $pwdmember_id.value;
         const pwdemail = $pwdemail.value;
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
         if (pwdid == "") {
             alert("아이디를 입력해주세요");
@@ -18,6 +19,10 @@
         }
         if (pwdemail == "") {
             alert("이메일을 입력해주세요");
+            return;
+        }
+        if(emailPattern.test(pwdemail)) {
+            alert("이메일을 정확하게 작성해주세요.");
             return;
         }
         if (pwdid != "" && pwdemail != "") {

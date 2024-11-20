@@ -41,6 +41,19 @@
     });
 
     $submitbtbn.addEventListener('click', ()=>{
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const phonePatter = /^[0-9]+\-[0-9]+\-[0-9]/;
+
+        if(!emailPattern.test(email)) {
+            alert("이메일을 정확하게 작성해주세요.");
+            return;
+        }
+        if(!phonePatter.test(phone)) {
+            alert("전화번호를 정확하게 작성해주세요.");
+            return;
+        }
         if(check_overlap_TF == true) {
             document.getElementById('joinform').submit();
         }

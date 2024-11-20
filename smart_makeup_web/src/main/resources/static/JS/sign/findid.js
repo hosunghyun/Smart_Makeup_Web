@@ -9,12 +9,24 @@
         const $emailvalue = $email.value;
         const $phonevalue = $phone.value;
 
+        // 이메일 형식 검사 (정규식을 사용하여 이메일 형식 확인)
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const phonePatter = /^[0-9]+\-[0-9]+\-[0-9]/;
+
         if($emailvalue == "") {
             alert("이메일을 작성해주세요");
             return;
         }
         if($phonevalue == "") {
             alert("전화번호을 작성해주세요");
+            return;
+        }
+        if(!emailPattern.test($emailvalue)) {
+            alert("이메일을 정확하게 작성해주세요.");
+            return;
+        }
+        if(!phonePatter.test($phonevalue)) {
+            alert("전화번호를 정확하게 작성해주세요.");
             return;
         }
         if($phonevalue != "" && $emailvalue != "") {
