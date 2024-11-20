@@ -47,6 +47,9 @@ public class MemberService {
 
     // 4. 회원 찾기
     public Member findById(String member_id) {
+        if(memberRepository.findById(member_id).get() == null) {
+            return null;
+        }
         Member member = memberRepository.findById(member_id).get();
         return member;
     }
