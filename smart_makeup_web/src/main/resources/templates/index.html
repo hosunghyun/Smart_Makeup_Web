@@ -111,7 +111,7 @@
             <div class="col-md-4">
                 <!-- 카드 시작 -->
                 <div class="card">
-                    <img th:src="@{/sysimg/board.PNG}" class="card-img-top" alt="이미지">
+                    <img th:src="@{/sysimg/board.PNG}" class="card-img-top" alt="이미지" style="width: 100%; height: 320px; object-fit: cover;">
                     <div class="card-body">
                         <h4 class="card-title">함께 소통해요</h4>
                         <p class="card-text">여러 사람과 의견을 나누고 서로의 화장을 평가해 봐요!</p>
@@ -137,7 +137,7 @@
             <div class="col-md-4">
                 <!-- 카드 시작 -->
                 <div class="card">
-                    <img th:src="@{/sysimg/product.PNG}" class="card-img-top" alt="이미지">
+                    <img th:src="@{/sysimg/product.PNG}" class="card-img-top" alt="이미지" style="width: 100%; height: 320px; object-fit: cover;">
                     <div class="card-body">
                         <h4 class="card-title">마음에 드는 제품을 빠르게</h4>
                         <p class="card-text">화장이 마음에 들으셨나요? 빠르게 원하는 화장품을 구매하러 가요.</p>
@@ -159,14 +159,14 @@
         <!-- 오른쪽 선 -->
         <hr style="border: 2px solid #8a5507; margin: 0 10px; width: 25%;">
     </div>
-    
+
     <div class="container my-5">
         <div class="row">
             <div class="col-md-4">
                 <!-- 카드 시작 -->
                 <div class="card">
                     <video class="card-video-top" autoplay loop muted style="width: 100%; height: 360px; object-fit: cover;">
-                        <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
+                        <source th:src="@{/video/화면연결.mp4}" type="video/mp4">
                     </video>
                     <div class="card-body">
                         <h4 class="card-title">당신도 할 수 있다. 카메라 연결!</h4>
@@ -179,13 +179,12 @@
                 <!-- 카드 시작 -->
                 <div class="card">
                     <video class="card-video-top" autoplay loop muted style="width: 100%; height: 360px; object-fit: cover;">
-                        <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
+                        <source th:src="@{/video/화장하기.mp4}" type="video/mp4">
                     </video>
                     <div class="card-body">
                         <h4 class="card-title">누구나 할 수 있다. 얼굴에 화장하기!</h4>
                         <p class="card-text">
-                            카메라가 연결되면, 화면에 파운데이션과 립 화장 기능을 조절할 수 있는 버튼이 나타납니다. 각 버튼을 클릭하여 원하는 부위를 화장할 수 있습니다. <br>
-                            각 화장 부위를 선택하면, 슬라이더가 나타나 색상과 진하기를 자유롭게 조절할 수 있습니다. 원하는 색과 진하기를 선택해 보세요!
+                            카메라가 연결되면, 화면에 파운데이션과 립 화장 기능을 조절할 수 있는 버튼이 나타납니다. 각 버튼을 클릭하여 원하는 부위를 화장할 수 있습니다.
                         </p>
                     </div>
                 </div>
@@ -195,12 +194,12 @@
                 <!-- 카드 시작 -->
                 <div class="card">
                     <video class="card-video-top" autoplay loop muted style="width: 100%; height: 360px; object-fit: cover;">
-                        <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
+                        <source th:src="@{/video/저장하기.mp4}" type="video/mp4">
                     </video>
                     <div class="card-body">
-                        <h4 class="card-title">화장이 마음에 드셨나요? <br>저장해보세요!</h4>
+                        <h4 class="card-title">마음에 드는 화장 저장하기!</h4>
                         <p class="card-text">
-                            로그인한 사용자만 화장 상태를 저장할 수 있습니다. 먼저 저장할 번호(1~5)를 선택하고, 그 후 저장하기 버튼을 클릭하면 선택한 색상과 진하기가 저장됩니다.
+                            로그인한 사용자만 화장 상태를 저장할 수 있습니다. 먼저 저장할 번호(1~5)를 선택하고, 저장하기 버튼을 클릭하면 선택한 색상과 진하기가 저장됩니다.
                         </p>
                     </div>
                 </div>
@@ -210,10 +209,10 @@
                 <!-- 카드 시작 -->
                 <div class="card">
                     <video class="card-video-top" autoplay loop muted style="width: 100%; height: 360px; object-fit: cover;">
-                        <source th:src="@{/video/sample5_summerskin_springlip50.mp4}" type="video/mp4">
+                        <source th:src="@{/video/불러오기.mp4}" type="video/mp4">
                     </video>
                     <div class="card-body">
-                        <h4 class="card-title">이전 화장이 기억이 안 난다면? <br> 저장된 화장을 불러옵시다!</h4>
+                        <h4 class="card-title">저장된 화장을 불러옵시다!</h4>
                         <p class="card-text">
                             저장한 화장 스타일을 다시 불러오려면 불러오기 버튼을 클릭하세요. 먼저 불러올 번호(1~5)를 선택하고, 해당 번호의 저장된 화장 색상과 진하기를 불러와서 바로 적용할 수 있습니다.
                         </p>
