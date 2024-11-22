@@ -48,8 +48,11 @@
 
 ### 구현 결과
 ### 화장 체험 기능
-![img2](https://github.com/user-attachments/assets/242802af-64bc-4185-bf77-341155ce2440)
+#### 화장 적용 이전
 ![img1-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/9f092bbd-3b57-4c54-a694-693da9d73796)
+
+#### 화장 적용 이후 (Lip, Skin 화장 적용)
+![img2](https://github.com/user-attachments/assets/242802af-64bc-4185-bf77-341155ce2440)
 
 
 
