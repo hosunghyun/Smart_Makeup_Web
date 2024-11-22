@@ -46,11 +46,11 @@
 
 ## 3. 내용
 
-### 구현 기능
-#
-### 데이터베이스 구현
-![캡처](https://github.com/user-attachments/assets/46aa523b-6104-4259-b040-0c2bdafbbe25)
-MySQL로 작성하였습니다.
+### 구현 결과
+### 화장 체험 기능
+![img2](https://github.com/user-attachments/assets/242802af-64bc-4185-bf77-341155ce2440)
+![img1-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/9f092bbd-3b57-4c54-a694-693da9d73796)
+
 
 
 <!--
