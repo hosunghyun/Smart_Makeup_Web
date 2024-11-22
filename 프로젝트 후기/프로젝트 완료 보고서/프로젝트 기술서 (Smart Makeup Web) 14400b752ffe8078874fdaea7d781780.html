@@ -1,0 +1,704 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>프로젝트 기술서 (Smart Makeup Web)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="14400b75-2ffe-8078-874f-daea7d781780" class="page sans"><header><h1 class="page-title">프로젝트 기술서 (Smart Makeup Web)</h1><p class="page-description"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><h1 id="14600b75-2ffe-80b9-aed8-d749bec0abe9" class="">1. 프로젝트 개요</h1><h2 id="14600b75-2ffe-80a0-9f1a-d21964747bbe" class="">1-1. 프로젝트 이름</h2><ul id="14600b75-2ffe-8021-92a1-d5361d5294bd" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default"><mark class="highlight-default_background"><strong><a href="https://github.com/hosunghyun/Smart_Makeup_Web">Smart Makeup Web</a></strong></mark></mark></li></ul><h2 id="14600b75-2ffe-807f-bacc-ee4b3a90aef9" class="">1-2. 프로젝트 개발 구성원</h2><ul id="14600b75-2ffe-8083-be48-c75f09caf843" class="bulleted-list"><li style="list-style-type:disc">최준원, 한기윤, 현오성</li></ul><h2 id="14600b75-2ffe-8021-8e32-e075e3a4208d" class="">1-3. 개발 환경 및 기술</h2><ul id="14600b75-2ffe-8054-9982-c51b191c3af3" class="bulleted-list"><li style="list-style-type:disc"><strong>Language</strong> : Java, Python, JavaScript, CSS3, HTML5, Thymeleaf</li></ul><ul id="14600b75-2ffe-80ed-aa47-ce7439949f52" class="bulleted-list"><li style="list-style-type:disc"><strong>Library </strong>: OpenCV, scikit-learn, Pandas, Matplotlib, Keras, MediaPipe</li></ul><ul id="14600b75-2ffe-8067-95f8-c088eb6011cf" class="bulleted-list"><li style="list-style-type:disc"><strong>Framework </strong>: Spring, Bootstrap</li></ul><ul id="14600b75-2ffe-8078-976f-fa7584261f30" class="bulleted-list"><li style="list-style-type:disc"><strong>Database </strong>: MySQL</li></ul><ul id="14600b75-2ffe-804f-b691-f7408ba0dd8e" class="bulleted-list"><li style="list-style-type:disc"><strong>운영체제 </strong>: Windows</li></ul><ul id="14600b75-2ffe-80e0-8dd9-eef30bdcf502" class="bulleted-list"><li style="list-style-type:disc"><strong>Version Control </strong>: Git</li></ul><h2 id="14600b75-2ffe-80e2-806d-df4a7b68d29e" class="">1-4. 프로젝트 일정</h2><figure id="9c604524-4b54-438a-9abb-392bec91d867" class="image"><a href="image.png"><img style="width:707.984375px" src="image.png"/></a><figcaption>프로젝트 일정을 작성한 간트 차트</figcaption></figure><p id="14600b75-2ffe-80b6-8d00-ec25c0c5e4df" class="">
+</p><hr id="14600b75-2ffe-8086-9e5e-e54b76a6532f"/><h1 id="14600b75-2ffe-801c-a723-fb9c86aad50b" class="">2. 서비스 개요</h1><h2 id="14600b75-2ffe-8080-80f3-c2b443332e8a" class="">2-1. <strong>서비스 개기 (배경)</strong></h2><p id="14600b75-2ffe-80b2-bfcb-d20fd3f75a4f" class="">최근 화장품 산업은 온라인 쇼핑몰과 모바일 앱을 중심으로 급성장하고 있습니다. 특히, 코로나19 팬데믹 이후 비대면 쇼핑의 수요가 크게 증가하면서, 소비자들은 제품을 실제로 사용해보기 어려운 상황에서 제품을 구매하게 되었습니다. 이런 상황에서 화장품 구매 전, 실제로 피부에 어떻게 맞을지 확인할 수 있는 방법이 부족하다는 점이 큰 문제로 떠오르고 있습니다.</p><figure id="14600b75-2ffe-8036-85fa-cf364d55d694" class="image" style="text-align:left"><a href="image%201.png"><img style="width:480px" src="image%201.png"/></a><figcaption>글로벌 화장품 시장규모 추이 (2015~2021)</figcaption></figure><p id="14600b75-2ffe-80ab-80de-c501e1600ab2" class="">
+</p><p id="14600b75-2ffe-8097-a10d-fc1c46b874a1" class="">이에 따라, <strong>Smart Makeup Web</strong>은 사용자들이 화장품을 구매하기 전에 자신에게 적합한 색상, 스타일 등을 미리 경험해볼 수 있는 기회를 제공함으로써, 소비자의 불확실성을 줄이고, 만족도를 높여주는 중요한 역할을 할 수 있습니다.</p><p id="14600b75-2ffe-8069-80b5-f6c8c6b14f3d" class="">
+</p><h2 id="14600b75-2ffe-8092-b6ef-f1feff74160a" class="">2-2. <strong>시장 환경</strong></h2><p id="14600b75-2ffe-807e-aafa-e7933df18b5d" class="">현재 화장품 시장은 국내외적으로 활발히 성장하고 있으며, 특히 <strong>MZ세대(밀레니얼 + Z세대)</strong>를 중심으로 다양한 뷰티 트렌드와 소비 방식이 빠르게 변화하고 있습니다. 이들은 전통적인 매장 방문보다는 온라인 쇼핑, 리뷰, SNS 등을 통해 제품을 구매하는 경향이 강합니다. 특히, 온라인 화장품 구매 시 제품을 직접 체험할 수 없기 때문에, 가상 체험이 중요한 요소로 부각되고 있습니다.</p><p id="14600b75-2ffe-8069-924b-e7691248d034" class="">또한, <strong>증강 현실(AR)</strong> 기술과 <strong>AI</strong>를 활용한 맞춤형 뷰티 서비스가 주요 트렌드로 떠오르고 있으며, 이는 소비자에게 더 나은 경험을 제공하고, 제품 구매를 촉진하는 역할을 합니다. 그러나 여전히 많은 사용자들이 화장품 구매 시 자신의 피부와 잘 맞는 제품을 찾는 데 어려움을 겪고 있다는 점에서, 가상 체험 서비스에 대한 수요는 계속해서 증가할 것으로 예상됩니다.</p><p id="14600b75-2ffe-80bd-933b-f282a48dbdf5" class="">
+</p><figure id="14600b75-2ffe-80b5-bc5e-e821ba19f9fa" class="image" style="text-align:left"><a href="https://dream.kotra.or.kr/attach/namo/images/000828/20240509052701969_RCHLHLBN.gif"><img src="https://dream.kotra.or.kr/attach/namo/images/000828/20240509052701969_RCHLHLBN.gif"/></a><figcaption>아베다(Aveda)의 가상 헤어 컬러 테스트 [자료: Perfect]</figcaption></figure><p id="14600b75-2ffe-80aa-a1a9-c693d3ce9797" class="">
+</p><h2 id="14600b75-2ffe-805f-8e0b-eb16abdb9e2f" class="">2-3. <strong>서비스 목적</strong></h2><p id="14600b75-2ffe-80fa-8f47-c5557b2de037" class="">이 서비스의 주요 목적은 <strong>소비자에게 실시간으로 가상 화장 체험을 제공</strong>함으로써, 제품 구매 결정에 대한 불확실성을 줄이고, 보다 자신감 있는 구매를 돕는 것입니다. 사용자는 자신의 얼굴을  카메라를 통해 직접 화장을 시도해 볼 수 있으며, 다양한 색상과 스타일을 실시간으로 체험해볼 수 있습니다. 이를 통해, 제품을 직접 구매하기 전에 자신의 피부 톤이나 스타일에 맞는 최적의 화장품을 찾을 수 있게 됩니다.</p><p id="14600b75-2ffe-804d-96eb-ee9a7137bc58" class="">
+</p><hr id="14600b75-2ffe-80b3-b35d-fea7030958d4"/><h1 id="14600b75-2ffe-800e-859e-e5c537f57732" class="">3. Smart Makeup Web 주요 서비스 및 기능</h1><h2 id="14600b75-2ffe-808a-bdc9-dbd3ebedf3cb" class="">3-1. 화장하기 기능</h2><p id="14600b75-2ffe-805d-ba21-cbb642867b39" class="">&quot;화장하기&quot; 기능은 사용자가 실시간으로 카메라를 통해 자신의 모습을 확인하고, 원하는 <strong>화장품의 색상과 농도</strong>를 선택하여 <strong>화장된 모습을 즉시 확인</strong>할 수 있는 서비스입니다. 이 기능은 사용자가 <strong>다양한 화장 스타일</strong>을 빠르고 직관적으로 체험할 수 있도록 돕습니다.</p><p id="14600b75-2ffe-80ef-8dfb-d43031996829" class="">
+</p><ol type="1" id="14600b75-2ffe-8019-8d09-e93c6444e0a1" class="numbered-list" start="1"><li><strong>화장 전 이미지</strong>: 사용자가 카메라 앞에 서면, <strong>자연스러운 얼굴 상태</strong>가 실시간으로 화면에 표시됩니다. 이를 통해 사용자는 화장을 적용하기 전의 본인의 모습을 그대로 확인할 수 있습니다.<figure id="14600b75-2ffe-80eb-8022-ee74d5cbab8e" class="image"><a href="img1-ezgif.com-video-to-gif-converter.gif"><img style="width:480.96875px" src="img1-ezgif.com-video-to-gif-converter.gif"/></a><figcaption>화장 전 이미지</figcaption></figure></li></ol><ol type="1" id="14600b75-2ffe-803a-9f0e-ef9813ff4a9e" class="numbered-list" start="2"><li><strong>화장 후 이미지</strong>: 원하는 화장품의 <strong>색상과 농도</strong>를 선택하면, 실시간으로 선택한 화장 효과가 얼굴에 적용되어 <strong>화장된 모습</strong>을 바로 확인할 수 있습니다. 이를 통해 사용자는 직접 화장을 하지 않고도 <strong>자신에게 어울리는 색상과 스타일</strong>을 미리 경험할 수 있습니다.<figure id="14600b75-2ffe-8093-aa54-f10339e0770d" class="image"><a href="img2.gif"><img style="width:480.96875px" src="img2.gif"/></a><figcaption>Skin, Lip 화장을 적용한 이미지</figcaption></figure></li></ol><p id="14600b75-2ffe-8021-a99f-c23a77e9bf03" class="">이 기능은 <strong>간편하게 메이크업을 미리 시도</strong>할 수 있는 장점을 제공하며, 사용자가 자신의 얼굴에 어떤 화장품이 잘 어울리는지 쉽게 테스트할 수 있도록 돕습니다.</p><p id="14600b75-2ffe-802d-ab59-f84bb8e67363" class="">
+</p><hr id="14600b75-2ffe-8089-8727-fd8fdeac51d9"/><p id="b4bc1d74-ee55-4667-8df3-d1fb9eaa6c57" class="">
+</p><h1 id="14600b75-2ffe-80b5-b92e-f3f8524229c9" class="">4. 설계 (요구사항 분석 및 설계)</h1><p id="14600b75-2ffe-805a-b7c0-ee3de609edae" class="">
+</p><h2 id="14600b75-2ffe-8054-ba72-ded6de034471" class="">4-1. 유스케이스 다이어그램</h2><figure id="6b37a323-4aab-4d73-812b-69645e851256" class="image" style="text-align:left"><a href="image%202.png"><img style="width:624px" src="image%202.png"/></a><figcaption>주요 기능인 Makeup 기능의 유스케이스 다이어그램</figcaption></figure><h2 id="14600b75-2ffe-8023-befa-d12bcf242178" class="">4-2. 데이터베이스 ERD</h2><h3 id="14600b75-2ffe-807a-bc68-d81189fb6f2d" class="">4-2-1. 전체 ERD</h3><figure id="3cbd0fdd-a563-4af1-b70b-da91c012fa50" class="image" style="text-align:left"><a href="image%203.png"><img style="width:576px" src="image%203.png"/></a><figcaption>전체 테이블의 ERD</figcaption></figure><h3 id="14600b75-2ffe-80c0-a778-e0243147eed4" class="">4-2-2. 주요 ERD</h3><figure id="14600b75-2ffe-8008-9aa0-f413d81a255e" class="image" style="text-align:left"><a href="image%204.png"><img style="width:432px" src="image%204.png"/></a><figcaption>주요 ERD인 회원 테이블과 Makeup과 관련된 테이블의 ERD</figcaption></figure><p id="14600b75-2ffe-806b-a0ea-e3e4cb4b5049" class="">
+</p><p id="8e14e06b-17ca-45a5-9cbd-745dc5bc7391" class="">
+</p><hr id="277d6a57-7174-47aa-b933-f1057f5de092"/><p id="df49318f-3de4-494c-b8c9-f1478edd07bc" class="">
+</p><h1 id="f2862daa-862b-41f2-b87f-94c0bf0212e7" class="">5. 프로젝트 관리 방식</h1><h2 id="62e015c2-5546-44f7-a49b-8d089dbe8450" class="">5-1. 애자일 방법론 적용</h2><ul id="becf02b2-8e20-4c9a-a71f-5598a273c05d" class="bulleted-list"><li style="list-style-type:disc">본 프로젝트는 <strong>애자일 방법론</strong>을 기반으로 진행되었다. <strong>애자일</strong>은 프로젝트 관리에서 유연성과 빠른 변화 대응을 강조하는 방법론으로, 주기적인 <strong>스프린트</strong>를 통해 팀원들이 자율적으로 작업을 분담하고, 실시간으로 피드백을 제공받으며 프로젝트를 진행할 수 있도록 했다.</li></ul><p id="d1abcbb3-521e-4097-aa0f-7581e6629bd5" class="">
+</p><h3 id="42fc9255-1f65-4911-9e92-e52eb603a530" class="">5-1-1. 스프린트(Sprint) 관리</h3><ul id="33203456-f3c5-413c-b0db-c9a643cf3c2e" class="bulleted-list"><li style="list-style-type:disc"><strong>스프린트</strong>는 1주 단위로 진행되었다. 각 스프린트 시작 전에 팀원들이 할 일 목록을 정리하고 우선순위를 매겨 작업을 분배했다.</li></ul><ul id="53d154ce-b279-4866-8e29-e317b972934a" class="bulleted-list"><li style="list-style-type:disc">스프린트 종료 후, 각 팀원은 <strong>데일리 스크럼</strong>을 통해 진행 사항을 공유하고 발생한 문제에 대해 논의했다.</li></ul><p id="cab5cb0e-0b70-4f90-b8cc-a715f579d8e1" class="">
+</p><h3 id="a258a3cb-e640-490f-a839-51f7dd42a54a" class="">5-1-2. 프로젝트 계획 및 피드백</h3><ul id="d58ae693-3fe8-4719-b971-8dd94eb94525" class="bulleted-list"><li style="list-style-type:disc">프로젝트는 초기 계획에 따라 중요한 기능들을 먼저 개발하며 점진적으로 개선해 나갔다. 각 스프린트 후에 진행 상황을 점검하고, 필요한 부분에 대해 수정 및 개선을 통해 목표를 달성했다.</li></ul><ul id="ce8a6eca-302e-4dd6-adff-c71f1c114461" class="bulleted-list"><li style="list-style-type:disc"><strong>피드백 세션</strong>을 통해, 팀원들은 서로의 작업을 검토하고 의견을 교환하며, 기능이 잘 작동하는지 여부를 확인했다.</li></ul><p id="772aee9b-b039-4d86-9735-24ea78765bae" class="">
+</p><h2 id="54874a5e-616d-4ad5-9190-fe31af92fb65" class="">5-2. 협업(Collaboration)</h2><ul id="b523a970-7ea5-4211-ac5b-489651b53f38" class="bulleted-list"><li style="list-style-type:disc">효율적인 협업을 위해 <strong>Git</strong>과 <strong>Notion</strong>을 사용했다. </li></ul><ul id="0a9653b6-77d2-47c6-95ef-35d54cf091d4" class="bulleted-list"><li style="list-style-type:disc"><strong>Git</strong><ul id="401e91bc-dd37-49e1-8000-9a1c764f9348" class="bulleted-list"><li style="list-style-type:circle"><strong>Git</strong>은 프로젝트의 코드와 버전을 관리하기 위해 사용되었다. 팀원들은 Git을 활용하여 코드를 작성하고, <strong>GitHub</strong> 또는 <strong>GitLab</strong>와 같은 리모트 저장소에 코드를 푸시(push) 및 풀(pull)하며 실시간으로 작업 내용을 공유했다.</li></ul></li></ul><ul id="26deddd8-e4fe-4b6a-8095-931013bebd6e" class="bulleted-list"><li style="list-style-type:disc"><strong>Notion</strong><ul id="11c34694-a545-4853-b220-236d9cf3ea1d" class="bulleted-list"><li style="list-style-type:circle"><strong>Notion</strong>은 프로젝트 문서를 관리하고 팀원 간의 협업을 촉진하기 위해 사용되었다. 모든 문서와 자료는 Notion에 작성하고, 팀원들과 실시간으로 업데이트를 공유했다.</li></ul></li></ul><p id="e5a31fb0-c1cb-40b9-88d1-efdeb346e428" class="">
+</p><h2 id="8bc368d6-4490-4da9-8cdd-f4c1e45b3373" class="">5-3. 팀워크와 커뮤니케이션(Teamwork and Communication)</h2><ul id="23ac3964-3f8e-4369-ab05-0a519f923554" class="bulleted-list"><li style="list-style-type:disc"><strong>데일리 스크럼</strong> : 매일 오전 9시 30분에 팀원들은 간단한 데일리 스크럼을 진행하여 각자의 진행 사항을 공유하고, 발생한 문제를 해결했다.</li></ul><ul id="b770dc58-1d8f-4ce3-b3d5-98011f3ed230" class="bulleted-list"><li style="list-style-type:disc"><strong>주간 회고</strong> : 각 스프린트 후, 팀원들은 <strong>회고 회의</strong>를 통해 스프린트 동안의 성과와 문제점을 돌아보며 개선할 사항을 도출하고, 다음 스프린트에서 적용할 수 있는 방법을 논의했다.</li></ul><p id="d929d4a1-759d-4f4e-b3be-4fcf79e2c67e" class="">
+</p><h2 id="9a9fc354-b56e-4131-a9d0-cf0ceede5c7b" class="">5-4. 회고 (Retrospective)</h2><h3 id="33e83107-9311-4726-90de-2ad28e8b50fc" class="">5-4-1 성과 요약 (Summary Of Achievements)</h3><ul id="4572db4f-641c-4e2b-b12e-21d7edaa2e1a" class="bulleted-list"><li style="list-style-type:disc">프로젝트의 주요 목표인 <strong>화장하기(실시간 영상처리)</strong> 기능을 향상이었으며 목표 성능을 100% 달성했다.</li></ul><ul id="3c273f90-a959-47f3-8938-dd60dfd9dbd0" class="bulleted-list"><li style="list-style-type:disc">프로젝트 완료 목표일은 <strong>2024년 12월 4일</strong>이었으며, <strong>2024년 11월 22일</strong>에 목표를 12일 앞당겨 완료했다. 계획보다 <strong>15.8% 빠른</strong> 일정으로 완료되어 프로젝트의 시간 관리가 효율적으로 이루어졌음을 보여 준다.</li></ul><p id="e6feb7e7-2fa3-4052-bb30-d2a012ebb5c8" class="">
+</p><h3 id="098364af-b007-4d81-8478-a52800cc1030" class="">5-4-2 주요 성과 (Key Achievements)</h3><ul id="48fec49e-7979-43ee-8619-ced6e2aa8410" class="bulleted-list"><li style="list-style-type:disc">팀원 <strong>최준원</strong>이 주요 기능인 <strong>서버 통신</strong>을 예상보다 한 달 앞당겨 프로젝트를 완료했다.</li></ul><ul id="45064642-bdcd-4e4c-af66-4168d4eebfd0" class="bulleted-list"><li style="list-style-type:disc">팀원 <strong>한기윤</strong>이 주요 기능인 <strong>영상 처리</strong>를 예상보다 1주 앞당겨 프로젝트를 완료했다.</li></ul><ul id="b0707cf6-82a9-493e-a6cb-4b979ecbbc15" class="bulleted-list"><li style="list-style-type:disc">팀원 <strong>현호성</strong>이 주요 기능인 <strong>스프링부트 사이트 구축</strong>을 한 달 앞당겨 프로젝트를 완료했다.</li></ul><p id="446a5641-e585-44f4-9009-978b7309e300" class="">
+</p><h3 id="d8f92c00-8bc3-429a-aa6a-c173fb7ce4b8" class="">5-4-3 향후 개선 사항 및 제안 (Future Improvements and Recommendations)</h3><ul id="e5704afb-42b5-4f00-80b4-4e111e6bfae6" class="bulleted-list"><li style="list-style-type:disc"><strong>기술적 개선 사항</strong><ul id="94fcd79f-f057-46a7-83f7-f09bc5f74903" class="bulleted-list"><li style="list-style-type:circle">현재 화장하기 기능은<strong> Python/OpenCV</strong>로 구현되어 있는데 이를 <strong>C++/OpenCV</strong>로 구현하여 영상 처리 속도를 개선한다.</li></ul><ul id="98da8f31-a6a5-4023-bdc2-d6401c399c33" class="bulleted-list"><li style="list-style-type:circle">서버 동작 시 <strong>FastAPI</strong> 서버도 함께 동작하는데 서버 사양에 따라 성능이 달라지므로 카메라가 연결될 때만 <strong>FastAPI</strong>가 동작하도록 개선한다.</li></ul></li></ul><ul id="2f163a5d-0a75-442c-9684-28e508154f3a" class="bulleted-list"><li style="list-style-type:disc"><strong>비즈니스 개선 사항</strong><ul id="7a83b346-dfa3-4905-8039-fa52f90c6e85" class="bulleted-list"><li style="list-style-type:circle">화장품 추천 기능만 존재하는데 향후 사이트에서 구매 시 가격 할인을 추가한다.</li></ul><ul id="58edbc7a-6fa9-41b1-8c07-261fbe65dc8e" class="bulleted-list"><li style="list-style-type:circle">웹 사이트에 광고를 추가한다.</li></ul></li></ul><ul id="41940fa2-0c20-466f-a916-0c25521eb4e6" class="bulleted-list"><li style="list-style-type:disc"><strong>사용자 개선 사항</strong><ul id="13dfeb1e-9c12-4376-a111-5c75031cc90e" class="bulleted-list"><li style="list-style-type:circle">영상 처리 외에 <strong>튜토리얼 기능</strong>을 추가하여 사용자에게 더 나은 사용 경험을 제공할 수 있도록 개선한다.</li></ul></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
