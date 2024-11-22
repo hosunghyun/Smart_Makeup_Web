@@ -52,21 +52,6 @@
 ![캡처](https://github.com/user-attachments/assets/46aa523b-6104-4259-b040-0c2bdafbbe25)
 MySQL로 작성하였습니다.
 
-### 메인 페이지
-![11 (2)](https://github.com/user-attachments/assets/0c2ed386-b9fe-4c62-a68a-346cfe744447)
-
-### 회원 가입 기능
-![그림4 (2)](https://github.com/user-attachments/assets/70478c2f-840b-46b1-9f99-c63c6abec768)
-
-### 로그인 기능
-![그림3 (2)](https://github.com/user-attachments/assets/deee3f67-b335-4313-939f-da6522d1f371)
-
-### 게시판
-![그림2 (2)](https://github.com/user-attachments/assets/fc35b9b2-e91a-41e2-8066-f343e869e662)
-![그림1 (2)](https://github.com/user-attachments/assets/45ffdfe3-80c9-4965-9445-4b1b7ee3e886)
-
-### 제품 추천하기
-![22 (2)](https://github.com/user-attachments/assets/354c8212-2c4f-48d3-bfe2-3826e4663245)
 
 <!--
 목차
