@@ -44,9 +44,8 @@
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 
 
-## 3. 내용
+## 3. 구현 결과
 
-### 구현 결과
 ### 화장 체험 기능
 #### 화장 적용 이전
 ![img1-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/9f092bbd-3b57-4c54-a694-693da9d73796)
