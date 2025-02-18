@@ -2,7 +2,7 @@
 ## 1. 개요
 
 ### ■ 만든 목적
- 이전에 최준원, 한기윤 외 1명이 진행했던 Smart IoT Vanity [프로젝트](https://github.com/zecube/Smart_Makeup) 를 현호성, 최준원, 한기윤이 웹 서버 구현으로 확장시키기 위해 구현했습니다.
+ 이전에 최준원, 한기윤 외 1명이 진행했던 Smart IoT Vanity [프로젝트](https://github.com/zecube/Smart_Makeup) 를 현호성, 최준원, 한기윤이 웹 서버 구현으로 확장시키기 위해 구현했습니다. 
 
 
 ### ■ 일정
